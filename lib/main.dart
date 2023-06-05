@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/login/login.dart';
 import './navigation_drawer.dart';
 
 void main() {
@@ -11,14 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Home'),
-          backgroundColor: Colors.blue.shade700,
-        ),
-        drawer: NavigationDrawer(),
-        body: Center(),
-      ),
+      home: LoginPage(),
     );
   }
 }

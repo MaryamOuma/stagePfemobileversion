@@ -4,6 +4,7 @@ import './notifications.dart';
 import './settings.dart';
 import './entries.dart';
 import './exits.dart';
+import 'home.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class NavigationDrawer extends StatelessWidget {
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home'),
             onTap: () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const MyApp())),
+                MaterialPageRoute(builder: (context) => const Home())),
           ),
           const Divider(color: Colors.black54),
           ListTile(
