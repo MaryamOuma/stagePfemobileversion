@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import './random_words.dart';
+import './navigation_drawer.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    //final wordPair = WordPair.random();
-
     return MaterialApp(
-        theme: ThemeData(primaryColor: Colors.pink[900]), home: RandomWords());
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Home'),
+          backgroundColor: Colors.blue.shade700,
+        ),
+        drawer: NavigationDrawer(),
+        body: Center(),
+      ),
+    );
   }
 }
