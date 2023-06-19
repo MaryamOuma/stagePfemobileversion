@@ -3,7 +3,10 @@ import 'package:flutter_project/navigation_drawer.dart';
 import './navigation_drawer.dart';
 
 class Entries extends StatelessWidget {
-  const Entries({Key? key}) : super(key: key);
+  final BottomNavigationBar bottomNavigationBar;
+
+  const Entries({Key? key, required this.bottomNavigationBar})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -12,6 +15,7 @@ class Entries extends StatelessWidget {
           title: const Text('Entries'),
           backgroundColor: Colors.blue.shade700,
         ),
+        bottomNavigationBar: bottomNavigationBar,
         body: Column(
           children: [
             Expanded(

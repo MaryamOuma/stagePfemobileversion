@@ -4,6 +4,7 @@ import './notifications.dart';
 import './settings.dart';
 import './entries.dart';
 import './exits.dart';
+import './bottom_navigation_helper.dart';
 import 'home.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -30,48 +31,37 @@ class NavigationDrawer extends StatelessWidget {
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home'),
             onTap: () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const Home())),
-          ),
-          const Divider(color: Colors.black54),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('settings'),
-            onTap: () {
-              //close navigation drawer once i return to the previous page until i click on it to appear
-              Navigator.pop(context);
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const Settings()));
-            },
+                MaterialPageRoute(builder: (context) => Home())),
           ),
           const Divider(color: Colors.black54),
           ListTile(
               leading: const Icon(Icons.workspaces_outlined),
               title: const Text('entries'),
               onTap: () {
-                //close navigation drawer once i return to the previous page until i click on it to appear
                 Navigator.pop(context);
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const Entries()));
+                  MaterialPageRoute(
+                    builder: (context) => Entries(
+                      bottomNavigationBar:
+                          handleBottomNavigationBar(1, context),
+                    ),
+                  ),
+                );
               }),
           const Divider(color: Colors.black54),
           ListTile(
               leading: const Icon(Icons.workspaces_outlined),
               title: const Text('exits'),
               onTap: () {
-                //close navigation drawer once i return to the previous page until i click on it to appear
                 Navigator.pop(context);
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const Exits()));
-              }),
-          const Divider(color: Colors.black54),
-          ListTile(
-              leading: const Icon(Icons.notifications),
-              title: const Text('notifications'),
-              onTap: () {
-                //close navigation drawer once i return to the previous page until i click on it to appear
-                Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const MyNotifications()));
+                  MaterialPageRoute(
+                    builder: (context) => Exits(
+                      bottomNavigationBar:
+                          handleBottomNavigationBar(2, context),
+                    ),
+                  ),
+                );
               }),
         ],
       ));

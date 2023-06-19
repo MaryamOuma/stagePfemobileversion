@@ -13,9 +13,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isAccessAllowed = false; // Set the initial value based on your logic
 
   @override
   Widget build(BuildContext context) {
+    bool isAccessAllowed = false;
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -133,14 +135,28 @@ class _LoginPageState extends State<LoginPage> {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                // Navigate to the sign up page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignupPage()),
-                );
+                if (isAccessAllowed) {
+                  // Navigate to the sign-up page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignupPage()),
+                  );
+                } else {
+                  // Show an error message or take action to indicate access is forbidden
+                  showForbiddenAccessMessage();
+                }
               },
           ),
         ],
+      ),
+    );
+  }
+
+  void showForbiddenAccessMessage() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Forbidden Access'),
+        duration: const Duration(seconds: 2),
       ),
     );
   }

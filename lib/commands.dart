@@ -3,21 +3,21 @@ import 'package:flutter_project/navigation_drawer.dart';
 import './navigation_drawer.dart';
 import 'bottom_navigation_helper.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+class Commands extends StatefulWidget {
+  const Commands({Key? key}) : super(key: key);
 
   @override
-  SettingsState createState() => SettingsState();
+  CommandsState createState() => CommandsState();
 }
 
-class SettingsState extends State<Settings> {
+class CommandsState extends State<Commands> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const NavigationDrawer(),
         appBar: AppBar(
-          title: const Text('Settings'),
+          title: const Text('Commands'),
           backgroundColor: Colors.blue.shade700,
         ),
-        bottomNavigationBar: handleBottomNavigationBar(0, context));
+        bottomNavigationBar: handleBottomNavigationBar(3, context));
   }
 }
