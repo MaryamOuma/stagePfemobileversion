@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/navigation_drawer.dart';
-import './navigation_drawer.dart';
+import 'package:flutter_project/views/navigation_drawer.dart';
 import 'bottom_navigation_helper.dart';
+import 'navigation_drawer.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);

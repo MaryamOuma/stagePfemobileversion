@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/login/Profile.dart';
-import 'package:flutter_project/settings.dart';
+
+import 'package:flutter_project/views/settings.dart';
+import 'package:flutter_project/views/login/Profile.dart';
 
 import 'commands.dart';
 import 'home.dart';
+
 import 'invoices.dart';
 import 'notifications.dart';
 import 'orders.dart';

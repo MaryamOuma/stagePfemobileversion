@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/navigation_drawer.dart';
-import './navigation_drawer.dart';
+import 'package:flutter_project/views/navigation_drawer.dart';
 import 'bottom_navigation_helper.dart';
+import 'navigation_drawer.dart';
 
-class Orders extends StatefulWidget {
-  const Orders({Key? key}) : super(key: key);
+class Commands extends StatefulWidget {
+  const Commands({Key? key}) : super(key: key);
 
   @override
-  OrdersState createState() => OrdersState();
+  CommandsState createState() => CommandsState();
 }
 
-class OrdersState extends State<Orders> {
+class CommandsState extends State<Commands> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const NavigationDrawer(),
         appBar: AppBar(
-          title: const Text('Orders'),
+          title: const Text('Commands'),
           backgroundColor: Colors.blue.shade700,
         ),
         bottomNavigationBar: handleBottomNavigationBar(3, context));

@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/main.dart';
-import 'package:flutter_project/signup/signup.dart';
+import 'package:flutter_project/views/main.dart';
 
+import 'package:flutter_project/views/signup/signup.dart';
+
+import '../../controllers/LoginController.dart';
 import '../home.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isAccessAllowed = false; // Set the initial value based on your logic
+  LoginController loginController = LoginController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,20 +42,23 @@ class _LoginPageState extends State<LoginPage> {
   Widget _page() {
     return Padding(
       padding: const EdgeInsets.all(32.0),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _icon(),
-            const SizedBox(height: 50),
-            _inputField("Username", usernameController),
-            const SizedBox(height: 20),
-            _inputField("Password", passwordController, isPassword: true),
-            const SizedBox(height: 50),
-            _loginBtn(),
-            const SizedBox(height: 20),
-            _extraText(),
-          ],
+      child: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _icon(),
+              const SizedBox(height: 50),
+              _inputField("Username", usernameController),
+              const SizedBox(height: 20),
+              _inputField("Password", passwordController, isPassword: true),
+              const SizedBox(height: 50),
+              _loginBtn(),
+              const SizedBox(height: 20),
+              _extraText(),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -97,11 +103,8 @@ class _LoginPageState extends State<LoginPage> {
         debugPrint("Username : " + usernameController.text);
         debugPrint("Password : " + passwordController.text);
 
-        // Navigate to the home page (main.dart)
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-        );
+        // Call the login method from the login controller
+        loginController.login(usernameController.text, passwordController.text);
       },
       child: const SizedBox(
         width: double.infinity,
