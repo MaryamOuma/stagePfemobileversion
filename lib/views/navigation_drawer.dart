@@ -43,8 +43,7 @@ class NavigationDrawer extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => Entries(
-                      bottomNavigationBar:
-                          handleBottomNavigationBar(1, context),
+                      bottomNavigationBar: handleBottomNavigationBar(1),
                     ),
                   ),
                 );
@@ -58,8 +57,7 @@ class NavigationDrawer extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => Exits(
-                      bottomNavigationBar:
-                          handleBottomNavigationBar(2, context),
+                      bottomNavigationBar: handleBottomNavigationBar(2),
                     ),
                   ),
                 );

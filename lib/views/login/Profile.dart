@@ -18,7 +18,7 @@ class ProfileState extends State<Profile> {
         title: const Text('Profile'),
         backgroundColor: Colors.blue.shade700,
       ),
-      bottomNavigationBar: handleBottomNavigationBar(0, context),
+      bottomNavigationBar: handleBottomNavigationBar(0),
     );
   }
 }

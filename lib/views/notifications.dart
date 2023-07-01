@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/views/commands.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
+import '../widgets/icon_menu_item.dart';
 import 'bottom_navigation_helper.dart';
 import 'navigation_drawer.dart';
+import 'package:get/get.dart';
+import '../controllers/NotificationsController.dart';
 
-class MyNotifications extends StatefulWidget {
-  const MyNotifications({Key? key}) : super(key: key);
+class MyNotifications extends GetView<NotificationsController> {
+  MyNotifications({Key? key}) : super(key: key);
 
   @override
-  MyNotificationsState createState() => MyNotificationsState();
-}
-
-class MyNotificationsState extends State<MyNotifications> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const NavigationDrawer(),
@@ -18,7 +18,31 @@ class MyNotificationsState extends State<MyNotifications> {
         title: const Text('Notifications'),
         backgroundColor: Colors.blue.shade700,
       ),
-      bottomNavigationBar: handleBottomNavigationBar(0, context),
+      body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        IconMenuItem(
+            icon: (Icons.workspaces_outlined),
+            title: 'Commands'.tr,
+            row1: 'You have x commands to treat'.tr,
+            onTap: () {
+              Get.to(() => Commands());
+            }),
+        IconMenuItem(
+            icon: (Icons.receipt_outlined),
+            title: 'Invoices'.tr,
+            row1: 'You have x invoices to validate'.tr,
+            onTap: () {}),
+        IconMenuItem(
+            icon: (Icons.shopping_cart_outlined),
+            title: 'Orders'.tr,
+            row1: 'You have x orders to treat'.tr,
+            onTap: () {}),
+        IconMenuItem(
+            icon: (Icons.receipt_outlined),
+            title: 'Invoices'.tr,
+            row1: 'You have x invoices to pay'.tr,
+            onTap: () {}),
+      ]),
+      bottomNavigationBar: handleBottomNavigationBar(0),
     );
   }
 }

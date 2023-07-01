@@ -13,11 +13,12 @@ class Orders extends StatefulWidget {
 class OrdersState extends State<Orders> {
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const NavigationDrawer(),
-        appBar: AppBar(
-          title: const Text('Orders'),
-          backgroundColor: Colors.blue.shade700,
-        ),
-        bottomNavigationBar: handleBottomNavigationBar(3, context));
+      drawer: const NavigationDrawer(),
+      appBar: AppBar(
+        title: const Text('Orders'),
+        backgroundColor: Colors.blue.shade700,
+      ),
+      bottomNavigationBar: handleBottomNavigationBar(0),
+    );
   }
 }

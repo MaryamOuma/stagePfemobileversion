@@ -18,7 +18,7 @@ class InvoicesState extends State<Invoices> {
         title: const Text('Invoices'),
         backgroundColor: Colors.blue.shade700,
       ),
-      bottomNavigationBar: handleBottomNavigationBar(0, context),
+      bottomNavigationBar: handleBottomNavigationBar(0),
     );
   }
 }

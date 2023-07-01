@@ -18,6 +18,6 @@ class CommandsState extends State<Commands> {
           title: const Text('Commands'),
           backgroundColor: Colors.blue.shade700,
         ),
-        bottomNavigationBar: handleBottomNavigationBar(3, context));
+        bottomNavigationBar: handleBottomNavigationBar(0));
   }
 }
