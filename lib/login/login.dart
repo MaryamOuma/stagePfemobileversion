@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/main.dart';
 import 'package:flutter_project/signup/signup.dart';
+import 'package:http/http.dart' as http; // Import the http package
 
 import '../home.dart';
 

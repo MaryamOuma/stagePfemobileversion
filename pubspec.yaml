@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   english_words: ^4.0.0
-   
+  http: ^0.13.4
 
 
 
