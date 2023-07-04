@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/main.dart';
-import './notifications.dart';
-import './settings.dart';
-import './entries.dart';
-import './exits.dart';
-import './bottom_navigation_helper.dart';
+import 'package:flutter_project/views/main.dart';
+import 'bottom_navigation_helper.dart';
+import 'notifications.dart';
+import 'settings.dart';
+import 'entries.dart';
+import 'exits.dart';
+
 import 'home.dart';
 
 class NavigationDrawer extends StatelessWidget {

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart'hide NavigationDrawer;
-import 'package:flutter_project/navigation_drawer.dart';
-import 'package:flutter_project/settings.dart';
-import './navigation_drawer.dart';
+import 'package:flutter/material.dart' hide NavigationDrawer;
+import 'package:flutter_project/views/navigation_drawer.dart';
+import 'package:flutter_project/views/settings.dart';
+import 'package:flutter_project/views/login/Profile.dart';
+import 'navigation_drawer.dart';
 
-import 'login/Profile.dart';
 import 'notifications.dart';
 
 class Home extends StatefulWidget {

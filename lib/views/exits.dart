@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart'hide NavigationDrawer;
-import 'package:flutter_project/navigation_drawer.dart';
-import './navigation_drawer.dart';
+import 'package:flutter/material.dart' hide NavigationDrawer;
+import 'package:flutter_project/views/navigation_drawer.dart';
+import 'navigation_drawer.dart';
 
 class Exits extends StatelessWidget {
   final BottomNavigationBar bottomNavigationBar;
