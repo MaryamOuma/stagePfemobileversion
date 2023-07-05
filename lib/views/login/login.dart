@@ -1,12 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_project/views/main.dart';
+import 'package:flutter_project/main.dart';
 
 import 'package:flutter_project/views/signup/signup.dart';
 
 import '../../controllers/LoginController.dart';
 import '../home.dart';
+
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -105,7 +107,8 @@ class _LoginPageState extends State<LoginPage> {
         debugPrint("Password : " + passwordController.text);
 
         // Call the login method from the login controller
-        loginController.login(usernameController.text, passwordController.text);
+        //loginController.login(usernameController.text, passwordController.text);
+        Get.off(() => const Home());
       },
       child: const SizedBox(
         width: double.infinity,
@@ -117,8 +120,8 @@ class _LoginPageState extends State<LoginPage> {
       ),
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
-        primary: Colors.white,
-        onPrimary: Colors.blue,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.blue,
         padding: const EdgeInsets.symmetric(vertical: 16),
       ),
     );
@@ -129,11 +132,11 @@ class _LoginPageState extends State<LoginPage> {
       textAlign: TextAlign.center,
       text: TextSpan(
         text: "Dont have an Account? ",
-        style: TextStyle(fontSize: 16, color: Colors.white),
+        style: const TextStyle(fontSize: 16, color: Colors.white),
         children: [
           TextSpan(
             text: 'Sign up',
-            style: TextStyle(
+            style: const TextStyle(
               decoration: TextDecoration.underline,
               fontWeight: FontWeight.bold,
             ),
@@ -158,9 +161,9 @@ class _LoginPageState extends State<LoginPage> {
 
   void showForbiddenAccessMessage() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Forbidden Access'),
-        duration: const Duration(seconds: 2),
+        duration: Duration(seconds: 2),
       ),
     );
   }

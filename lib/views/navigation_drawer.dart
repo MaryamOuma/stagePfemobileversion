@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/views/main.dart';
+import 'package:flutter_project/main.dart';
 import 'bottom_navigation_helper.dart';
 import 'notifications.dart';
 import 'settings.dart';
