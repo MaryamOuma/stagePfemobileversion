@@ -18,7 +18,7 @@ class MyNotificationsState extends State<MyNotifications> {
         title: const Text('Notifications'),
         backgroundColor: Colors.blue.shade700,
       ),
-      bottomNavigationBar: handleBottomNavigationBar(0, context),
+      bottomNavigationBar: handleBottomNavigationBar(0),
     );
   }
 }

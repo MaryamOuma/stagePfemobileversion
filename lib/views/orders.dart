@@ -18,6 +18,6 @@ class OrdersState extends State<Orders> {
           title: const Text('Orders'),
           backgroundColor: Colors.blue.shade700,
         ),
-        bottomNavigationBar: handleBottomNavigationBar(3, context));
+        bottomNavigationBar: handleBottomNavigationBar(3));
   }
 }

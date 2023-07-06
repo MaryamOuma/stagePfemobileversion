@@ -3,8 +3,8 @@ import 'package:flutter_project/main.dart';
 import 'bottom_navigation_helper.dart';
 import 'notifications.dart';
 import 'settings.dart';
-import 'entries.dart';
-import 'exits.dart';
+import 'entries/entries.dart';
+import 'exits/exits.dart';
 
 import 'home.dart';
 
@@ -44,7 +44,7 @@ class NavigationDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => Entries(
                       bottomNavigationBar:
-                          handleBottomNavigationBar(1, context),
+                          handleBottomNavigationBar(1),
                     ),
                   ),
                 );
@@ -59,7 +59,7 @@ class NavigationDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => Exits(
                       bottomNavigationBar:
-                          handleBottomNavigationBar(2, context),
+                          handleBottomNavigationBar(2),
                     ),
                   ),
                 );

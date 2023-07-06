@@ -2,33 +2,35 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_project/views/settings.dart';
 import 'package:flutter_project/views/login/Profile.dart';
+import 'package:get/get.dart';
 
-import 'commands.dart';
+import 'entries/entries.dart';
+import 'exits/exits.dart';
 import 'home.dart';
 
 import 'invoices.dart';
 import 'notifications.dart';
 import 'orders.dart';
 
-BottomNavigationBar handleBottomNavigationBar(int index, BuildContext context) {
+BottomNavigationBar handleBottomNavigationBar(int index) {
   switch (index) {
     case 0:
-      return createHomeBottomNavigationBar(context);
+      return createHomeBottomNavigationBar();
       break;
     case 1:
-      return createEntriesBottomNavigationBar(context);
+      return createEntriesBottomNavigationBar();
       break;
     case 2:
-      return createExitsBottomNavigationBar(context);
+      return createExitsBottomNavigationBar();
       break;
 
     default:
-      return createDefaultBottomNavigationBar(context);
+      return createDefaultBottomNavigationBar();
       break;
   }
 }
 
-BottomNavigationBar createDefaultBottomNavigationBar(BuildContext context) {
+BottomNavigationBar createDefaultBottomNavigationBar() {
   // Create bottom navigation bar for Home page
   // Example:
   return BottomNavigationBar(
@@ -55,7 +57,7 @@ BottomNavigationBar createDefaultBottomNavigationBar(BuildContext context) {
   );
 }
 
-BottomNavigationBar createHomeBottomNavigationBar(BuildContext context) {
+BottomNavigationBar createHomeBottomNavigationBar() {
   // Create bottom navigation bar for Home page
   // Example:
   return BottomNavigationBar(
@@ -83,40 +85,29 @@ BottomNavigationBar createHomeBottomNavigationBar(BuildContext context) {
       ),
     ],
     onTap: (index) {
-      handleHomeBottomNavigationBarTap(index, context);
+      handleHomeBottomNavigationBarTap(index);
     },
   );
 }
 
-void handleHomeBottomNavigationBarTap(int index, BuildContext context) {
+void handleHomeBottomNavigationBarTap(int index) {
   switch (index) {
     case 0:
       // Navigate to the Commands page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-      );
+      // Navigate to the Home page
+      Get.to(() => Home());
       break;
     case 1:
-      // Navigate to the Orders page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MyNotifications()),
-      );
+      // Navigate to the Notifications page
+      Get.to(() => MyNotifications());
       break;
     case 2:
-      // Navigate to the Invoices page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Settings()),
-      );
+      // Navigate to the Settings page
+      Get.to(() => Settings());
       break;
     case 3:
-      // Navigate to the Invoices page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Profile()),
-      );
+      // Navigate to the Profile page
+      Get.to(() => Profile());
       break;
     default:
       // Handle other cases or error
@@ -124,7 +115,7 @@ void handleHomeBottomNavigationBarTap(int index, BuildContext context) {
   }
 }
 
-BottomNavigationBar createEntriesBottomNavigationBar(BuildContext context) {
+BottomNavigationBar createEntriesBottomNavigationBar() {
   // Create bottom navigation bar for Entries page
   // Example:
   return BottomNavigationBar(
@@ -144,33 +135,25 @@ BottomNavigationBar createEntriesBottomNavigationBar(BuildContext context) {
       ),
     ],
     onTap: (index) {
-      handleEntriesBottomNavigationBarTap(index, context);
+      handleEntriesBottomNavigationBarTap(index);
     },
   );
 }
 
-void handleEntriesBottomNavigationBarTap(int index, BuildContext context) {
+void handleEntriesBottomNavigationBarTap(int index) {
   switch (index) {
     case 0:
-      // Navigate to the Commands page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Commands()),
-      );
+      Get.to(() {
+        return Entries(
+          bottomNavigationBar: handleBottomNavigationBar(1),
+        );
+      });
       break;
     case 1:
-      // Navigate to the Orders page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Orders()),
-      );
+      Get.to(() => Orders());
       break;
     case 2:
-      // Navigate to the Invoices page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Invoices()),
-      );
+      Get.to(() => Invoices());
       break;
     default:
       // Handle other cases or error
@@ -178,7 +161,7 @@ void handleEntriesBottomNavigationBarTap(int index, BuildContext context) {
   }
 }
 
-BottomNavigationBar createExitsBottomNavigationBar(BuildContext context) {
+BottomNavigationBar createExitsBottomNavigationBar() {
   // Create bottom navigation bar for Exits page
   // Example:
   return BottomNavigationBar(
@@ -198,33 +181,25 @@ BottomNavigationBar createExitsBottomNavigationBar(BuildContext context) {
       ),
     ],
     onTap: (index) {
-      handleExitsBottomNavigationBarTap(index, context);
+      handleExitsBottomNavigationBarTap(index);
     },
   );
 }
 
-void handleExitsBottomNavigationBarTap(int index, BuildContext context) {
+void handleExitsBottomNavigationBarTap(int index) {
   switch (index) {
     case 0:
-      // Navigate to the Commands page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Commands()),
-      );
+      Get.to(() {
+        return Exits(
+          bottomNavigationBar: handleBottomNavigationBar(2),
+        );
+      });
       break;
     case 1:
-      // Navigate to the Orders page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Orders()),
-      );
+      Get.to(() => Orders());
       break;
     case 2:
-      // Navigate to the Invoices page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Invoices()),
-      );
+      Get.to(() => Invoices());
       break;
     default:
       // Handle other cases or error

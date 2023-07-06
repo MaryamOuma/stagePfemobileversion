@@ -18,6 +18,6 @@ class SettingsState extends State<Settings> {
           title: const Text('Settings'),
           backgroundColor: Colors.blue.shade700,
         ),
-        bottomNavigationBar: handleBottomNavigationBar(0, context));
+        bottomNavigationBar: handleBottomNavigationBar(0));
   }
 }
