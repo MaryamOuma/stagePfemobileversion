@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/EntriesController.dart';
 import 'login/login.dart';
 
 void main() {

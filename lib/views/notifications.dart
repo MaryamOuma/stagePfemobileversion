@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/views/commands.dart';
+import 'package:flutter_project/views/entries/commands.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
 import '../widgets/icon_menu_item.dart';
 import 'bottom_navigation_helper.dart';
+import 'entries/commands.dart';
+import 'entries/entries.dart';
 import 'navigation_drawer.dart';
 import 'package:get/get.dart';
 import '../controllers/NotificationsController.dart';
@@ -24,7 +26,12 @@ class MyNotifications extends GetView<NotificationsController> {
             title: 'Commands'.tr,
             row1: 'You have x commands to treat'.tr,
             onTap: () {
-              Get.to(() => Commands());
+              // Navigate to the Commands page
+              Get.to(() {
+                return Entries(
+                  bottomNavigationBar: handleBottomNavigationBar(1),
+                );
+              });
             }),
         IconMenuItem(
             icon: (Icons.receipt_outlined),
