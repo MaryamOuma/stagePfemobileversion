@@ -11,6 +11,7 @@ import 'home.dart';
 import 'invoices.dart';
 import 'notifications.dart';
 import 'orders.dart';
+import 'entries/purchaseorders.dart';
 
 BottomNavigationBar handleBottomNavigationBar(int index) {
   switch (index) {
@@ -150,7 +151,7 @@ void handleEntriesBottomNavigationBarTap(int index) {
       });
       break;
     case 1:
-      Get.to(() => Orders());
+      Get.to(() => PurchaseOrdersPage());
       break;
     case 2:
       Get.to(() => Invoices());
