@@ -10,6 +10,9 @@ class CommandCard extends StatelessWidget {
   final String dateOfCreation;
   final int articlesCount;
   final String userName;
+  final String price;
+  final String status;
+  final String department;
 
   const CommandCard({
     Key? key,
@@ -17,6 +20,9 @@ class CommandCard extends StatelessWidget {
     required this.dateOfCreation,
     required this.articlesCount,
     required this.userName,
+    required this.price,
+    required this.status,
+    required this.department,
   }) : super(key: key);
 
   @override
@@ -77,6 +83,14 @@ class CommandCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 Text(
+                  'Price: $price',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'YourDesiredFont',
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
                   'Articles Count: $articlesCount',
                   style: const TextStyle(
                     fontSize: 16,
@@ -85,7 +99,23 @@ class CommandCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  'User Name: $userName',
+                  'Made By User : $userName',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'YourDesiredFont',
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  'Status : $status',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'YourDesiredFont',
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  'Department : $department',
                   style: const TextStyle(
                     fontSize: 16,
                     fontFamily: 'YourDesiredFont',
