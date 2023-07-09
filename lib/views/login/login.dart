@@ -124,31 +124,26 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _extraText() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        text: "Dont have an Account? ",
-        style: TextStyle(fontSize: 16, color: Colors.white),
+    bool rememberMe =
+        false; // Declare a boolean variable for remember me checkbox
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Row(
         children: [
-          TextSpan(
-            text: 'Sign up',
+          Checkbox(
+            value: rememberMe,
+            onChanged: (value) {
+              // Update the rememberMe value when checkbox is toggled
+              rememberMe = value!;
+            },
+          ),
+          Text(
+            'Remember Me',
             style: TextStyle(
-              decoration: TextDecoration.underline,
-              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Colors.white,
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                if (isAccessAllowed) {
-                  // Navigate to the sign-up page
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignupPage()),
-                  );
-                } else {
-                  // Show an error message or take action to indicate access is forbidden
-                  showForbiddenAccessMessage();
-                }
-              },
           ),
         ],
       ),

@@ -20,35 +20,75 @@ class MyNotifications extends GetView<NotificationsController> {
         title: const Text('Notifications'),
         backgroundColor: Colors.blue.shade700,
       ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-        IconMenuItem(
-            icon: (Icons.workspaces_outlined),
-            title: 'Commands'.tr,
-            row1: 'You have x commands to treat'.tr,
-            onTap: () {
-              // Navigate to the Commands page
-              Get.to(() {
-                return Entries(
-                  bottomNavigationBar: handleBottomNavigationBar(1),
-                );
-              });
-            }),
-        IconMenuItem(
-            icon: (Icons.receipt_outlined),
-            title: 'Invoices'.tr,
-            row1: 'You have x invoices to validate'.tr,
-            onTap: () {}),
-        IconMenuItem(
-            icon: (Icons.shopping_cart_outlined),
-            title: 'Orders'.tr,
-            row1: 'You have x orders to treat'.tr,
-            onTap: () {}),
-        IconMenuItem(
-            icon: (Icons.receipt_outlined),
-            title: 'Invoices'.tr,
-            row1: 'You have x invoices to pay'.tr,
-            onTap: () {}),
-      ]),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: [
+                    Icon(Icons.search, color: Colors.white),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          hintStyle: TextStyle(color: Colors.white),
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                IconMenuItem(
+                  icon: Icons.workspaces_outlined,
+                  title: 'Commands'.tr,
+                  row1: 'You have x commands to treat'.tr,
+                  onTap: () {
+                    // Navigate to the Commands page
+                    Get.to(() {
+                      return Entries(
+                        bottomNavigationBar: handleBottomNavigationBar(1),
+                      );
+                    });
+                  },
+                ),
+                IconMenuItem(
+                  icon: Icons.receipt_outlined,
+                  title: 'Invoices'.tr,
+                  row1: 'You have x invoices to validate'.tr,
+                  onTap: () {},
+                ),
+                IconMenuItem(
+                  icon: Icons.shopping_cart_outlined,
+                  title: 'Orders'.tr,
+                  row1: 'You have x orders to treat'.tr,
+                  onTap: () {},
+                ),
+                IconMenuItem(
+                  icon: Icons.receipt_outlined,
+                  title: 'Invoices'.tr,
+                  row1: 'You have x invoices to pay'.tr,
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       bottomNavigationBar: handleBottomNavigationBar(0),
     );
   }
