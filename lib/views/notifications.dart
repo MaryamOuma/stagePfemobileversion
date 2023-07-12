@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/views/entries/commands.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
+import '../controllers/AuthController.dart';
 import '../widgets/icon_menu_item.dart';
 import 'bottom_navigation_helper.dart';
 import 'entries/commands.dart';
@@ -59,11 +60,10 @@ class MyNotifications extends GetView<NotificationsController> {
                   row1: 'You have x commands to treat'.tr,
                   onTap: () {
                     // Navigate to the Commands page
-                    Get.to(() {
-                      return Entries(
-                        bottomNavigationBar: handleBottomNavigationBar(1),
-                      );
-                    });
+
+                    Get.to(() => Entries(
+                          bottomNavigationBar: handleBottomNavigationBar(1),
+                        ));
                   },
                 ),
                 IconMenuItem(

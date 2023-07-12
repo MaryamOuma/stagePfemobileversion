@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
 import 'package:get/get.dart';
 import '../../controllers/EntriesController.dart';
+import '../../controllers/AuthController.dart';
 import '../../widgets/CommandsList.dart';
 import '../../widgets/NewCommand.dart';
 import '../navigation_drawer.dart';
 
 class Entries extends GetView<EntriesController> {
   final BottomNavigationBar bottomNavigationBar;
-  const Entries({Key? key, required this.bottomNavigationBar})
-      : super(key: key);
+
+  const Entries({
+    Key? key,
+    required this.bottomNavigationBar,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +37,17 @@ class Entries extends GetView<EntriesController> {
                   itemCount: controller.commands.length,
                   itemBuilder: (context, index) {
                     final command = controller.commands[index];
+
                     // print('Command at index $index: $command');
                     return CommandCard(
-                      commandReference: command['code'],
-                      dateOfCreation: command['created_at'],
-                      articlesCount: command['articles_count'],
-                      userName: command['user_name'],
-                      price: command['price'],
-                      status: command['status'],
-                      department: command['department_name'],
+                      commandReference: command.code,
+                      dateOfCreation:
+                          controller.formattedTimeDifference(command.createdAt),
+                      articlesCount: command.articlesCount,
+                      userName: command.userName,
+                      price: command.price,
+                      status: command.status,
+                      department: command.department,
                     );
                   },
                 );

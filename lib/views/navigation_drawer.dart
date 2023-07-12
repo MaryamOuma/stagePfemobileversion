@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/AuthController.dart';
 import 'bottom_navigation_helper.dart';
 import 'entries/entries.dart';
 import 'notifications.dart';
@@ -36,7 +37,7 @@ class NavigationDrawer extends StatelessWidget {
               title: const Text('Home',
                   style: TextStyle(color: Colors.white)), // Set the text color
               onTap: () {
-                Get.offAll(() => const Home());
+                Get.offAll(() => Home());
               },
             ),
             //const Divider(color: Colors.black54),
@@ -65,7 +66,10 @@ class NavigationDrawer extends StatelessWidget {
               leading: const Icon(Icons.logout, color: Colors.white),
               title: const Text('Log out',
                   style: TextStyle(color: Colors.white)), // Set the text color
-              onTap: () {},
+              onTap: () {
+                // Call the logout method from the AuthController
+                AuthController().logout();
+              },
             ),
           ],
         ),

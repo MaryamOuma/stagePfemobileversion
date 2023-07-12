@@ -4,12 +4,15 @@ import 'package:flutter_project/views/navigation_drawer.dart';
 import 'package:get/get.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../controllers/HomeController.dart';
+import '../controllers/AuthController.dart';
 import '../shared/theme.dart';
 import '../widgets/CardStaggerdWidgets.dart';
 import 'orders.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  // Add the client parameter
+
+  Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class Home extends StatelessWidget {
       builder: (controller) {
         print('Building HomeView');
         return Scaffold(
-          drawer: const NavigationDrawer(),
+          drawer: NavigationDrawer(),
           appBar: AppBar(
             title: const Text('Home'),
             backgroundColor: Colors.blue.shade700,

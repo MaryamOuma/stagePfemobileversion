@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/views/settings.dart';
 import 'package:flutter_project/views/login/Profile.dart';
 import 'package:get/get.dart';
+import '../controllers/AuthController.dart';
 import 'entries/entries.dart';
 import 'exits/exits.dart';
 import 'home.dart';
@@ -140,11 +141,10 @@ void handleEntriesBottomNavigationBarTap(int index) {
   switch (index) {
     case 0:
       // Navigate to the Commands page
-      Get.to(() {
-        return Entries(
-          bottomNavigationBar: handleBottomNavigationBar(1),
-        );
-      });
+
+      Get.to(() => Entries(
+            bottomNavigationBar: handleBottomNavigationBar(1),
+          ));
 
       break;
     case 1:
