@@ -151,7 +151,7 @@ void handleEntriesBottomNavigationBarTap(int index) {
       });
       break;
     case 1:
-      Get.to(() => PurchaseOrdersPage());
+      Get.to(() => Orders());
       break;
     case 2:
       Get.to(() => Invoices());

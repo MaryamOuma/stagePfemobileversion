@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
     Get.put(PurchaseOrderController());
 
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false, // Set to false to remove the debug banner
       home: LoginPage(),
     );
   }

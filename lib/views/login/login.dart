@@ -1,14 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_project/main.dart';
 
 import 'package:flutter_project/views/signup/signup.dart';
 
 import '../../controllers/LoginController.dart';
 import '../home.dart';
-
-import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -107,8 +104,7 @@ class _LoginPageState extends State<LoginPage> {
         debugPrint("Password : " + passwordController.text);
 
         // Call the login method from the login controller
-        //loginController.login(usernameController.text, passwordController.text);
-        Get.off(() => const Home());
+        loginController.login(usernameController.text, passwordController.text);
       },
       child: const SizedBox(
         width: double.infinity,
@@ -120,39 +116,34 @@ class _LoginPageState extends State<LoginPage> {
       ),
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.blue,
+        primary: Colors.white,
+        onPrimary: Colors.blue,
         padding: const EdgeInsets.symmetric(vertical: 16),
       ),
     );
   }
 
   Widget _extraText() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        text: "Dont have an Account? ",
-        style: const TextStyle(fontSize: 16, color: Colors.white),
+    bool rememberMe =
+        false; // Declare a boolean variable for remember me checkbox
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Row(
         children: [
-          TextSpan(
-            text: 'Sign up',
-            style: const TextStyle(
-              decoration: TextDecoration.underline,
-              fontWeight: FontWeight.bold,
+          Checkbox(
+            value: rememberMe,
+            onChanged: (value) {
+              // Update the rememberMe value when checkbox is toggled
+              rememberMe = value!;
+            },
+          ),
+          Text(
+            'Remember Me',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                if (isAccessAllowed) {
-                  // Navigate to the sign-up page
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignupPage()),
-                  );
-                } else {
-                  // Show an error message or take action to indicate access is forbidden
-                  showForbiddenAccessMessage();
-                }
-              },
           ),
         ],
       ),
@@ -161,9 +152,9 @@ class _LoginPageState extends State<LoginPage> {
 
   void showForbiddenAccessMessage() {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
+      SnackBar(
         content: Text('Forbidden Access'),
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ),
     );
   }

@@ -10,7 +10,7 @@ class LoginController extends GetxController {
   Future<void> login(String email, String password) async {
     try {
       const url =
-          "http://192.168.1.5:8000/api/login"; // Replace with your actual API endpoint
+          "http://localhost:8000/api/login"; // Replace with your actual API endpoint
 
       try {
         final response = await http.post(

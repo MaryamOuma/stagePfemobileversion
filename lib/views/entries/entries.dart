@@ -14,63 +14,62 @@ class Entries extends GetView<EntriesController> {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        drawer: const NavigationDrawer(),
-        appBar: AppBar(
-          title: const Text('Entries'),
-          backgroundColor: Colors.blue.shade700,
-        ),
-        bottomNavigationBar: bottomNavigationBar,
-        body: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(16.0),
-                children: const [
-                  CommandCard(
-                    commandReference: 'Command 1',
-                    dateOfCreation: '2023-06-19',
-                    articlesCount: 5,
-                    userName: 'John Doe',
-                  ),
-                  SizedBox(height: 16.0),
-                  CommandCard(
-                    commandReference: 'Command 2',
-                    dateOfCreation: '2023-06-18',
-                    articlesCount: 3,
-                    userName: 'Jane Smith',
-                  ),
-                  SizedBox(height: 16.0),
-                  CommandCard(
-                    commandReference: 'Command 3',
-                    dateOfCreation: '2023-06-17',
-                    articlesCount: 8,
-                    userName: 'Mike Johnson',
-                  ),
-                ],
-              ),
+  Widget build(BuildContext context) {
+    final EntriesController controller = Get.put(EntriesController());
+    return Scaffold(
+      drawer: const NavigationDrawer(),
+      appBar: AppBar(
+        title: const Text('Entries'),
+        backgroundColor: Colors.blue.shade700,
+      ),
+      bottomNavigationBar: bottomNavigationBar,
+      body: Column(
+        children: [
+          Expanded(
+            child: Obx(
+              () {
+                return ListView.builder(
+                  padding: const EdgeInsets.all(16.0),
+                  itemCount: controller.commands.length,
+                  itemBuilder: (context, index) {
+                    final command = controller.commands[index];
+                    // print('Command at index $index: $command');
+                    return CommandCard(
+                      commandReference: command['code'],
+                      dateOfCreation: command['created_at'],
+                      articlesCount: command['articles_count'],
+                      userName: command['user_name'],
+                      price: command['price'],
+                      status: command['status'],
+                      department: command['department_name'],
+                    );
+                  },
+                );
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Material(
-                  color: Colors.transparent,
-                  child: FloatingActionButton.extended(
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) => AddCommandModal(),
-                      );
-                    },
-                    backgroundColor: Colors.blue,
-                    icon: const Icon(Icons.add),
-                    label: const Text('Create Command'),
-                  ),
+            ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Material(
+                color: Colors.transparent,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) => AddCommandModal(),
+                    );
+                  },
+                  backgroundColor: Colors.blue,
+                  icon: const Icon(Icons.add),
+                  label: const Text('Create Command'),
                 ),
               ),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
 }

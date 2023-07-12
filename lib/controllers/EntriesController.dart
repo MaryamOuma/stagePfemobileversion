@@ -2,6 +2,9 @@ import 'package:get/get.dart';
 
 import '../widgets/CommandRow.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 class EntriesController extends GetxController {
   final RxList<Map<String, String>> rowData = <Map<String, String>>[].obs;
 
@@ -36,5 +39,28 @@ class EntriesController extends GetxController {
     rowData[index][field] =
         value ?? ''; // Use an empty string if the value is null
     update();
+  }
+
+  var commands = <dynamic>[].obs;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchCommands();
+  }
+
+  Future<void> fetchCommands() async {
+    try {
+      final response =
+          await http.get(Uri.parse('http://localhost:8000/api/entries/index'));
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final fetchedCommands = data['commands'];
+        commands.value = fetchedCommands;
+      } else {
+        throw Exception('Failed to fetch commands');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch commands: $e');
+    }
   }
 }
