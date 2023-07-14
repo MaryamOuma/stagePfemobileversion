@@ -6,6 +6,7 @@ import 'package:flutter_project/views/signup/signup.dart';
 
 import '../../controllers/LoginController.dart';
 import '../home.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -104,7 +105,8 @@ class _LoginPageState extends State<LoginPage> {
         debugPrint("Password : " + passwordController.text);
 
         // Call the login method from the login controller
-        loginController.login(usernameController.text, passwordController.text);
+        //loginController.login(usernameController.text, passwordController.text);
+        Get.off(() => const Home());
       },
       child: const SizedBox(
         width: double.infinity,

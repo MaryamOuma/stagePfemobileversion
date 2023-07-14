@@ -7,6 +7,8 @@ import '../controllers/PurchaseOrderController.dart';
 import 'bottom_navigation_helper.dart';
 import 'navigation_drawer.dart';
 
+import 'package:data_tables/data_tables.dart';
+
 class Orders extends GetView<PurchaseOrderController> {
   final PurchaseOrderController controller = Get.put(PurchaseOrderController());
 
