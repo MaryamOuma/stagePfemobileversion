@@ -23,4 +23,36 @@ class NotificationsController extends GetxController {
   void addNotification(NotificationCard notification) {
     _notificationCards.add(notification);
   }
+
+  var notifications = <dynamic>[].obs;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchNotifications();
+  }
+
+  // Method to retrieve notification data
+  void fetchNotifications() {
+
+    final List<NotificationCard> fetchedNotifications = [
+      NotificationCard(
+        date: DateTime.now(),
+        title: 'Commands',
+        subtitle: 'You have x commands to treat',
+      ),
+      NotificationCard(
+        date: DateTime.now(),
+        title: 'Invoices',
+        subtitle: 'You have x invoices to validate',
+      ),
+      NotificationCard(
+        date: DateTime.now(),
+        title: 'Orders',
+        subtitle: 'You have x orders to treat',
+      ),
+    ];
+
+    _notificationCards.addAll(fetchedNotifications);
+  }
+
 }

@@ -14,51 +14,72 @@ import 'package:stacked_notification_cards/stacked_notification_cards.dart';
 class MyNotifications extends GetView<NotificationsController> {
   MyNotifications({Key? key}) : super(key: key);
 
-  final NotificationsController controller = Get.put(NotificationsController());
+  final NotificationsController controller = Get.find<NotificationsController>();
 
-  final Map<String, Widget> leadingWidgets = {
-    'widget1': Icon(Icons.notification_important),
-    'widget2': Image.asset('assets/images/notification_icon.png'),
-    // Add more mappings as needed
-  };
 
   @override
   Widget build(BuildContext context) {
     //final controller = Get.find<NotificationsController>();
 
     return Scaffold(
-      body: Obx(
-        () => ListView.builder(
-          itemCount: controller.notificationCards.length,
-          itemBuilder: (context, index) {
-            final notification = controller.notificationCards[index];
-            final leadingWidget = leadingWidgets[notification.leading];
-
-            return ListTile(
-              leading: leadingWidget,
-              title: Text(notification.title),
-              subtitle: Text(notification.subtitle),
-              trailing: IconButton(
-                icon: Icon(Icons.clear),
-                onPressed: () => controller.clearNotification(index),
+      drawer: const NavigationDrawer(),
+      appBar: AppBar(
+        title: const Text('Notifications'),
+        backgroundColor: Colors.blue.shade700,
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10),
               ),
-              onTap: () => controller.viewNotification(index),
-            );
-          },
-        ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: [
+                    Icon(Icons.search, color: Colors.white),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          hintStyle: TextStyle(color: Colors.white),
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+           Expanded(
+            child: GetX<NotificationsController>(
+              builder: (controller) {
+                return ListView.builder(
+                  itemCount: controller.notificationCards.length,
+                  itemBuilder: (context, index) {
+                    final notification = controller.notificationCards[index];
+                    return IconMenuItem(
+                      icon: Icons.workspaces_outlined,
+                      title: notification.title,
+                      row1: notification.subtitle,
+                      onTap: () {
+                        // Handle notification onTap
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          final notification = notif.NotificationCard(
-            date: DateTime.now(),
-            leading: 'widget1', // Set the appropriate identifier for the leading widget
-            title: 'New Notification',
-            subtitle: 'This is a new notification.',
-          );
-          controller.addNotification(notification);
-        },
-      ),
+      bottomNavigationBar: handleBottomNavigationBar(0),
     );
   }
 }
