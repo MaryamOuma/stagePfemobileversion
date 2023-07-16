@@ -139,7 +139,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       height: screenHeight / 3.2,
                       width: screenWidth,
                       child: Image.asset(
-                        "images/details.jpg",
+                        "images/splash-lines1.png",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -157,14 +157,14 @@ class _DetailScreenState extends State<DetailScreen> {
                           children: [
                             Icon(
                               Icons.person,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: 24,
                             ),
                             SizedBox(width: 5),
                             Text(
                               '${_command?.userName ?? ''}:<${_command?.userEmail ?? ''}>',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 24,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -176,14 +176,14 @@ class _DetailScreenState extends State<DetailScreen> {
                           children: [
                             Icon(
                               Icons.account_circle,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: 24,
                             ),
                             SizedBox(width: 5),
                             Text(
                               ' ${_command?.userProfile ?? ''}',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 24,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -195,14 +195,14 @@ class _DetailScreenState extends State<DetailScreen> {
                           children: [
                             Icon(
                               Icons.business,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: 24,
                             ),
                             SizedBox(width: 5),
                             Text(
                               ' ${_command?.department ?? ''}',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 24,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -243,7 +243,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   '${_command?.supplier ?? ''}',
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
-                    color: Colors.black,
+                    color: Color.fromRGBO(175, 190, 34, 1),
                     fontSize: 15,
                   ),
                 ),
@@ -263,7 +263,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   '${_command?.family ?? ''}',
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
-                    color: Colors.black,
+                    color: Color.fromRGBO(175, 190, 34, 1),
                     fontSize: 15,
                   ),
                 ),

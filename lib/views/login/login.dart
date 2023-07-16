@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     bool rememberMeStatus = prefs.getBool('rememberMe') ?? false;
     setState(() {
       rememberMe = rememberMeStatus;
-      print('Remember Me: $rememberMe'); // Print the value of rememberMe
+      //print('Remember Me: $rememberMe'); // Print the value of rememberMe
     });
   }
 

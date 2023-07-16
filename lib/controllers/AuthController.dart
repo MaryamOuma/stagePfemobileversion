@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter_project/views/IntroPage.dart';
+import 'package:flutter_project/views/WelcomeBack.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -31,11 +33,10 @@ class AuthController extends GetxController {
           final prefs = await SharedPreferences.getInstance();
           prefs.setString('authToken', token);
           // Set rememberMe value
-
           // Create custom headers with the token
           final headers = {'Authorization': 'Bearer $token'};
           // Redirect to the home screen or perform any other logic
-          Get.to(() => Home()); // Navigates to HomeView
+          Get.to(() => IntroPage()); // Navigates to HomeView
         } else if (response.statusCode == 422) {
           final responseData = json.decode(response.body);
           final error = responseData['error'];
@@ -83,7 +84,7 @@ class AuthController extends GetxController {
       if (response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
         prefs.clear(); // Clear all data stored in shared preferences
-        Get.offAll(() => LoginPage()); // Navigate to the login page
+        Get.offAll(() => WelcomeBackPage()); // Navigate to the login page
       } else {
         // Handle logout error
         final responseData = json.decode(response.body);

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/views/WelcomeBack.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../controllers/EntriesController.dart';
 import 'home.dart';
 import 'login/login.dart';
 
@@ -20,14 +19,14 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           bool rememberMe = snapshot.data!;
-          Widget initialRoute = rememberMe ? Home() : LoginPage();
+          Widget initialRoute = rememberMe ? Home() : WelcomeBackPage();
 
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             getPages: [
               GetPage(name: '/', page: () => initialRoute),
-              GetPage(name: '/login', page: () => LoginPage()),
+              GetPage(name: '/login', page: () => WelcomeBackPage()),
               GetPage(name: '/home', page: () => Home()),
             ],
           );
