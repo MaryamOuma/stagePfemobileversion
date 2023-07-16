@@ -1,10 +1,8 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
 import 'package:get/get.dart';
 import '../../controllers/EntriesController.dart';
-import '../../controllers/AuthController.dart';
 import '../../widgets/CommandsList.dart';
 import '../../widgets/NewCommand.dart';
 import '../navigation_drawer.dart';
@@ -40,6 +38,7 @@ class Entries extends GetView<EntriesController> {
 
                     // print('Command at index $index: $command');
                     return CommandCard(
+                      id: command.id,
                       commandReference: command.code,
                       dateOfCreation:
                           controller.formattedTimeDifference(command.createdAt),
@@ -54,7 +53,7 @@ class Entries extends GetView<EntriesController> {
               },
             ),
           ),
-          Padding(
+          /*Padding(
             padding: const EdgeInsets.all(16.0),
             child: Align(
               alignment: Alignment.topRight,
@@ -73,7 +72,7 @@ class Entries extends GetView<EntriesController> {
                 ),
               ),
             ),
-          ),
+          ),*/
         ],
       ),
     );

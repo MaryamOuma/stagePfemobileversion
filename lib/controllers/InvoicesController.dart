@@ -1,78 +1,55 @@
+import 'dart:convert';
+
 import 'package:flutter_project/models/Invoice.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class InvoicesController extends GetxController {
-  final RxList<Invoice> Invoices = <Invoice>[].obs;
+  final invoices = <Invoice>[].obs;
+  final RxString authToken = ''.obs;
   @override
   void onInit() {
     super.onInit();
-    fetchInvoices();
+    fetchAuthToken();
   }
 
-  void addInvoice(Invoice Invoice) {
-    Invoices.add(Invoice);
+  Future<void> fetchAuthToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('authToken');
+    if (token != null) {
+      authToken.value = token;
+      fetchInvoices(token);
+    }
   }
 
-  void removeInvoice(int index) {
-    Invoices.removeAt(index);
-  }
+  Future<void> fetchInvoices(String token) async {
+    if (token != null && token.isNotEmpty) {
+      try {
+        final response = await http.get(
+          Uri.parse('http://localhost:8000/api/invoices'),
+          headers: {'Authorization': 'Bearer $token'},
+        );
 
-  void fetchInvoices() {
-    // Fetch Invoice orders from API or database
-    // ...
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
 
-    // For testing purposes, let's add dummy data
-    Invoice Invoice1 = Invoice(
-      commandReference: 'ABC123',
-      Date: '10/05/22',
-      Total: 123.5,
-      Time: '15:54:00',
-      userName: 'John Doe',
-      userEmail: 'john.doe@example.com',
-      items: [
-        InvoiceItem(article: 'Item 1', quantity: 2, price: 10.0),
-        InvoiceItem(article: 'Item 2', quantity: 3, price: 15.0),
-      ],
-    );
-    Invoice Invoice2 = Invoice(
-      commandReference: 'DEF456',
-      Date: '11/08/22',
-      Time: '16:09:04',
-      Total: 12300,
-      userName: 'Jane Smith',
-      userEmail: 'jane.smith@example.com',
-      items: [
-        InvoiceItem(article: 'Item 3', quantity: 1, price: 8.0),
-        InvoiceItem(article: 'Item 4', quantity: 5, price: 12.0),
-      ],
-    );
-    Invoice Invoice3 = Invoice(
-      commandReference: 'YUEF456',
-      Date: '12/01/23',
-      Time: '12:30:08',
-      Total: 123.5,
-      userName: 'maryam oumami',
-      userEmail: 'maryam@example.com',
-      items: [
-        InvoiceItem(article: 'Item 5', quantity: 1, price: 8.0),
-        InvoiceItem(article: 'Item 6', quantity: 10, price: 12.0),
-      ],
-    );
-    Invoice Invoice4 = Invoice(
-      commandReference: 'DEF456',
-      userName: 'Jane Smith',
-      Date: '15/06/22',
-      Total: 55500,
-      Time: '15:00:00',
-      userEmail: 'jane.smith@example.com',
-      items: [
-        InvoiceItem(article: 'Item 7', quantity: 4, price: 8.0),
-        InvoiceItem(article: 'Item 8', quantity: 5, price: 12.0),
-      ],
-    );
-    addInvoice(Invoice1);
-    addInvoice(Invoice2);
-    addInvoice(Invoice3);
-    addInvoice(Invoice4);
+          final List<dynamic> invoicesData = data as List<dynamic>;
+
+          final List<Invoice> fetchedInvoices =
+              invoicesData.map((invoice) => Invoice.fromJson(invoice)).toList();
+          print('$fetchedInvoices');
+          invoices.value = fetchedInvoices;
+        } else {
+          print('API request failed with status code: ${response.statusCode}');
+          throw Exception('Failed to fetch invoices');
+        }
+      } catch (e) {
+        print('API request failed with error: $e');
+        throw Exception('Failed to fetch invoices: $e');
+      }
+    } else {
+      print('User is not connected');
+    }
   }
 }

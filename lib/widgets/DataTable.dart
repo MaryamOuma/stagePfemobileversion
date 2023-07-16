@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:data_tables/data_tables.dart';
 import 'dart:math';
@@ -8,7 +8,7 @@ import '../controllers/PurchaseOrderController.dart';
 import '../views/bottom_navigation_helper.dart';
 import '../views/navigation_drawer.dart';
 
-class Orders extends GetView<PurchaseOrderController> {
+class EntriesOrders extends GetView<PurchaseOrderController> {
   final PurchaseOrderController controller = Get.put(PurchaseOrderController());
 
   @override
@@ -21,14 +21,12 @@ class Orders extends GetView<PurchaseOrderController> {
       bottomNavigationBar: handleBottomNavigationBar(0),
       body: Obx(
         () {
-          print('building list view');
           return ListView.builder(
             itemCount: controller.purchaseOrders.length,
             itemBuilder: (context, index) {
               PurchaseOrder purchaseOrder = controller.purchaseOrders[index];
               return PurchaseOrderCard(
                 purchaseOrder: purchaseOrder,
-                itemsLength: purchaseOrder.items.length,
               );
             },
           );
@@ -40,12 +38,10 @@ class Orders extends GetView<PurchaseOrderController> {
 
 class PurchaseOrderCard extends StatefulWidget {
   final PurchaseOrder purchaseOrder;
-  final int itemsLength;
 
   PurchaseOrderCard({
     Key? key,
     required this.purchaseOrder,
-    required this.itemsLength,
   }) : super(key: key);
 
   @override
@@ -55,16 +51,8 @@ class PurchaseOrderCard extends StatefulWidget {
 class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
   int _currentSortColumn = 0;
   bool _isAscending = true;
+  int _rowsPerPage = 10; // Set the initial rows per page value
   int _currentPage = 0; // Track the current page index
-  final double rowHeight = 250;
-  late int _rowsPerPage; // Declare _rowsPerPage as a late variable
-
-  @override
-  void initState() {
-    super.initState();
-    _rowsPerPage = widget
-        .itemsLength; // Set _rowsPerPage to the value passed from the widget
-  }
 
   void _sort<T>(int columnIndex, bool ascending) {
     setState(() {
@@ -93,9 +81,9 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
         // Sort by Subtotal
         widget.purchaseOrder.items.sort((a, b) {
           if (ascending) {
-            return a.subtotal.compareTo(b.subtotal);
+            return a.price.compareTo(b.price);
           } else {
-            return b.subtotal.compareTo(a.subtotal);
+            return b.price.compareTo(a.price);
           }
         });
       }
@@ -131,7 +119,7 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
     int _rowsOffset = _currentPage * _rowsPerPage;
     int _rowsCount =
         min(_rowsPerPage, widget.purchaseOrder.items.length - _rowsOffset);
-    double dataTableHeight = _rowsPerPage * rowHeight;
+
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,9 +130,8 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Order Reference: ${widget.purchaseOrder.code}',
+                  widget.purchaseOrder.commandReference,
                   style: TextStyle(
-                    color: Colors.blue[300],
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -156,15 +143,14 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Made By: ${widget.purchaseOrder.user_name}',
+                          'To: ${widget.purchaseOrder.userName}',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.grey,
                           ),
                         ),
                         Text(
-                          '${widget.purchaseOrder.user_email}',
+                          '${widget.purchaseOrder.userEmail}',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -173,7 +159,7 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
                       ],
                     ),
                     Text(
-                      '${widget.purchaseOrder.createdAt}',
+                      '${widget.purchaseOrder.Date} ${widget.purchaseOrder.Time}',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -184,68 +170,22 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
               ],
             ),
           ),
-
           SizedBox(
-            height: 400,
+            height: 270,
             child: NativeDataTable(
               columns: [
                 DataColumn(
-                  label: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          Colors.blue[300], // Replace with your desired color
-                    ),
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Article',
-                      style: TextStyle(
-                        color:
-                            Colors.white, // Replace with the desired text color
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  label: Text('Article'),
                   onSort: (columnIndex, ascending) =>
                       _sort(columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          Colors.blue[300], // Replace with your desired color
-                    ),
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Quantity',
-                      style: TextStyle(
-                        color:
-                            Colors.white, // Replace with the desired text color
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  label: Text('Quantity'),
                   onSort: (columnIndex, ascending) =>
                       _sort(columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          Colors.blue[300], // Replace with your desired color
-                    ),
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      'SubTotal',
-                      style: TextStyle(
-                        color:
-                            Colors.white, // Replace with the desired text color
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  label: Text('Subtotal'),
                   onSort: (columnIndex, ascending) =>
                       _sort(columnIndex, ascending),
                 ),
@@ -262,13 +202,12 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
                   cells: [
                     DataCell(Text(item.article)),
                     DataCell(Text(item.quantity.toString())),
-                    DataCell(Text(item.subtotal.toString())),
+                    DataCell(Text(item.price.toString())),
                   ],
                 );
               }).toList(),
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -290,7 +229,6 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
               ],
             ),
           ),
-
           // Pagination
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -337,3 +275,4 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
     );
   }
 }
+*/

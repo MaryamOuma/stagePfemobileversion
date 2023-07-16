@@ -1,29 +1,45 @@
+import 'package:flutter_project/models/Item.dart';
+
 class PurchaseOrder {
-  final String commandReference;
-  final String userName;
-  final String userEmail;
-  final String Date;
-  final String Time;
-  final List<PurchaseItem> items;
+  final int id;
+  final String code;
+  final int userId;
+  final String user_name;
+  final String user_email;
+  final String status;
+  final String price;
+  final String createdAt;
+  final String updatedAt;
+  final int departmentId;
+  final List<Item> items;
 
   PurchaseOrder({
-    required this.commandReference,
-    required this.userName,
-    required this.userEmail,
-    required this.Date,
-    required this.Time,
+    required this.id,
+    required this.code,
+    required this.userId,
+    required this.user_name,
+    required this.user_email,
+    required this.status,
+    required this.price,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.departmentId,
     required this.items,
   });
-}
 
-class PurchaseItem {
-  final String article;
-  final int quantity;
-  final double price;
-
-  PurchaseItem({
-    required this.article,
-    required this.quantity,
-    required this.price,
-  });
+  factory PurchaseOrder.fromJson(Map<String, dynamic> json) {
+    return PurchaseOrder(
+      id: json['id'],
+      code: json['code'],
+      userId: json['user_id'],
+      user_email: json['user_email'],
+      user_name: json['user_name'],
+      status: json['status'],
+      price: json['price'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      departmentId: json['department_id'],
+      items: List<Item>.from(json['items'].map((item) => Item.fromJson(item))),
+    );
+  }
 }
