@@ -18,7 +18,7 @@ class _IntroPageState extends State<IntroPage> {
 //      width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             color: Colors.grey[100],
-            image: DecorationImage(image: AssetImage('assets/background.png'))),
+            ),
         child: Stack(
           children: <Widget>[
             PageView(
@@ -41,6 +41,9 @@ class _IntroPageState extends State<IntroPage> {
                           'assets/splash-lines1.png',
                           fit: BoxFit.cover,
                         ),
+                      ),
+                      Image.asset(
+                        'assets/background.png',
                       ),
                       Image.asset(
                         'assets/splash-screen1.png',
@@ -85,6 +88,9 @@ class _IntroPageState extends State<IntroPage> {
                         ),
                       ),
                       Image.asset(
+                        'assets/background.png',
+                      ),
+                      Image.asset(
                         'assets/splash-screen2.png',
                         height: 200,
                         width: 200,
@@ -125,6 +131,9 @@ class _IntroPageState extends State<IntroPage> {
                           'assets/splash-lines1.png',
                           fit: BoxFit.cover,
                         ),
+                      ),
+                      Image.asset(
+                        'assets/background.png',
                       ),
                       Image.asset(
                         'assets/splash-screen3.png',

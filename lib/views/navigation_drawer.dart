@@ -36,7 +36,7 @@ class NavigationDrawer extends StatelessWidget {
               title: const Text('Home',
                   style: TextStyle(color: Colors.white)), // Set the text color
               onTap: () {
-                Get.offAll(() => const Home());
+                Get.offAll(() => Home());
               },
             ),
             //const Divider(color: Colors.black54),

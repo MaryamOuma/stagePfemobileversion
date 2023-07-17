@@ -31,7 +31,7 @@ class LoginController extends GetxController {
           // For example, save them to GetX controllers or shared preferences
 
           // Redirect to the home screen or perform any other logic
-          Get.to(() => const Home()); // Navigates to HomeView
+          Get.to(() => Home()); // Navigates to HomeView
         } else if (response.statusCode == 422) {
           final responseData = json.decode(response.body);
           final error = responseData['error'];
