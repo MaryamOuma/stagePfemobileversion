@@ -131,6 +131,9 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
                   child: TextField(
                     controller: usernameController,
                     style: TextStyle(fontSize: 16.0),
+                    decoration: InputDecoration(
+                        hintText: 'Email',
+                      ),
                   ),
                 ),
                 Padding(
@@ -139,6 +142,9 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
                     controller: passwordController,
                     style: TextStyle(fontSize: 16.0),
                     obscureText: true,
+                    decoration: InputDecoration(
+                        hintText: 'Password',
+                      ),
                   ),
                 ),
               ],

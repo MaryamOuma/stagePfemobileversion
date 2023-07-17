@@ -12,6 +12,8 @@ import 'orders.dart';
 import '../custom_background.dart';
 import '../models/product.dart';
 import '../controllers/AuthController.dart';
+import 'bottom_navigation_helper.dart';
+
 
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_project/widgets/product_list.dart';
@@ -164,30 +166,7 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
 
     return Scaffold(
       drawer: drawer,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-            backgroundColor: Colors.blue,
-          ),
-        ],
-      ),
+      bottomNavigationBar: handleBottomNavigationBar(0),
       body: CustomPaint(
         painter: MainBackground(),
         child: TabBarView(

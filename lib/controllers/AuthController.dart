@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_project/views/welcome_back_page.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -83,7 +84,7 @@ class AuthController extends GetxController {
       if (response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
         prefs.clear(); // Clear all data stored in shared preferences
-        Get.offAll(() => LoginPage()); // Navigate to the login page
+        Get.offAll(() => WelcomeBackPage()); // Navigate to the login page
       } else {
         // Handle logout error
         final responseData = json.decode(response.body);

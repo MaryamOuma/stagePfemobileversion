@@ -5,10 +5,7 @@ import 'package:flutter_project/views/navigation_drawer.dart';
 import 'package:get/get.dart';
 import '../../controllers/EntriesController.dart';
 import '../../widgets/CommandsList.dart';
-import '../../widgets/NewCommand.dart';
 import '../navigation_drawer.dart';
-import '../../controllers/AuthController.dart';
-
 
 class Entries extends GetView<EntriesController> {
   final BottomNavigationBar bottomNavigationBar;
