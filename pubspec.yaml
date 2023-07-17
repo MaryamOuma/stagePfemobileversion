@@ -45,6 +45,8 @@ dependencies:
   timeago: ^3.5.0
   shared_preferences: ^2.0.17
   data_tables: ^1.4.0
+  rubber: ^1.1.0
+  card_swiper: ^3.0.1
   
 
 dev_dependencies:
