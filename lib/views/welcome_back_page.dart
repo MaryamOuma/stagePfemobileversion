@@ -1,12 +1,7 @@
-
+import 'package:flutter_project/controllers/AuthController.dart';
 import 'package:flutter_project/shared/theme.dart';
 import 'package:flutter/material.dart';
-
-import 'splash_screen.dart';
-import 'intro_page.dart';
-
-import '../../controllers/LoginController.dart';
-import 'home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
 class WelcomeBackPage extends StatefulWidget {
@@ -15,15 +10,31 @@ class WelcomeBackPage extends StatefulWidget {
 }
 
 class _WelcomeBackPageState extends State<WelcomeBackPage> {
-  TextEditingController email =
-  TextEditingController(text: 'example@email.com');
-
-  TextEditingController password = TextEditingController(text: '12345678');
-
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool rememberMe = false;
+  AuthController authController = AuthController();
   bool isAccessAllowed = false; // Set the initial value based on your logic
-  LoginController loginController = LoginController();
+
+  @override
+  void initState() {
+    super.initState();
+    getRememberMeStatus();
+  }
+
+  void getRememberMeStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool rememberMeStatus = prefs.getBool('rememberMe') ?? false;
+    setState(() {
+      rememberMe = rememberMeStatus;
+      // Print the value of rememberMe
+    });
+  }
+
+  void saveRememberMeStatus(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('rememberMe', value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +70,14 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
         onTap: () {
           debugPrint("Username : " + usernameController.text);
           debugPrint("Password : " + passwordController.text);
+          debugPrint('Remember Me: $rememberMe');
+          // Save the "Remember Me" status
+          saveRememberMeStatus(rememberMe);
 
           // Call the login method from the login controller
-          //loginController.login(usernameController.text, passwordController.text);
-          Get.off(() => IntroPage());
+          authController.login(
+              usernameController.text, passwordController.text, rememberMe);
+          // Get.off(() => IntroPage());
         },
         child: Container(
           width: MediaQuery.of(context).size.width / 2,
@@ -114,14 +129,14 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: TextField(
-                    controller: email,
+                    controller: usernameController,
                     style: TextStyle(fontSize: 16.0),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: TextField(
-                    controller: password,
+                    controller: passwordController,
                     style: TextStyle(fontSize: 16.0),
                     obscureText: true,
                   ),
@@ -133,6 +148,33 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
         ],
       ),
     );
+
+    Widget _rememberMeCheckbox() {
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Checkbox(
+              value: rememberMe,
+              onChanged: (value) {
+                setState(() {
+                  rememberMe = value!;
+                  saveRememberMeStatus(rememberMe);
+                });
+              },
+            ),
+            Text(
+              'Remember Me',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
 
     Widget forgotPassword = Padding(
       padding: const EdgeInsets.only(bottom: 20),
@@ -167,13 +209,13 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage('assets/capture.png'),
-                  fit: BoxFit.cover)
-            ),
+                image: DecorationImage(
+                    image: AssetImage('assets/capture.png'),
+                    fit: BoxFit.cover)),
           ),
           Container(
             decoration: BoxDecoration(
-                color: transparentBlue,
+              color: transparentBlue,
             ),
           ),
           Padding(
@@ -188,7 +230,8 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
                 Spacer(flex: 2),
                 loginForm,
                 Spacer(flex: 2),
-                forgotPassword
+                forgotPassword,
+                _rememberMeCheckbox(),
               ],
             ),
           )
