@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart' hide NavigationDrawer;
-import 'package:flutter_project/views/entries/commands.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
 import 'package:stacked_notification_cards/stacked_notification_cards.dart';
 import 'package:get/get.dart';
 
 import '../widgets/icon_menu_item.dart';
 import 'bottom_navigation_helper.dart';
-import 'entries/commands.dart';
 import 'entries/entries.dart';
 import 'navigation_drawer.dart';
 import '../controllers/NotificationsController.dart';
 import '../models/notification.dart' as notif;
-import '../controllers/AuthController.dart';
 
 
 class MyNotifications extends GetView<NotificationsController> {

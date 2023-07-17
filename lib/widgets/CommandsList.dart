@@ -2,11 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_project/views/entries/details.dart';
 
 import '../controllers/EntriesController.dart';
 
 class CommandCard extends StatelessWidget {
   final String commandReference;
+  final int id;
   final String dateOfCreation;
   final int articlesCount;
   final String userName;
@@ -17,6 +19,7 @@ class CommandCard extends StatelessWidget {
   const CommandCard({
     Key? key,
     required this.commandReference,
+    required this.id,
     required this.dateOfCreation,
     required this.articlesCount,
     required this.userName,
@@ -130,21 +133,24 @@ class CommandCard extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0, right: 8.0),
             child: Align(
               alignment: Alignment.bottomRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Button action
+              child: InkWell(
+                onTap: () {
+                  Get.to(() => DetailScreen(commandId: id),
+                      transition: Transition.fade);
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                child: const Text(
-                  'Details',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'YourDesiredFont',
+                child: Hero(
+                  tag: 'command',
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

@@ -39,6 +39,7 @@ class Entries extends GetView<EntriesController> {
                     final command = controller.commands[index];
                     // print('Command at index $index: $command');
                     return CommandCard(
+                      id: command.id,
                       commandReference: command.code,
                       dateOfCreation:
                       controller.formattedTimeDifference(command.createdAt),
@@ -53,6 +54,7 @@ class Entries extends GetView<EntriesController> {
               },
             ),
             ),
+          /*
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Align(
@@ -73,6 +75,7 @@ class Entries extends GetView<EntriesController> {
               ),
             ),
           ),
+          */
         ],
       ),
     );

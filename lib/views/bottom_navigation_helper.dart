@@ -7,12 +7,10 @@ import 'package:get/get.dart';
 import 'entries/entries.dart';
 import 'exits/exits.dart';
 import 'home.dart';
-import '../controllers/AuthController.dart';
 
 import 'invoices.dart';
 import 'notifications.dart';
 import 'orders.dart';
-import 'entries/purchaseorders.dart';
 
 BottomNavigationBar handleBottomNavigationBar(int index) {
   switch (index) {

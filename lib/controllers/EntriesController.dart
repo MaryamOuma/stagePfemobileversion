@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../models/Command.dart';
+import '../models/command.dart';
 import 'AuthController.dart';
 
 class EntriesController extends GetxController {
@@ -109,5 +109,35 @@ class EntriesController extends GetxController {
     final difference = now.difference(createdAt);
 
     return timeago.format(now.subtract(difference));
+  }
+
+  Future<Command> fetchCommand(int id) async {
+    final prefs = await SharedPreferences.getInstance();
+    final authToken = prefs.getString('authToken');
+
+    if (authToken != null && authToken.isNotEmpty) {
+      final url = 'http://localhost:8000/api/show/$id';
+
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {'Authorization': 'Bearer $authToken'},
+      );
+
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        if (jsonData['command'] != null) {
+          final commandData =
+              jsonData['command'][0]; // Assuming there's only one command
+          final command = Command.fromJson(commandData);
+          return command;
+        } else {
+          throw Exception('Invalid response format: command field is missing');
+        }
+      } else {
+        throw Exception('Failed to fetch command');
+      }
+    } else {
+      throw Exception('User is not authenticated');
+    }
   }
 }
