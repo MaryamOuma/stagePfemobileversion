@@ -44,6 +44,9 @@ dependencies:
   stacked_notification_cards: ^0.1.0-dev.2
   card_swiper: ^3.0.1
   rubber: ^1.1.0
+  intl: ^0.17.0
+  timeago: ^3.3.0
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:

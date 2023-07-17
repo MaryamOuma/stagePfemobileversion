@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'bottom_navigation_helper.dart';
 import 'entries/entries.dart';
 import 'notifications.dart';
 import 'settings.dart';
 import 'entries/entries.dart';
 import 'exits/exits.dart';
-
+import '../controllers/AuthController.dart';
 import 'home.dart';
 
 class NavigationDrawer extends StatefulWidget {
@@ -76,7 +77,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               text: 'Log out',
               index: 3,
               onTap: () {
-                //AuthController().logout();
+                AuthController().logout();
               },
             ),
           ],

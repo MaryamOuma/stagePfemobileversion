@@ -4,9 +4,11 @@ import 'package:flutter_project/main.dart';
 
 import 'package:flutter_project/views/signup/signup.dart';
 
-import '../../controllers/LoginController.dart';
+import '../../controllers/AuthController.dart';
 import '../home.dart';
 import 'package:get/get.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,12 +18,31 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool isAccessAllowed = false; // Set the initial value based on your logic
-  LoginController loginController = LoginController();
+  bool rememberMe = false;
+  AuthController authController = AuthController();
+
+  @override
+  void initState() {
+    super.initState();
+    getRememberMeStatus();
+  }
+
+  void getRememberMeStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool rememberMeStatus = prefs.getBool('rememberMe') ?? false;
+    setState(() {
+      rememberMe = rememberMeStatus;
+      print('Remember Me: $rememberMe'); // Print the value of rememberMe
+    });
+  }
+
+  void saveRememberMeStatus(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('rememberMe', value);
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool isAccessAllowed = false;
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -56,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 50),
               _loginBtn(),
               const SizedBox(height: 20),
-              _extraText(),
+              _rememberMeCheckbox(),
               const SizedBox(height: 20),
             ],
           ),
@@ -103,9 +124,11 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         debugPrint("Username : " + usernameController.text);
         debugPrint("Password : " + passwordController.text);
-
+        // Save the "Remember Me" status
+        saveRememberMeStatus(rememberMe);
         // Call the login method from the login controller
-        //loginController.login(usernameController.text, passwordController.text);
+        //authController.login(
+        //    usernameController.text, passwordController.text, rememberMe);
         Get.off(() => Home());
       },
       child: const SizedBox(
@@ -125,9 +148,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _extraText() {
-    bool rememberMe =
-        false; // Declare a boolean variable for remember me checkbox
+   Widget _rememberMeCheckbox() {
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -136,8 +157,10 @@ class _LoginPageState extends State<LoginPage> {
           Checkbox(
             value: rememberMe,
             onChanged: (value) {
-              // Update the rememberMe value when checkbox is toggled
-              rememberMe = value!;
+              setState(() {
+                rememberMe = value!;
+                saveRememberMeStatus(rememberMe);
+              });
             },
           ),
           Text(

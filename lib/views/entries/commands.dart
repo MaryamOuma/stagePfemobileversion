@@ -12,7 +12,7 @@ class Commands extends GetView<EntriesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      drawer: NavigationDrawer(),
       appBar: AppBar(
         title: const Text('Commands'),
         backgroundColor: Colors.blue.shade700,

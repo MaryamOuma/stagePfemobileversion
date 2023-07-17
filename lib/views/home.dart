@@ -11,6 +11,7 @@ import 'orders.dart';
 
 import '../custom_background.dart';
 import '../models/product.dart';
+import '../controllers/AuthController.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_project/widgets/product_list.dart';
@@ -70,7 +71,7 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
 
   @override
   Widget build(BuildContext context) {
-    Widget drawer = const NavigationDrawer();
+    Widget drawer = NavigationDrawer();
     AppBar appBar = AppBar(
       title: Text(
         timelines[0],
