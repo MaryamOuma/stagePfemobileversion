@@ -20,7 +20,7 @@ class Entries extends GetView<EntriesController> {
       drawer: const NavigationDrawer(),
       appBar: AppBar(
         title: const Text('Entries'),
-        backgroundColor: Colors.blue.shade700,
+        backgroundColor: Colors.blue,
       ),
       bottomNavigationBar: bottomNavigationBar,
       body: Column(

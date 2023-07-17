@@ -35,10 +35,12 @@ class CommandCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
+        /*
         image: const DecorationImage(
           image: AssetImage('images/commands-back.jpg'),
           fit: BoxFit.cover,
         ),
+        */
         borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
