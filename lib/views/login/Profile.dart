@@ -14,11 +14,11 @@ class Profile extends GetView<ProfileController> {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: const Text('Profil'),
         backgroundColor: Colors.blue.shade700,
       ),
       body: Body(),
-      bottomNavigationBar: handleBottomNavigationBar(0),
+      bottomNavigationBar: createHomeBottomNavigationBar(3),
     );
   }
 }

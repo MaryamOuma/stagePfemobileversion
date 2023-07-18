@@ -79,7 +79,7 @@ class MyNotifications extends GetView<NotificationsController> {
           ),
         ],
       ),
-      bottomNavigationBar: handleBottomNavigationBar(0),
+      bottomNavigationBar: createHomeBottomNavigationBar(1),
     );
   }
 }

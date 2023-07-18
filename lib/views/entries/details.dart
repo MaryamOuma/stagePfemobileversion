@@ -129,7 +129,7 @@ class _DetailScreenState extends State<DetailScreen> {
             Stack(
               children: [
                 Hero(
-                  tag: 'command',
+                  tag: 'command_details',
                   child: ClipRRect(
                     borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(60),

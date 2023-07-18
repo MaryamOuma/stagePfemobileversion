@@ -166,7 +166,7 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
 
     return Scaffold(
       drawer: drawer,
-      bottomNavigationBar: handleBottomNavigationBar(0),
+      bottomNavigationBar: createHomeBottomNavigationBar(0),
       body: CustomPaint(
         painter: MainBackground(),
         child: TabBarView(

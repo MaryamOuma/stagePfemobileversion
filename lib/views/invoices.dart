@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:data_tables/data_tables.dart';
 import 'dart:math';
 
-import '../../models/purchaseorder.dart';
 import '../controllers/InvoicesController.dart';
 import '../models/invoice.dart';
 import 'bottom_navigation_helper.dart';
@@ -12,14 +11,15 @@ import 'navigation_drawer.dart';
 
 class Invoices extends GetView<InvoicesController> {
   final InvoicesController controller = Get.put(InvoicesController());
-
+  
   Widget build(BuildContext context) {
+    print("hoppa");
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
         title: Text('Invoices'),
       ),
-      bottomNavigationBar: handleBottomNavigationBar(0),
+      bottomNavigationBar: createEntriesBottomNavigationBar(2),
       body: Obx(
         () {
           /*print('Rebuilding ListView...');

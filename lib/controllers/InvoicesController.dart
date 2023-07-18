@@ -11,6 +11,7 @@ class InvoicesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print('iniiit invoices');
     fetchAuthToken();
   }
 
@@ -19,6 +20,7 @@ class InvoicesController extends GetxController {
     final token = prefs.getString('authToken');
     if (token != null) {
       authToken.value = token;
+      print('hereeeeeeeeeeee invoices');
       fetchInvoices(token);
     }
   }
@@ -26,6 +28,7 @@ class InvoicesController extends GetxController {
   Future<void> fetchInvoices(String token) async {
     if (token != null && token.isNotEmpty) {
       try {
+         print('im trying invoices');
         final response = await http.get(
           Uri.parse('http://localhost:8000/api/invoices'),
           headers: {'Authorization': 'Bearer $token'},

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:data_tables/data_tables.dart';
 import 'dart:math';
 
-import '../../models/purchaseorder.dart';
+import '../models/purchaseOrder.dart';
 import '../controllers/PurchaseOrderController.dart';
 import 'bottom_navigation_helper.dart';
 import 'navigation_drawer.dart';
@@ -12,23 +12,25 @@ import 'navigation_drawer.dart';
 import 'package:data_tables/data_tables.dart';
 
 class Orders extends GetView<PurchaseOrderController> {
+  @override
   final PurchaseOrderController controller = Get.put(PurchaseOrderController());
 
   Widget build(BuildContext context) {
+    print('build started of orders');
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
         title: Text('Purchase Orders'),
       ),
-      bottomNavigationBar: handleBottomNavigationBar(3),
+      bottomNavigationBar: createEntriesBottomNavigationBar(1),
       body: Obx(
         () {
-          print('building list view');
+          print('building list view of PO');
 
           return ListView.builder(
             itemCount: controller.purchaseOrders.length,
             itemBuilder: (context, index) {
-              PurchaseOrder purchaseOrder = controller.purchaseOrders[index] as PurchaseOrder;
+              PurchaseOrder purchaseOrder = controller.purchaseOrders[index];
               return PurchaseOrderCard(
                 purchaseOrder: purchaseOrder,
                 itemsLength: purchaseOrder.items.length,

@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
             home: SplashScreen(),
             initialBinding: BindingsBuilder(() {
               Get.put(NotificationsController());
+              Get.put(PurchaseOrderController());
             }),
           );
         } else {

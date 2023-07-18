@@ -15,10 +15,10 @@ import 'orders.dart';
 BottomNavigationBar handleBottomNavigationBar(int index) {
   switch (index) {
     case 0:
-      return createHomeBottomNavigationBar();
+      return createHomeBottomNavigationBar(0);
       break;
     case 1:
-      return createEntriesBottomNavigationBar();
+      return createEntriesBottomNavigationBar(0);
       break;
     case 2:
       return createExitsBottomNavigationBar();
@@ -57,11 +57,11 @@ BottomNavigationBar createDefaultBottomNavigationBar() {
   );
 }
 
-BottomNavigationBar createHomeBottomNavigationBar() {
+BottomNavigationBar createHomeBottomNavigationBar(int selectedIndex) {
   // Create bottom navigation bar for Home page
   // Example:
   return BottomNavigationBar(
-    currentIndex: 0,
+    currentIndex: selectedIndex,
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
@@ -115,11 +115,11 @@ void handleHomeBottomNavigationBarTap(int index) {
   }
 }
 
-BottomNavigationBar createEntriesBottomNavigationBar() {
+BottomNavigationBar createEntriesBottomNavigationBar(int selectedIndex) {
   // Create bottom navigation bar for Entries page
   // Example:
   return BottomNavigationBar(
-    currentIndex: 0,
+    currentIndex: selectedIndex,
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.workspaces_outlined),
@@ -144,7 +144,7 @@ void handleEntriesBottomNavigationBarTap(int index) {
   switch (index) {
     case 0:
        Get.to(() => Entries(
-            bottomNavigationBar: handleBottomNavigationBar(1),
+            bottomNavigationBar: createEntriesBottomNavigationBar(0),
           ));
       break;
     case 1:

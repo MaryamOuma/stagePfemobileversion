@@ -12,6 +12,7 @@ class PurchaseOrderController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print('iniiit');
     fetchAuthToken();
   }
 
@@ -20,6 +21,7 @@ class PurchaseOrderController extends GetxController {
     final token = prefs.getString('authToken');
     if (token != null) {
       authToken.value = token;
+      print('hereeeeeeeeeeee');
       fetchPurchaseOrders(token);
     }
   }
@@ -42,7 +44,7 @@ class PurchaseOrderController extends GetxController {
           final List<PurchaseOrder> fetchedPurchaseOrders = purchaseOrdersData
               .map((items) => PurchaseOrder.fromJson(items))
               .toList();
-          //print('your purchase order : $fetchedPurchaseOrders');
+          print('your purchase order : $fetchedPurchaseOrders');
           purchaseOrders.value = fetchedPurchaseOrders;
         } else {
           print('API request failed with status code: ${response.statusCode}');
