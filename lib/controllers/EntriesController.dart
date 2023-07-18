@@ -12,6 +12,10 @@ import 'AuthController.dart';
 
 class EntriesController extends GetxController {
   final RxList<Map<String, String>> rowData = <Map<String, String>>[].obs;
+  //final RxList<Command> filteredCommands = <Command>[].obs;
+  List<dynamic> filteredCommands = [];
+  // Declare originalCommands list
+  List<dynamic> originalCommands = [];
 
   // Function to add a new row
   void addCommandRow() {
@@ -77,6 +81,9 @@ class EntriesController extends GetxController {
           final fetchedCommands = data['commands'] as List<dynamic>;
           commands.value =
               fetchedCommands.map((json) => Command.fromJson(json)).toList();
+
+          // Populate originalCommands
+          originalCommands = List.from(commands.value);
         } else {
           throw Exception('Failed to fetch commands');
         }
@@ -88,6 +95,37 @@ class EntriesController extends GetxController {
       // You can show an error message or redirect to the login page
       print('User is not connected');
     }
+  }
+
+  void onSearchChanged(String query) {
+    filterCommands(query);
+    //print(query);
+  }
+
+  void filterCommands(String query) {
+    if (query.isEmpty) {
+      //print("query empty");
+      // If the query is empty, show all commands
+      commands.value = originalCommands;
+    } else {
+      //print("query : "+ query);
+      // Filter the commands based on the query
+      commands.value = originalCommands
+          .where((command) =>
+              command.code.toLowerCase().contains(query.toLowerCase()) ||
+              command.articlesCount.toString().toLowerCase().contains(query.toLowerCase()) ||
+              command.userName.toLowerCase().contains(query.toLowerCase()) ||
+              command.price.toLowerCase().contains(query.toLowerCase()) ||
+              command.status.toLowerCase().contains(query.toLowerCase()) ||
+              timeago.format(command.createdAt).toLowerCase().contains(query.toLowerCase()) ||
+              command.department.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+
+      //print(commands.value);
+    }
+
+    //print(filteredCommands);
+    update();
   }
 
   /* String formattedTimeDifference(DateTime createdAt) {
