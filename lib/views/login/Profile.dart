@@ -15,7 +15,7 @@ class Profile extends GetView<ProfileController> {
       drawer: const NavigationDrawer(),
       appBar: AppBar(
         title: const Text('Profil'),
-        backgroundColor: Colors.blue.shade700,
+        backgroundColor: Colors.transparent,
       ),
       body: Body(),
       bottomNavigationBar: createHomeBottomNavigationBar(3),

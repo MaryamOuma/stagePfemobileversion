@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../views/home.dart';
 import '../views/login/login.dart';
+import 'package:flutter_project/controllers/UserController.dart';
+
 
 class AuthController extends GetxController {
   final RxString authToken = ''.obs;
@@ -16,12 +18,14 @@ class AuthController extends GetxController {
           "http://localhost:8000/api/login"; // Replace with your actual API endpoint
 
       try {
+        print(email + " " + password);
         final response = await http.post(
           Uri.parse(url),
           body: {'email': email, 'password': password},
         );
 
         if (response.statusCode == 200) {
+          print("holaap");
           final responseData = json.decode(response.body);
           final user = responseData['user'];
           final token = responseData['token'];
@@ -35,6 +39,10 @@ class AuthController extends GetxController {
 
           // Create custom headers with the token
           final headers = {'Authorization': 'Bearer $token'};
+          print("tokeeen : " + authToken.value);
+          UserController controller = Get.put(UserController());
+          // If login is successful, call fetchUser to fetch the new user's data
+          await controller.fetchUser(authToken.value);
           // Redirect to the home screen or perform any other logic
           Get.to(() => Home()); // Navigates to HomeView
         } else if (response.statusCode == 422) {
@@ -83,7 +91,9 @@ class AuthController extends GetxController {
       print('Logout successful');
       if (response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
-        prefs.clear(); // Clear all data stored in shared preferences
+        prefs.clear();
+        print(prefs.getString(
+            'authToken')); // Clear all data stored in shared preferences
         Get.offAll(() => WelcomeBackPage()); // Navigate to the login page
       } else {
         // Handle logout error

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'views/login/login.dart';
+import 'views/welcome_back_page.dart';
+import 'views/login/Profile.dart';
 import 'views/splash_screen.dart';
 import 'controllers/PurchaseOrderController.dart';
 import 'controllers/NotificationsController.dart';
@@ -25,15 +26,16 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           bool rememberMe = snapshot.data!;
-          Widget initialRoute = rememberMe ? Home() : LoginPage();
+          Widget initialRoute = rememberMe ? Home() : WelcomeBackPage();
 
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             getPages: [
               GetPage(name: '/', page: () => initialRoute),
-              GetPage(name: '/login', page: () => LoginPage()),
+              GetPage(name: '/login', page: () => WelcomeBackPage()),
               GetPage(name: '/home', page: () => Home()),
+              GetPage(name: '/Profile', page: () => Profile()),
             ],
             title: 'Stock Management',
             theme: ThemeData(

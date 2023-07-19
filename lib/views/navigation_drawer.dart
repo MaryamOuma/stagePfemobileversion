@@ -9,6 +9,8 @@ import 'entries/entries.dart';
 import 'exits/exits.dart';
 import '../controllers/AuthController.dart';
 import 'home.dart';
+import '../controllers/UserController.dart';
+import '../models/user.dart';
 
 class NavigationDrawer extends StatefulWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -19,6 +21,7 @@ class NavigationDrawer extends StatefulWidget {
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
   int hoveredItemIndex = -1; // Track the hovered item index
+  UserController controller = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) => Drawer(
@@ -51,7 +54,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               },
             ),
             //const Divider(color: Colors.black54),
-             buildMenuItem(
+            buildMenuItem(
               icon: Icons.input,
               text: 'Entries',
               index: 1,
@@ -62,7 +65,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               },
             ),
             //const Divider(color: Colors.black54),
-             buildMenuItem(
+            buildMenuItem(
               icon: Icons.output,
               text: 'Exits',
               index: 2,
@@ -83,7 +86,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           ],
         ),
       );
-      Widget buildMenuItem({
+  Widget buildMenuItem({
     required IconData icon,
     required String text,
     required int index,
@@ -181,6 +184,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       ),
     );
   }
+
   Widget _icon() {
     return Container(
       decoration: BoxDecoration(
@@ -195,40 +199,74 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         clipper: WaveClipper(),
         child: Container(
           padding: EdgeInsets.fromLTRB(16, 16, 16, 24),
-          // color: Color.fromRGBO(175, 190, 34, 1),
           color: Color.fromARGB(255, 122, 158, 187),
           child: Column(
             children: [
+              Obx(() {
+                // Use Obx to reactively update the UI when the imageUrl changes
+                if (controller.user.value.image.isNotEmpty) {
+                  return SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: ClipOval(
+                      // Wrap the Image.asset with ClipOval to make it rounded
+                      child: Image.network(controller.user.value.image),
+                    ),
+                  );
+                } else {
+                  return SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: ClipOval(
+                      child: Image.asset(
+                        "assets/icons/default-image.jpg",
+                      ),
+                    ),
+                  );
+                }
+              }),
               Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: _icon(),
-              ),
-            Padding(
                 padding: EdgeInsets.only(bottom: 3),
-                child: Text(
-                  'Kawtar Bekkali',
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Colors.white,
-                  ),
+                child: Obx(
+                  () {
+                    if (controller.isLoading.value) {
+                      // Display a loading indicator while data is being fetched
+                      return CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white));
+                    } else {
+                      // Display user name once it is loaded
+                      return Text(
+                        controller.user.value.name,
+                        style: TextStyle(
+                          fontSize: 28,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
-            Padding(
+              Padding(
                 padding: EdgeInsets.only(bottom: 12),
-                child: Text(
-                  'k.bek@gmail.com',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
+                child: Obx(
+                  () => Text(
+                    controller.user.value.profil,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: Text(
-                  '',
+                  '', // Add some additional information if needed
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     color: Colors.white,
                   ),
                 ),

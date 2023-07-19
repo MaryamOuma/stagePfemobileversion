@@ -3,6 +3,7 @@ import 'package:flutter_project/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
+import 'intro_page.dart';
 
 class WelcomeBackPage extends StatefulWidget {
   @override
