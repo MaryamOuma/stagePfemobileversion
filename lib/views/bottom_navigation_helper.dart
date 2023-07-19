@@ -1,4 +1,6 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/controllers/notification_controller.dart';
 import 'package:flutter_project/views/settings.dart';
 import 'package:flutter_project/views/login/Profile.dart';
 import 'package:get/get.dart';
@@ -66,7 +68,23 @@ BottomNavigationBar createHomeBottomNavigationBar() {
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.notifications),
+        icon: Badge(
+          // Wrap the Icon with Badge widget
+          badgeContent: Obx(() {
+            NotificationController notificationController =
+                Get.put(NotificationController());
+            final data = notificationController.notificationData.value;
+            return Text(
+              data.notifications?.toString() ??
+                  '0', // Display the notification count
+              style: TextStyle(color: Colors.white),
+            );
+          }),
+          badgeColor: Colors.red, // Customize the badge background color
+          position: BadgePosition.topEnd(
+              top: -12, end: -12), // Position the badge on top of the icon
+          child: Icon(Icons.notifications),
+        ),
         label: 'Notifications',
         backgroundColor: Colors.blue,
       ),
