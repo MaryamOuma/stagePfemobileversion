@@ -38,11 +38,6 @@ class Body extends StatelessWidget {
                 icon: "assets/icons/superuser.jpg",
                 press: () => {},
               )),
-          ProfileMenu(
-            text: "Change password",
-            icon: "assets/icons/logout.png",
-            press: () => {},
-          ),
         ],
       ),
     );

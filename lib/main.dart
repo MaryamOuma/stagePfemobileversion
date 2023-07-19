@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'views/welcome_back_page.dart';
 import 'views/login/Profile.dart';
 import 'views/splash_screen.dart';
 import 'controllers/PurchaseOrderController.dart';
 import 'controllers/NotificationsController.dart';
+import 'controllers/LocalizationController.dart';
 import 'views/home.dart';
+import 'locales/localization.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
+  // Load the selected language from GetStorage and set it to the controller
+  LocalizationController localizationController = Get.put(LocalizationController());
+  var savedLanguage = GetStorage().read<String>('language');
+  if (savedLanguage != null && savedLanguage.isNotEmpty) {
+  localizationController.currentLanguage.value = savedLanguage;
+  }
+  
   runApp(const MyApp());
 }
 
@@ -29,6 +40,9 @@ class MyApp extends StatelessWidget {
           Widget initialRoute = rememberMe ? Home() : WelcomeBackPage();
 
           return GetMaterialApp(
+            translations: Localization(), // Initialize the Localization class
+            locale: Locale('en', 'US'), // Set the default locale for the app
+            fallbackLocale: Locale('en', 'US'), // Set the fallback locale
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             getPages: [

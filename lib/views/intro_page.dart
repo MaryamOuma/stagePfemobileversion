@@ -1,6 +1,8 @@
 import 'package:flutter_project/shared/theme.dart';
 import 'package:flutter_project/views/home.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 
 class IntroPage extends StatefulWidget {
   @override
@@ -55,7 +57,7 @@ class _IntroPageState extends State<IntroPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32),
                       child: Text(
-                        'Track. Analyze. Succeed',
+                        'splash_1_title'.tr,
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
@@ -66,7 +68,7 @@ class _IntroPageState extends State<IntroPage> {
                           horizontal: 32, vertical: 16.0),
                       child: Center(
                         child: Text(
-                          'Unlock the power of precise stock tracking. Master your entries and exits with confidence.',
+                          'splash_1_phrase'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.grey, fontSize: 12.0),
                         ),
@@ -100,7 +102,7 @@ class _IntroPageState extends State<IntroPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32),
                       child: Text(
-                        'Streamline your business processes',
+                        'splash_2_title'.tr,
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
@@ -111,7 +113,7 @@ class _IntroPageState extends State<IntroPage> {
                           horizontal: 32, vertical: 16.0),
                       child: Center(
                         child: Text(
-                          'Effortlessly manage purchase orders and invoices for seamless operations.',
+                          'splash_2_phrase'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.grey, fontSize: 12.0),
                         ),
@@ -145,7 +147,7 @@ class _IntroPageState extends State<IntroPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32),
                       child: Text(
-                        'Empower Your Stock Management Journey',
+                        'splash_3_title'.tr,
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
@@ -156,7 +158,7 @@ class _IntroPageState extends State<IntroPage> {
                           horizontal: 32, vertical: 16.0),
                       child: Center(
                         child: Text(
-                          'Seamlessly visualize and analyze your stock data, enabling you to make informed decisions and take your business to greater heights.',
+                          'splash_3_phrase'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.grey, fontSize: 12.0),
                         ),
@@ -211,7 +213,7 @@ class _IntroPageState extends State<IntroPage> {
                           opacity: pageIndex != 2 ? 1.0 : 0.0,
                           child: TextButton(
                             child: Text(
-                              'SKIP',
+                              'skip'.tr,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -227,7 +229,7 @@ class _IntroPageState extends State<IntroPage> {
                         pageIndex != 2
                             ? TextButton(
                                 child: Text(
-                                  'NEXT',
+                                  'next'.tr,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
@@ -242,7 +244,7 @@ class _IntroPageState extends State<IntroPage> {
                               )
                             : TextButton(
                                 child: Text(
-                                  'FINISH',
+                                  'finish'.tr,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,

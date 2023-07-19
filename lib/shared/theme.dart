@@ -36,9 +36,9 @@ const Color blue = Color.fromRGBO(73, 168, 222, 0.651);
 // const Color darkGrey = Color(0xff202020);
 
 const LinearGradient mainButton = LinearGradient(colors: [
-  Color.fromRGBO(236, 60, 3, 1),
-  Color.fromRGBO(234, 60, 3, 1),
-  Color.fromRGBO(216, 78, 16, 1),
+  Color(0xffFDB846),
+  Color(0xffE99E22),
+  Color.fromRGBO(253, 184, 70, 0.7),
 ], begin: FractionalOffset.topCenter, end: FractionalOffset.bottomCenter);
 
 const List<BoxShadow> shadow = [

@@ -17,7 +17,7 @@ class Invoices extends GetView<InvoicesController> {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: Text('Invoices'),
+        title: Text('invoices'.tr),
       ),
       bottomNavigationBar: createEntriesBottomNavigationBar(2),
       body: Obx(

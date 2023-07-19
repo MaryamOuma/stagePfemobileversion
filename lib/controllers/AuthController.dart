@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import '../views/home.dart';
 import '../views/login/login.dart';
 import 'package:flutter_project/controllers/UserController.dart';
+import 'package:flutter_project/views/intro_page.dart';
+
 
 
 class AuthController extends GetxController {
@@ -44,7 +46,7 @@ class AuthController extends GetxController {
           // If login is successful, call fetchUser to fetch the new user's data
           await controller.fetchUser(authToken.value);
           // Redirect to the home screen or perform any other logic
-          Get.to(() => Home()); // Navigates to HomeView
+          Get.to(() => IntroPage()); // Navigates to HomeView
         } else if (response.statusCode == 422) {
           final responseData = json.decode(response.body);
           final error = responseData['error'];

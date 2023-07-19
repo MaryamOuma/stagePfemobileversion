@@ -97,7 +97,7 @@ class _SearchBarState extends State<SearchBar>
     return Row(
       children: [
         if (!_isActive)
-          Text("Entries Commands",
+          Text("entries_commands".tr,
               style: Theme.of(context).appBarTheme.titleTextStyle),
         Expanded(
           child: Align(
@@ -115,7 +115,7 @@ class _SearchBarState extends State<SearchBar>
                         controller: widget.searchController,
                         onChanged: widget.onSearchChanged,
                         decoration: InputDecoration(
-                          hintText: 'Search for something',
+                          hintText: 'search'.tr,
                           prefixIcon: const Icon(Icons.search),
                           suffixIcon: IconButton(
                             onPressed: () {

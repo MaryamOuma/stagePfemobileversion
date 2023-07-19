@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_project/views/settings.dart';
+import 'package:flutter_project/views/settings/settings_page.dart';
 import 'package:flutter_project/views/login/Profile.dart';
 import 'package:get/get.dart';
 
@@ -38,19 +38,19 @@ BottomNavigationBar createDefaultBottomNavigationBar() {
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        label: 'Home',
+        label: 'home'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.notifications),
-        label: 'Notifications',
+        label: 'notifications'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.settings),
-        label: 'Settings',
+        label: 'settings'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.person),
-        label: 'Profile',
+        label: 'profil'.tr,
       ),
     ],
     onTap: (index) {},
@@ -65,22 +65,22 @@ BottomNavigationBar createHomeBottomNavigationBar(int selectedIndex) {
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        label: 'Home',
+        label: 'home'.tr,
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.notifications),
-        label: 'Notifications',
+        label: 'notifications'.tr,
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.settings),
-        label: 'Settings',
+        label: 'settings'.tr,
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.person),
-        label: 'Profile',
+        label: 'profil'.tr,
         backgroundColor: Colors.blue,
       ),
     ],
@@ -103,7 +103,7 @@ void handleHomeBottomNavigationBarTap(int index) {
       break;
     case 2:
       // Navigate to the Settings page
-      Get.to(() => Settings());
+      Get.to(() => SettingsPage());
       break;
     case 3:
       // Navigate to the Profile page
@@ -123,15 +123,15 @@ BottomNavigationBar createEntriesBottomNavigationBar(int selectedIndex) {
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.workspaces_outlined),
-        label: 'Commands',
+        label: 'commands'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.shopping_cart_outlined),
-        label: 'Orders',
+        label: 'purchase_orders'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.receipt_outlined),
-        label: 'Invoices',
+        label: 'invoices'.tr,
       ),
     ],
     onTap: (index) {
@@ -167,15 +167,15 @@ BottomNavigationBar createExitsBottomNavigationBar() {
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.workspaces_outlined),
-        label: 'Commands',
+        label: 'commands'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.shopping_cart_outlined),
-        label: 'Orders',
+        label: 'purchase_orders'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.receipt_outlined),
-        label: 'Invoices',
+        label: 'invoices'.tr,
       ),
     ],
     onTap: (index) {

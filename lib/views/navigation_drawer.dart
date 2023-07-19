@@ -47,7 +47,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           children: [
             buildMenuItem(
               icon: Icons.home_outlined,
-              text: 'Home',
+              text: 'home'.tr,
               index: 0,
               onTap: () {
                 Get.offAll(() => Home());
@@ -56,7 +56,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             //const Divider(color: Colors.black54),
             buildMenuItem(
               icon: Icons.input,
-              text: 'Entries',
+              text: 'entries'.tr,
               index: 1,
               onTap: () {
                 Get.to(() => Entries(
@@ -67,7 +67,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             //const Divider(color: Colors.black54),
             buildMenuItem(
               icon: Icons.output,
-              text: 'Exits',
+              text: 'exits'.tr,
               index: 2,
               onTap: () {
                 Get.to(() => Exits(
@@ -77,7 +77,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             ),
             buildMenuItem(
               icon: Icons.logout,
-              text: 'Log out',
+              text: 'log_out'.tr,
               index: 3,
               onTap: () {
                 AuthController().logout();

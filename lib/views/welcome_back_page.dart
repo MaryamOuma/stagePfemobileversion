@@ -40,7 +40,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
   @override
   Widget build(BuildContext context) {
     Widget welcomeBack = Text(
-      'Welcome to Stockify',
+      'welcome'.tr,
       style: TextStyle(
           color: Colors.white,
           fontSize: 34.0,
@@ -57,7 +57,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
     Widget subTitle = Padding(
         padding: const EdgeInsets.only(right: 56.0),
         child: Text(
-          'Login to your account using your email',
+          'login_with_email'.tr,
           style: TextStyle(
             color: Colors.white,
             fontSize: 16.0,
@@ -84,7 +84,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
           width: MediaQuery.of(context).size.width / 2,
           height: 80,
           child: Center(
-              child: new Text("Log In",
+              child: new Text("log_in".tr,
                   style: const TextStyle(
                       color: const Color(0xfffefefe),
                       fontWeight: FontWeight.w600,
@@ -93,9 +93,9 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   colors: [
-                    Color.fromRGBO(162, 176, 9, 1),
-                    Color.fromRGBO(164, 176, 6, 1),
-                    Color.fromRGBO(175, 190, 34, 1),
+                    Color(0xffFDB846),
+                    Color(0xffE99E22),
+                    Color.fromRGBO(253, 184, 70, 0.7),
                   ],
                   begin: FractionalOffset.topCenter,
                   end: FractionalOffset.bottomCenter),
@@ -133,7 +133,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
                     controller: usernameController,
                     style: TextStyle(fontSize: 16.0),
                     decoration: InputDecoration(
-                        hintText: 'Email',
+                        hintText: 'email'.tr,
                       ),
                   ),
                 ),
@@ -144,7 +144,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
                     style: TextStyle(fontSize: 16.0),
                     obscureText: true,
                     decoration: InputDecoration(
-                        hintText: 'Password',
+                        hintText: 'password'.tr,
                       ),
                   ),
                 ),
@@ -172,7 +172,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
               },
             ),
             Text(
-              'Remember Me',
+              'remember_me'.tr,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
@@ -189,7 +189,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            'Forgot your password? ',
+            'forgot_password'.tr,
             style: TextStyle(
               fontStyle: FontStyle.italic,
               color: Color.fromRGBO(255, 255, 255, 0.5),
@@ -199,7 +199,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
           InkWell(
             onTap: () {},
             child: Text(
-              'Reset password',
+              'reset_password'.tr,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

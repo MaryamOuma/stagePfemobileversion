@@ -20,7 +20,7 @@ class Orders extends GetView<PurchaseOrderController> {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: Text('Purchase Orders'),
+        title: Text('purchase_orders'.tr),
       ),
       bottomNavigationBar: createEntriesBottomNavigationBar(1),
       body: Obx(
