@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_project/controllers/user_controller.dart';
 import 'package:flutter_project/views/IntroPage.dart';
 import 'package:flutter_project/views/WelcomeBack.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,9 @@ class AuthController extends GetxController {
           // Set rememberMe value
           // Create custom headers with the token
           final headers = {'Authorization': 'Bearer $token'};
+          UserController controller = Get.put(UserController());
+          // If login is successful, call fetchUser to fetch the new user's data
+          await controller.fetchUser(authToken.value);
           // Redirect to the home screen or perform any other logic
           Get.to(() => IntroPage()); // Navigates to HomeView
         } else if (response.statusCode == 422) {
@@ -83,7 +87,9 @@ class AuthController extends GetxController {
       print('Logout successful');
       if (response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
-        prefs.clear(); // Clear all data stored in shared preferences
+        prefs.clear();
+        print(prefs.getString(
+            'authToken')); // Clear all data stored in shared preferences
         Get.offAll(() => WelcomeBackPage()); // Navigate to the login page
       } else {
         // Handle logout error

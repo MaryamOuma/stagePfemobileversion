@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_project/controllers/user_controller.dart';
+import 'package:get/get.dart';
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
@@ -8,38 +9,61 @@ class ProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 115,
-      width: 115,
-      child: Stack(
-        fit: StackFit.expand,
-        clipBehavior: Clip.none,
-        children: [
-          CircleAvatar(
-            backgroundImage: AssetImage("assets/images/Profile Image.png"),
-          ),
-          Positioned(
-            right: -16,
-            bottom: 0,
-            child: SizedBox(
-              height: 46,
-              width: 46,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: Colors.white),
+    UserController controller = Get.put(UserController());
+    print(controller.user.value.image);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ClipOval(
+          // Wrap the CircleAvatar with ClipOval to make it rounded
+          child: CircleAvatar(
+            radius: 50,
+            backgroundColor: Colors.transparent, // Remove the background color
+            child: Obx(() {
+              // Use Obx to reactively update the UI when the imageUrl changes
+              if (controller.user.value.image.isNotEmpty) {
+                return ClipOval(
+                  // Wrap the Image.asset with ClipOval to make it rounded
+                  child: Container(
+                    width:
+                        100, // Set the width of the container containing the Image.asset
+                    height:
+                        100, // Set the height of the container containing the Image.asset
+                    child: Image.network(controller.user.value.image),
                   ),
-                  primary: Colors.white,
-                  backgroundColor: Color(0xFFF5F6F9),
+                );
+              } else {
+                return Image.asset(
+                  "assets/icons/default-image.png",
+                  width: 100, // Set the width and height to make it round
+                  height: 100,
+                );
+              }
+            }),
+          ),
+        ),
+        SizedBox(
+          height: 12,
+        ),
+        Obx(() => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/icons/name.png",
+                  width: 26,
+                  height: 26,
+                  // You can set the color of the icon image
                 ),
-                onPressed: () {},
-                child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
-              ),
-            ),
-          )
-        ],
-      ),
+                SizedBox(width: 8),
+                Text(
+                  controller.user.value.name,
+                  style: TextStyle(
+                      // Replace with your desired text style
+                      ),
+                ),
+              ],
+            )),
+      ],
     );
   }
 }

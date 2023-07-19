@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/shared/theme.dart';
 import 'package:get/get.dart';
 import '../controllers/AuthController.dart';
+import '../controllers/user_controller.dart';
+import '../models/User.dart';
 import 'bottom_navigation_helper.dart';
 import 'entries/entries.dart';
 import 'notifications.dart';
@@ -22,6 +24,7 @@ class NavigationDrawer extends StatefulWidget {
 class _NavigationDrawerState extends State<NavigationDrawer> {
   int hoveredItemIndex = -1; // Track the hovered item index
 
+  UserController controller = Get.put(UserController());
   @override
   Widget build(BuildContext context) => Drawer(
         child: ClipRRect(
@@ -206,24 +209,37 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 3),
-                child: Text(
-                  'Maryam',
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Colors.white,
-                  ),
+                child: Obx(
+                  () {
+                    if (controller.isLoading.value) {
+                      // Display a loading indicator while data is being fetched
+                      return CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white));
+                    } else {
+                      // Display user name once it is loaded
+                      return Text(
+                        controller.user.value.name,
+                        style: TextStyle(
+                          fontSize: 28,
+                          color: Colors.white,
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Text(
-                  'maryam@example.com',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+                  padding: EdgeInsets.only(bottom: 12),
+                  child: Obx(
+                    () => Text(
+                      controller.user.value.profil,
+                      style: TextStyle(
+                        fontSize: 28,
+                        color: Color.fromRGBO(175, 190, 34, 1),
+                      ),
+                    ),
+                  )),
               Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: Text(

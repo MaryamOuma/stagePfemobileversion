@@ -3,7 +3,7 @@ import 'package:flutter_project/views/WelcomeBack.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
-import 'login/login.dart';
+import 'login/Profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
               GetPage(name: '/', page: () => initialRoute),
               GetPage(name: '/login', page: () => WelcomeBackPage()),
               GetPage(name: '/home', page: () => Home()),
+              GetPage(name: '/Profile', page: () => Profile()),
             ],
           );
         } else {

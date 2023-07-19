@@ -14,8 +14,8 @@ class Profile extends GetView<ProfileController> {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: const Text('Settings'),
-        backgroundColor: Colors.blue.shade700,
+        title: const Text('Profile'),
+        backgroundColor: Colors.transparent,
       ),
       body: Body(),
       bottomNavigationBar: handleBottomNavigationBar(0),
