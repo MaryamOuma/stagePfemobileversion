@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_project/controllers/NotificationsController.dart';
 import 'package:flutter_project/views/welcome_back_page.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,6 +44,7 @@ class AuthController extends GetxController {
           final headers = {'Authorization': 'Bearer $token'};
           print("tokeeen : " + authToken.value);
           UserController controller = Get.put(UserController());
+          NotificationController notifcontroller = Get.put(NotificationController());
           // If login is successful, call fetchUser to fetch the new user's data
           await controller.fetchUser(authToken.value);
           // Redirect to the home screen or perform any other logic

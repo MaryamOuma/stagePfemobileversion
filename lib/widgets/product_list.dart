@@ -9,7 +9,10 @@ class ProductList extends StatelessWidget {
 
   final SwiperController swiperController = SwiperController();
 
-  ProductList({required this.products});
+  // ProductList({required this.products});
+  ProductList({required this.products}) {
+    print('ProductList - Number of products: ${products.length}');
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,7 @@ import 'orders.dart';
 import '../custom_background.dart';
 import '../models/product.dart';
 import '../controllers/AuthController.dart';
+import 'package:flutter_project/controllers/NotificationsController.dart';
 import 'bottom_navigation_helper.dart';
 
 import 'package:flutter_svg/svg.dart';
@@ -23,41 +24,46 @@ class Home extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-List<String> timelines = ['dashboard'.tr];
-String selectedTimeline = 'dashboard'.tr;
+NotificationController notificationController =
+    Get.put(NotificationController());
+// Access the products list from the controller
+//List<Product> products = notificationController.products;
 
 List<Product> products = [
   Product(
       'assets/icons/entries.png',
       'entries_commands_to_treat'.tr,
       'Entries commands to treat refer to requests initiated by staff members for specific articles required by various departments within an organization. These commands undergo a treatment process facilitated by the accountant, who assumes the responsibility of reviewing and assessing their viability. The accountant evaluates each command based on factors such as the availability of budgetary resources. Subsequently, the accountant can either approve the commands, ensuring the necessary articles are procured, or reject them if budget constraints or other considerations arise. This meticulous review process allows for effective allocation of resources, ensuring optimal financial management and alignment with organizational goals.',
-      12),
+      7),
   Product(
       'assets/icons/exits.png',
       'exits_commands_to_treat'.tr,
       'Exits commands to treat pertain to orders placed by external clients for specific articles. These commands are processed and handled by the storekeeper, who assumes the responsibility of reviewing and managing them. The storekeeper meticulously evaluates each command, taking into account factors such as the availability of the requested articles and their remaining quantities in the inventory. Based on this assessment and other considerations, the storekeeper exercises discretion to either approve the command, ensuring the fulfillment of the client\'s order, or reject it for valid reasons. This diligent evaluation process guarantees efficient inventory management, facilitates seamless customer service, and maintains the integrity of the organization\'s supply chain operations.',
-      15),
+      33),
   Product(
       'assets/icons/payment.png',
       'invoices_to_pay'.tr,
       'Invoices to pay refer to the financial documents generated for completed orders that require further processing for payment. These invoices signify the responsibility of the accounting department to initiate the payment process, ensuring that the outstanding amounts are settled in a timely manner.',
-      6),
+      14),
   Product(
       'assets/icons/validation.png',
       'invoices_to_validate'.tr,
       'Invoices to validate represent the invoices that have been completely paid, either in a single payment or through installment payments. The validation process is undertaken by the accountant to ensure the accuracy and completeness of the payment records, confirming that the financial obligations associated with these invoices have been successfully fulfilled.',
-      4),
+      12),
   Product(
       'assets/icons/expiration.png',
       'expired_articles'.tr,
       'Expired articles refer to the products or items that have reached their designated expiration date. These articles are no longer deemed usable or suitable for consumption due to potential quality degradation or safety concerns. Proper management of expired articles involves their removal or disposal from inventory to maintain compliance with regulations and ensure the delivery of fresh and safe products to customers',
-      33),
+      55),
   Product(
       'assets/icons/threshold.png',
       'articles_close_to_threshold'.tr,
       'Articles close to the threshold are products or items whose remaining quantity is approaching a pre-defined threshold. This threshold indicates a minimum stock level that triggers the need for replenishment or reordering. Identifying articles close to the threshold allows proactive inventory management to avoid stockouts and ensure a smooth supply chain. By monitoring and taking timely action on these articles, businesses can maintain sufficient stock levels, prevent disruptions in production or sales, and meet customer demands effectively.',
-      0),
+      5),
 ];
+
+List<String> timelines = ['Dashboard'];
+String selectedTimeline = 'Dashboard';
 
 class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
   late TabController tabController;
@@ -95,38 +101,39 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
                 onTap: () {
                   setState(() {
                     selectedTimeline = timelines[0];
-                    products = [
+                    products = products;
+                    /* products = [
                       Product(
                           'assets/icons/entries.png',
                           'entries_commands_to_treat'.tr,
                           'Entries commands to treat refer to requests initiated by staff members for specific articles required by various departments within an organization. These commands undergo a treatment process facilitated by the accountant, who assumes the responsibility of reviewing and assessing their viability. The accountant evaluates each command based on factors such as the availability of budgetary resources. Subsequently, the accountant can either approve the commands, ensuring the necessary articles are procured, or reject them if budget constraints or other considerations arise. This meticulous review process allows for effective allocation of resources, ensuring optimal financial management and alignment with organizational goals.',
-                          12),
+                          7),
                       Product(
                           'assets/icons/exits.png',
                           'exits_commands_to_treat'.tr,
                           'Exits commands to treat pertain to orders placed by external clients for specific articles. These commands are processed and handled by the storekeeper, who assumes the responsibility of reviewing and managing them. The storekeeper meticulously evaluates each command, taking into account factors such as the availability of the requested articles and their remaining quantities in the inventory. Based on this assessment and other considerations, the storekeeper exercises discretion to either approve the command, ensuring the fulfillment of the client\'s order, or reject it for valid reasons. This diligent evaluation process guarantees efficient inventory management, facilitates seamless customer service, and maintains the integrity of the organization\'s supply chain operations.',
-                          15),
+                          33),
                       Product(
                           'assets/icons/payment.png',
                           'invoices_to_pay'.tr,
                           'Invoices to pay refer to the financial documents generated for completed orders that require further processing for payment. These invoices signify the responsibility of the accounting department to initiate the payment process, ensuring that the outstanding amounts are settled in a timely manner.',
-                          6),
+                          14),
                       Product(
                           'assets/icons/validation.png',
                           'invoices_to_validate'.tr,
                           'Invoices to validate represent the invoices that have been completely paid, either in a single payment or through installment payments. The validation process is undertaken by the accountant to ensure the accuracy and completeness of the payment records, confirming that the financial obligations associated with these invoices have been successfully fulfilled.',
-                          4),
+                          12),
                       Product(
                           'assets/icons/expiration.png',
                           'expired_articles'.tr,
                           'Expired articles refer to the products or items that have reached their designated expiration date. These articles are no longer deemed usable or suitable for consumption due to potential quality degradation or safety concerns. Proper management of expired articles involves their removal or disposal from inventory to maintain compliance with regulations and ensure the delivery of fresh and safe products to customers',
-                          33),
+                          55),
                       Product(
                           'assets/icons/threshold.png',
                           'articles_close_to_threshold'.tr,
                           'Articles close to the threshold are products or items whose remaining quantity is approaching a pre-defined threshold. This threshold indicates a minimum stock level that triggers the need for replenishment or reordering. Identifying articles close to the threshold allows proactive inventory management to avoid stockouts and ensure a smooth supply chain. By monitoring and taking timely action on these articles, businesses can maintain sufficient stock levels, prevent disruptions in production or sales, and meet customer demands effectively.',
-                          0),
-                    ];
+                          5),
+                    ];*/
                   });
                 },
                 child: Padding(

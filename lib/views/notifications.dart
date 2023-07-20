@@ -11,15 +11,14 @@ import '../controllers/NotificationsController.dart';
 import '../models/notification.dart' as notif;
 
 
-class MyNotifications extends GetView<NotificationsController> {
+class MyNotifications extends StatelessWidget {
   MyNotifications({Key? key}) : super(key: key);
-
-  final NotificationsController controller = Get.find<NotificationsController>();
-
 
   @override
   Widget build(BuildContext context) {
     //final controller = Get.find<NotificationsController>();
+    // Get the existing instance of the NotificationController
+    NotificationController controller = Get.put(NotificationController());
 
     return Scaffold(
       drawer: const NavigationDrawer(),
@@ -58,24 +57,139 @@ class MyNotifications extends GetView<NotificationsController> {
             ),
           ),
            Expanded(
-            child: GetX<NotificationsController>(
-              builder: (controller) {
-                return ListView.builder(
-                  itemCount: controller.notificationCards.length,
-                  itemBuilder: (context, index) {
-                    final notification = controller.notificationCards[index];
-                    return IconMenuItem(
-                      icon: Icons.workspaces_outlined,
-                      title: notification.title,
-                      row1: notification.subtitle,
-                      onTap: () {
-                        // Handle notification onTap
-                      },
-                    );
-                  },
+            child: Obx(() {
+              final data = controller.notificationData.value;
+              if (data.notifications == null) {
+                // Data is not yet available, show loading indicator
+                return Center(child: CircularProgressIndicator());
+              } else if (data.notifications == 0) {
+                // No notifications available, display a message
+                return Center(child: CircularProgressIndicator());
+              } else {
+                // Display the ListView with data
+                return ListView(
+                  children: [
+                    if (data.commandsNumber != null && data.commandsNumber! > 0)
+                      IconMenuItem(
+                        icon: Icons.workspaces_outlined,
+                        title: 'Commands'.tr,
+                        row1:
+                            'You have ${data.commandsNumber} entries commands to treat'
+                                .tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                    if (data.invoicesToValidate != null &&
+                        data.invoicesToValidate! > 0)
+                      IconMenuItem(
+                        icon: Icons.receipt_outlined,
+                        title: 'Invoices'.tr,
+                        row1:
+                            'You have ${data.invoicesToValidate} invoices to validate'
+                                .tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                    if (data.exitinvoicesTopay != null &&
+                        data.exitinvoicesTopay! > 0)
+                      IconMenuItem(
+                        icon: Icons.receipt_outlined,
+                        title: 'Invoices'.tr,
+                        row1:
+                            'You have ${data.exitinvoicesTopay} exit invoices to pay'
+                                .tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                    if (data.exitInvoicesToValidate != null &&
+                        data.exitInvoicesToValidate! > 0)
+                      IconMenuItem(
+                        icon: Icons.receipt_outlined,
+                        title: 'Invoices'.tr,
+                        row1:
+                            'You have ${data.exitInvoicesToValidate} exit invoices to validate'
+                                .tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                    if (data.expirationArticles != null &&
+                        data.expirationArticles! > 0)
+                      IconMenuItem(
+                        icon: Icons.article,
+                        title: 'Articles'.tr,
+                        row1:
+                            'You have ${data.expirationArticles} expired articles'
+                                .tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                    if (data.thresholdArticles != null &&
+                        data.thresholdArticles! > 0)
+                      IconMenuItem(
+                        icon: Icons.article,
+                        title: 'Articles'.tr,
+                        row1:
+                            'You have ${data.thresholdArticles} articles that reached threshold'
+                                .tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                    if (data.invoicesTopay != null && data.invoicesTopay! > 0)
+                      IconMenuItem(
+                        icon: Icons.receipt_outlined,
+                        title: 'Invoices'.tr,
+                        row1:
+                            'You have ${data.invoicesTopay} invoices to pay'.tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                    if (data.clientscommandsNumber != null &&
+                        data.clientscommandsNumber! > 0)
+                      IconMenuItem(
+                        icon: Icons.workspaces_outlined,
+                        title: 'Commands'.tr,
+                        row1:
+                            'You have ${data.clientscommandsNumber} exit commands To treat'
+                                .tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                    if (data.myclientsRejectedCommandsNumber != null &&
+                        data.myclientsRejectedCommandsNumber! > 0)
+                      IconMenuItem(
+                        icon: Icons.workspaces_outlined,
+                        title: 'Commands'.tr,
+                        row1:
+                            'You have ${data.myclientsRejectedCommandsNumber} exit rejected commands'
+                                .tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                    if (data.myRejectedCommandsNumber != null &&
+                        data.myRejectedCommandsNumber! > 0)
+                      IconMenuItem(
+                        icon: Icons.workspaces_outlined,
+                        title: 'Commands'.tr,
+                        row1:
+                            'You have ${data.myRejectedCommandsNumber} entries rejected commands'
+                                .tr,
+                        onTap: () {
+                          // ... Your onTap logic ...
+                        },
+                      ),
+                  ],
                 );
-              },
-            ),
+              }
+            }),
           ),
         ],
       ),

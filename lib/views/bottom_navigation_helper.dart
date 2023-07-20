@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Badge;
+import 'package:badges/badges.dart';
 
 import 'package:flutter_project/views/settings/settings_page.dart';
 import 'package:flutter_project/views/login/Profile.dart';
+import 'package:flutter_project/controllers/NotificationsController.dart';
 import 'package:get/get.dart';
 
 import 'entries/entries.dart';
@@ -69,7 +71,26 @@ BottomNavigationBar createHomeBottomNavigationBar(int selectedIndex) {
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.notifications),
+        icon: Badge(
+          // Wrap the Icon with Badge widget
+          badgeContent: Obx(() {
+            NotificationController notificationController =
+                Get.put(NotificationController());
+            final data = notificationController.notificationData.value;
+            print(data);
+            return Text(
+              data.notifications?.toString() ??
+                  '0', // Display the notification count
+              style: TextStyle(color: Colors.white),
+            );
+          }),
+          badgeStyle: BadgeStyle(
+            badgeColor: Colors.red, // Customize the badge background color
+          ),
+          position: BadgePosition.topEnd(
+              top: -12, end: -12), // Position the badge on top of the icon
+          child: Icon(Icons.notifications),
+        ),
         label: 'notifications'.tr,
         backgroundColor: Colors.blue,
       ),
@@ -143,7 +164,7 @@ BottomNavigationBar createEntriesBottomNavigationBar(int selectedIndex) {
 void handleEntriesBottomNavigationBarTap(int index) {
   switch (index) {
     case 0:
-       Get.to(() => Entries(
+      Get.to(() => Entries(
             bottomNavigationBar: createEntriesBottomNavigationBar(0),
           ));
       break;
