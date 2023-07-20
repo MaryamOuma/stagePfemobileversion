@@ -18,7 +18,7 @@ class Profile extends GetView<ProfileController> {
         backgroundColor: Colors.transparent,
       ),
       body: Body(),
-      bottomNavigationBar: handleBottomNavigationBar(0),
+      bottomNavigationBar: createHomeBottomNavigationBar(3),
     );
   }
 }

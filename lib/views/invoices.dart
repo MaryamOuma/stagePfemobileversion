@@ -19,7 +19,7 @@ class Invoices extends GetView<InvoicesController> {
       appBar: AppBar(
         title: Text('Invoices'),
       ),
-      bottomNavigationBar: handleBottomNavigationBar(0),
+      bottomNavigationBar: createEntriesBottomNavigationBar(2),
       body: Obx(
         () {
           print('building list view');

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide NavigationDrawer;
 import 'package:flutter_project/models/product.dart';
+import 'package:flutter_project/views/bottom_navigation_helper.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
 import 'package:flutter_project/widgets/product_list.dart';
 import 'package:get/get.dart';
@@ -167,46 +168,7 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
 
     return Scaffold(
       drawer: drawer,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: controller.currentIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Badge(
-              // Wrap the Icon with Badge widget
-              badgeContent: Obx(() {
-                final data = notificationController.notificationData.value;
-                return Text(
-                  data.notifications?.toString() ??
-                      '0', // Display the notification count
-                  style: TextStyle(color: Colors.white),
-                );
-              }),
-              badgeColor: Colors.red, // Customize the badge background color
-              position: BadgePosition.topEnd(
-                  top: -12, end: -12), // Position the badge on top of the icon
-              child: Icon(Icons.notifications),
-            ),
-            label: 'Notifications',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-            backgroundColor: Colors.blue,
-          ),
-        ],
-        onTap: (index) => controller.navigateToPage(index),
-      ),
+      bottomNavigationBar: createHomeBottomNavigationBar(0),
       body: CustomPaint(
         painter: MainBackground(),
         child: TabBarView(

@@ -14,10 +14,10 @@ import 'orders.dart';
 BottomNavigationBar handleBottomNavigationBar(int index) {
   switch (index) {
     case 0:
-      return createHomeBottomNavigationBar();
+      return createHomeBottomNavigationBar(0);
       break;
     case 1:
-      return createEntriesBottomNavigationBar();
+      return createEntriesBottomNavigationBar(0);
       break;
     case 2:
       return createExitsBottomNavigationBar();
@@ -40,8 +40,23 @@ BottomNavigationBar createDefaultBottomNavigationBar() {
         label: 'Home',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.notifications),
+        icon: Badge(
+          // Wrap the Icon with Badge widget
+          badgeContent: Obx(() {
+            final data = notificationController.notificationData.value;
+            return Text(
+              data.notifications?.toString() ??
+                  '0', // Display the notification count
+              style: TextStyle(color: Colors.white),
+            );
+          }),
+          badgeColor: Colors.red, // Customize the badge background color
+          position: BadgePosition.topEnd(
+              top: -12, end: -12), // Position the badge on top of the icon
+          child: Icon(Icons.notifications),
+        ),
         label: 'Notifications',
+        backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.settings),
@@ -56,11 +71,11 @@ BottomNavigationBar createDefaultBottomNavigationBar() {
   );
 }
 
-BottomNavigationBar createHomeBottomNavigationBar() {
+BottomNavigationBar createHomeBottomNavigationBar(int selectedIndex) {
   // Create bottom navigation bar for Home page
   // Example:
   return BottomNavigationBar(
-    currentIndex: 0,
+    currentIndex: selectedIndex,
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
@@ -129,11 +144,11 @@ void handleHomeBottomNavigationBarTap(int index) {
   }
 }
 
-BottomNavigationBar createEntriesBottomNavigationBar() {
+BottomNavigationBar createEntriesBottomNavigationBar(int selectedIndex) {
   // Create bottom navigation bar for Entries page
   // Example:
   return BottomNavigationBar(
-    currentIndex: 0,
+    currentIndex: selectedIndex,
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.workspaces_outlined),
@@ -160,7 +175,7 @@ void handleEntriesBottomNavigationBarTap(int index) {
       // Navigate to the Commands page
 
       Get.to(() => Entries(
-            bottomNavigationBar: handleBottomNavigationBar(1),
+            bottomNavigationBar: createEntriesBottomNavigationBar(0),
           ));
 
       break;

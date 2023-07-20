@@ -17,7 +17,7 @@ class Settings extends GetView<SettingsController> {
         backgroundColor: Colors.blue.shade700,
       ),
       body: Body(),
-      bottomNavigationBar: handleBottomNavigationBar(0),
+      bottomNavigationBar: createHomeBottomNavigationBar(2),
     );
   }
 }

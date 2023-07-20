@@ -18,7 +18,7 @@ class Orders extends GetView<PurchaseOrderController> {
       appBar: AppBar(
         title: Text('Purchase Orders'),
       ),
-      bottomNavigationBar: handleBottomNavigationBar(0),
+      bottomNavigationBar: createEntriesBottomNavigationBar(1),
       body: Obx(
         () {
           print('building list view');

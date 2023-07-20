@@ -189,7 +189,7 @@ class MyNotifications extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: handleBottomNavigationBar(0),
+      bottomNavigationBar: createHomeBottomNavigationBar(1),
     );
   }
 }
