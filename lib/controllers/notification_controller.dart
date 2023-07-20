@@ -111,4 +111,37 @@ class NotificationController extends GetxController {
       return false; // Error
     }
   }
+
+  void onSearchChanged(String query) {
+    filterNotifications(query);
+    //print(query);
+  }
+
+  void filterNotifications(String query) {
+    /* if (query.isEmpty) {
+      //print("query empty");
+      // If the query is empty, show all commands
+      commands.value = originalCommands;
+    } else {
+      //print("query : "+ query);
+      // Filter the commands based on the query
+      commands.value = originalCommands
+          .where((command) =>
+              command.code.toLowerCase().contains(query.toLowerCase()) ||
+              command.articlesCount
+                  .toString()
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              command.userName.toLowerCase().contains(query.toLowerCase()) ||
+              command.price.toLowerCase().contains(query.toLowerCase()) ||
+              command.status.toLowerCase().contains(query.toLowerCase()) ||
+              timeago
+                  .format(command.createdAt)
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              command.department.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+
+      //print(commands.value);*/
+  }
 }

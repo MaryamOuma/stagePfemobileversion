@@ -6,20 +6,30 @@ import 'bottom_navigation_helper.dart';
 import 'entries/entries.dart';
 import 'navigation_drawer.dart';
 import 'package:get/get.dart';
-import '../controllers/NotificationsController.dart';
 
 class MyNotifications extends StatelessWidget {
   MyNotifications({Key? key}) : super(key: key);
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     // Get the existing instance of the NotificationController
     NotificationController controller = Get.put(NotificationController());
+    void onSearchChanged() {
+      // Perform search based on the entered query
+      String query = searchController.text;
+      controller.filterNotifications(query);
+      print("on changed");
+      // Implement search logic here
+    }
 
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: const Text('Notifications'),
+        title: SearchBar(
+          searchController: searchController,
+          onSearchChanged: controller.onSearchChanged,
+        ),
         backgroundColor: Colors.blue.shade700,
       ),
       body: Column(
@@ -30,25 +40,6 @@ class MyNotifications extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  children: [
-                    Icon(Icons.search, color: Colors.white),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search',
-                          hintStyle: TextStyle(color: Colors.white),
-                          border: InputBorder.none,
-                        ),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ),
           ),

@@ -199,14 +199,32 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         clipper: WaveClipper(),
         child: Container(
           padding: EdgeInsets.fromLTRB(16, 16, 16, 24),
-          // color: Color.fromRGBO(175, 190, 34, 1),
           color: Color.fromARGB(255, 122, 158, 187),
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: _icon(),
-              ),
+              Obx(() {
+                // Use Obx to reactively update the UI when the imageUrl changes
+                if (controller.user.value.image.isNotEmpty) {
+                  return SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: ClipOval(
+                      // Wrap the Image.asset with ClipOval to make it rounded
+                      child: Image.network(controller.user.value.image),
+                    ),
+                  );
+                } else {
+                  return SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: ClipOval(
+                      child: Image.asset(
+                        "assets/icons/default-image.jpg",
+                      ),
+                    ),
+                  );
+                }
+              }),
               Padding(
                 padding: EdgeInsets.only(bottom: 3),
                 child: Obx(
@@ -223,6 +241,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                         style: TextStyle(
                           fontSize: 28,
                           color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       );
                     }
@@ -230,22 +249,24 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(bottom: 12),
-                  child: Obx(
-                    () => Text(
-                      controller.user.value.profil,
-                      style: TextStyle(
-                        fontSize: 28,
-                        color: Color.fromRGBO(175, 190, 34, 1),
-                      ),
+                padding: EdgeInsets.only(bottom: 12),
+                child: Obx(
+                  () => Text(
+                    controller.user.value.profil,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic,
                     ),
-                  )),
+                  ),
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: Text(
-                  '',
+                  '', // Add some additional information if needed
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     color: Colors.white,
                   ),
                 ),
