@@ -1,4 +1,6 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/shared/theme.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/ProfileController.dart';
@@ -14,8 +16,24 @@ class Profile extends GetView<ProfileController> {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: Text('Profil'.tr),
+        title: Text('profil'.tr),
         backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(175, 190, 34, 1),
+                blue,
+                grey,
+              ],
+            ),
+          ),
+        ),
       ),
       body: Body(),
       bottomNavigationBar: createHomeBottomNavigationBar(3),

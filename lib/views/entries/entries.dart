@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/shared/theme.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
 import 'package:get/get.dart';
 import '../../controllers/EntriesController.dart';
@@ -30,11 +31,28 @@ class Entries extends GetView<EntriesController> {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(175, 190, 34, 1),
+                blue,
+                grey,
+              ],
+            ),
+          ),
+        ),
         title: SearchBar(
           searchController: searchController,
           onSearchChanged: controller.onSearchChanged,
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor:
+            Colors.transparent, // Set AppBar background color to transparent
+        elevation: 0, // Remove the AppBar shadow
       ),
       bottomNavigationBar: bottomNavigationBar,
       body: Column(

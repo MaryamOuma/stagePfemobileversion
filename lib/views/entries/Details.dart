@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:data_tables/data_tables.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/shared/theme.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/EntriesController.dart';
@@ -117,8 +118,24 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: const Text('Details'),
-        backgroundColor: Colors.blue,
+        title: Text('details'.tr),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(175, 190, 34, 1),
+                blue,
+                grey,
+              ],
+            ),
+          ),
+        ),
       ),
       bottomNavigationBar: handleBottomNavigationBar(0),
       body: SingleChildScrollView(

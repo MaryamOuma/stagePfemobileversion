@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/notification_controller.dart';
+import 'package:flutter_project/shared/theme.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
 import '../widgets/icon_menu_item.dart';
 import 'bottom_navigation_helper.dart';
@@ -26,11 +27,24 @@ class MyNotifications extends StatelessWidget {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: SearchBar(
-          searchController: searchController,
-          onSearchChanged: notifcontroller.onSearchChanged,
+        title: Text('notifications'.tr),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(175, 190, 34, 1),
+                blue,
+                grey,
+              ],
+            ),
+          ),
         ),
-        backgroundColor: Colors.blue.shade700,
       ),
       body: Column(
         children: [
