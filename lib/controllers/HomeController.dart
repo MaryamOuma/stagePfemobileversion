@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../views/login/Profile.dart';
 import '../views/notifications.dart';
-import '../views/settings.dart';
+import '../views/settings/settings.dart';
 
 class HomeController extends GetxController {
   int currentIndex = 0;

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/user_controller.dart';
+import 'package:flutter_project/views/settings/change_password.dart';
+
 import 'package:flutter_project/widgets/profile_menu.dart';
 import 'package:flutter_project/widgets/profile_pic.dart';
 import 'package:get/get.dart';
@@ -38,7 +40,7 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Change password",
             icon: "assets/icons/logout.png",
-            press: () => {},
+            press: () => {Get.to(() => ChangePasswordPage())},
           ),
         ],
       ),

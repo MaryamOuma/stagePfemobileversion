@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/notification_controller.dart';
-import 'package:flutter_project/views/settings.dart';
+import 'package:flutter_project/views/settings/settings.dart';
 import 'package:flutter_project/views/login/Profile.dart';
 import 'package:get/get.dart';
 import 'entries/entries.dart';
@@ -37,7 +37,7 @@ BottomNavigationBar createDefaultBottomNavigationBar() {
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        label: 'Home',
+        label: 'home'.tr,
       ),
       BottomNavigationBarItem(
         icon: Badge(
@@ -55,16 +55,16 @@ BottomNavigationBar createDefaultBottomNavigationBar() {
               top: -12, end: -12), // Position the badge on top of the icon
           child: Icon(Icons.notifications),
         ),
-        label: 'Notifications',
+        label: 'notifications'.tr,
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.settings),
-        label: 'Settings',
+        label: 'settings'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.person),
-        label: 'Profile',
+        label: 'Profil'.tr,
       ),
     ],
     onTap: (index) {},
@@ -79,7 +79,7 @@ BottomNavigationBar createHomeBottomNavigationBar(int selectedIndex) {
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        label: 'Home',
+        label: 'home'.tr,
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
@@ -100,17 +100,17 @@ BottomNavigationBar createHomeBottomNavigationBar(int selectedIndex) {
               top: -12, end: -12), // Position the badge on top of the icon
           child: Icon(Icons.notifications),
         ),
-        label: 'Notifications',
+        label: 'notifications'.tr,
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.settings),
-        label: 'Settings',
+        label: 'settings'.tr,
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.person),
-        label: 'Profile',
+        label: 'profil'.tr,
         backgroundColor: Colors.blue,
       ),
     ],
@@ -152,15 +152,15 @@ BottomNavigationBar createEntriesBottomNavigationBar(int selectedIndex) {
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.workspaces_outlined),
-        label: 'Commands',
+        label: 'commands'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.shopping_cart_outlined),
-        label: 'Orders',
+        label: 'orders'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.receipt_outlined),
-        label: 'Invoices',
+        label: 'invoices'.tr,
       ),
     ],
     onTap: (index) {
@@ -201,15 +201,15 @@ BottomNavigationBar createExitsBottomNavigationBar() {
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.workspaces_outlined),
-        label: 'Commands',
+        label: 'commands'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.shopping_cart_outlined),
-        label: 'Orders',
+        label: 'orders'.tr,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.receipt_outlined),
-        label: 'Invoices',
+        label: 'invoices'.tr,
       ),
     ],
     onTap: (index) {

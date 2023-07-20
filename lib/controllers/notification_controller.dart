@@ -24,6 +24,7 @@ class NotificationController extends GetxController {
     expirationArticles: 0,
   ).obs;
   List<Product> products = [];
+  final isLoading = true.obs;
 
   @override
   void onReady() {
@@ -109,6 +110,8 @@ class NotificationController extends GetxController {
     } catch (e) {
       // Handle error if needed
       return false; // Error
+    } finally {
+      isLoading.value = false;
     }
   }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/shared/theme.dart';
 import 'package:get/get.dart';
 import 'package:data_tables/data_tables.dart';
+import 'package:intl/intl.dart';
 import 'dart:math';
 
 import '../../models/PurchaseOrder.dart';
@@ -17,7 +19,7 @@ class Invoices extends GetView<InvoicesController> {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: Text('Invoices'),
+        title: Text('invoices'.tr),
       ),
       bottomNavigationBar: createEntriesBottomNavigationBar(2),
       body: Obx(
@@ -184,7 +186,14 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
                       ],
                     ),
                     Text(
-                      '${widget.invoice.date}',
+                      'Date: ${DateFormat('yyyy-MM-dd').format(widget.invoice.date)}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Time: ${DateFormat('HH:mm').format(widget.invoice.date)}',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -203,7 +212,7 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
                 DataColumn(
                   label: Container(
                     decoration: BoxDecoration(
-                      color: Colors.red[300], // Replace with your desired color
+                      color: Colors.blue, // Replace with your desired color
                     ),
                     padding: EdgeInsets.all(8),
                     child: Text(
@@ -241,7 +250,7 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
                 DataColumn(
                   label: Container(
                     decoration: BoxDecoration(
-                      color: Colors.green, // Replace with your desired color
+                      color: Colors.blue, // Replace with your desired color
                     ),
                     padding: EdgeInsets.all(8),
                     child: Text(

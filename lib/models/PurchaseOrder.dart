@@ -8,7 +8,7 @@ class PurchaseOrder {
   final String user_email;
   final String status;
   final String price;
-  final String createdAt;
+  final DateTime createdAt;
   final String updatedAt;
   final int departmentId;
   final List<Item> items;
@@ -36,7 +36,7 @@ class PurchaseOrder {
       user_name: json['user_name'],
       status: json['status'],
       price: json['price'],
-      createdAt: json['created_at'],
+      createdAt: DateTime.parse(json['created_at']),
       updatedAt: json['updated_at'],
       departmentId: json['department_id'],
       items: List<Item>.from(json['items'].map((item) => Item.fromJson(item))),

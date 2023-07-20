@@ -2,6 +2,7 @@ import 'package:flutter_project/shared/theme.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_project/views/WelcomeBack.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -61,9 +62,9 @@ class _SplashScreenState extends State<SplashScreen>
                     text: TextSpan(
                         style: TextStyle(color: Colors.black),
                         children: [
-                          TextSpan(text: 'Welcome to '),
+                          TextSpan(text: 'welcome_to'.tr),
                           TextSpan(
-                              text: 'Stockify',
+                              text: 'stockify'.tr,
                               style: TextStyle(fontWeight: FontWeight.bold))
                         ]),
                   ),

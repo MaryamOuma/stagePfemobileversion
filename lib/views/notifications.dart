@@ -14,11 +14,11 @@ class MyNotifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the existing instance of the NotificationController
-    NotificationController controller = Get.put(NotificationController());
+    NotificationController notifcontroller = Get.put(NotificationController());
     void onSearchChanged() {
       // Perform search based on the entered query
       String query = searchController.text;
-      controller.filterNotifications(query);
+      notifcontroller.filterNotifications(query);
       print("on changed");
       // Implement search logic here
     }
@@ -28,7 +28,7 @@ class MyNotifications extends StatelessWidget {
       appBar: AppBar(
         title: SearchBar(
           searchController: searchController,
-          onSearchChanged: controller.onSearchChanged,
+          onSearchChanged: notifcontroller.onSearchChanged,
         ),
         backgroundColor: Colors.blue.shade700,
       ),
@@ -45,7 +45,7 @@ class MyNotifications extends StatelessWidget {
           ),
           Expanded(
             child: Obx(() {
-              final data = controller.notificationData.value;
+              final data = notifcontroller.notificationData.value;
               if (data.notifications == null) {
                 // Data is not yet available, show loading indicator
                 return Center(child: CircularProgressIndicator());

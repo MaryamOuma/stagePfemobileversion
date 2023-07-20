@@ -3,7 +3,7 @@ class Invoice {
   final String userName;
   final String userEmail;
   final String status;
-  final String? date;
+  final DateTime date;
   final double Total;
   final double RemainingAmount;
   final List<InvoiceItem> items;
@@ -30,7 +30,7 @@ class Invoice {
       userName: json['user_name'],
       status: json['invoice']['status'],
       userEmail: json['user_email'],
-      date: json['invoice']['created_at'],
+      date: DateTime.parse(json['invoice']['created_at']),
       Total: double.parse(json['total']),
       RemainingAmount: json['invoice']['remaining_amount'],
       items: invoiceItems,

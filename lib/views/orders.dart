@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:data_tables/data_tables.dart';
+import 'package:intl/intl.dart';
 import 'dart:math';
 
 import '../../models/PurchaseOrder.dart';
@@ -16,7 +17,7 @@ class Orders extends GetView<PurchaseOrderController> {
     return Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
-        title: Text('Purchase Orders'),
+        title: Text('purchase_orders'.tr),
       ),
       bottomNavigationBar: createEntriesBottomNavigationBar(1),
       body: Obx(
@@ -173,7 +174,14 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
                       ],
                     ),
                     Text(
-                      '${widget.purchaseOrder.createdAt}',
+                      'Date: ${DateFormat('yyyy-MM-dd').format(widget.purchaseOrder.createdAt)}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Time: ${DateFormat('HH:mm').format(widget.purchaseOrder.createdAt)}',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -186,7 +194,7 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
           ),
 
           SizedBox(
-            height: 400,
+            height: 320,
             child: NativeDataTable(
               columns: [
                 DataColumn(
