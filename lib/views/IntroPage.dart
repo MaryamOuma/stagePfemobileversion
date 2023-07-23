@@ -1,4 +1,5 @@
 import 'package:flutter_project/shared/theme.dart';
+import 'package:flutter_project/views/ReloadSplashScreen.dart';
 import 'package:flutter_project/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -213,7 +214,7 @@ class _IntroPageState extends State<IntroPage> {
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => Home()));
+                                      builder: (context) => SplashScreen()));
                             },
                           ),
                         ),
@@ -244,7 +245,8 @@ class _IntroPageState extends State<IntroPage> {
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                          builder: (context) => Home()));
+                                          builder: (context) =>
+                                              SplashScreen()));
                                 },
                               )
                       ],

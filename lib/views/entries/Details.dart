@@ -179,7 +179,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             ),
                             SizedBox(width: 5),
                             Text(
-                              '${_command?.userName ?? ''}:<${_command?.userEmail ?? ''}>',
+                              '${_command?.userEmail ?? ''}',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 24,

@@ -10,11 +10,11 @@
             "name": "flutter_project",
             "request": "launch",
             "type": "dart",
-            "program": "lib/views/main.dart",
-            "args": [
+           "program": "lib/views/main.dart",
+          /*  "args": [
                 "-d",
                 "chrome"
-              ]
+              ]*/
         },
         {
             "name": "flutter_project (profile mode)",

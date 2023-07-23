@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/localization_controller.dart';
+import 'package:flutter_project/views/SplashScreen.dart';
 import 'package:flutter_project/views/WelcomeBack.dart';
 import 'package:flutter_project/views/home.dart';
 import 'package:flutter_project/views/login/Profile.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'locals.dart/localization.dart';
+import 'locals/localization.dart';
 
 void main() async {
   await GetStorage.init();
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           bool rememberMe = snapshot.data!;
-          Widget initialRoute = rememberMe ? Home() : WelcomeBackPage();
+          Widget initialRoute = rememberMe ? SplashScreen() : WelcomeBackPage();
 
           return GetMaterialApp(
             translations: Localization(), // Initialize the Localization class

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide NavigationDrawer;
+import 'package:flutter/material.dart';
 import 'package:flutter_project/models/product.dart';
 import 'package:flutter_project/views/bottom_navigation_helper.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
@@ -71,8 +71,11 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
     bottomTabController = TabController(length: 1, vsync: this);
   }
 
+  // Declare a GlobalKey to access the ScaffoldState
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    // Wrap NavigationDrawer with Theme to override icon color
     Widget drawer = NavigationDrawer();
     AppBar appBar = AppBar(
       title: Text(
@@ -85,6 +88,7 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
         ),
       ),
       backgroundColor: Colors.transparent,
+      elevation: 0,
     );
     Widget topHeader = Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
