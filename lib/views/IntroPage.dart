@@ -214,7 +214,8 @@ class _IntroPageState extends State<IntroPage> {
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => SplashScreen()));
+                                      builder: (context) =>
+                                          ReloadSplashScreen()));
                             },
                           ),
                         ),
@@ -246,7 +247,7 @@ class _IntroPageState extends State<IntroPage> {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              SplashScreen()));
+                                              ReloadSplashScreen()));
                                 },
                               )
                       ],

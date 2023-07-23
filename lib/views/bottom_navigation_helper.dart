@@ -50,7 +50,7 @@ BottomNavigationBar createDefaultBottomNavigationBar() {
               style: TextStyle(color: Colors.white),
             );
           }),
-          badgeColor: Colors.red, // Customize the badge background color
+          badgeColor: Color(0xffE99E22), // Customize the badge background color
           position: BadgePosition.topEnd(
               top: -12, end: -12), // Position the badge on top of the icon
           child: Icon(Icons.notifications),
@@ -95,7 +95,7 @@ BottomNavigationBar createHomeBottomNavigationBar(int selectedIndex) {
               style: TextStyle(color: Colors.white),
             );
           }),
-          badgeColor: Colors.red, // Customize the badge background color
+          badgeColor: Color(0xffE99E22), // Customize the badge background color
           position: BadgePosition.topEnd(
               top: -12, end: -12), // Position the badge on top of the icon
           child: Icon(Icons.notifications),

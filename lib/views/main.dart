@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/localization_controller.dart';
-import 'package:flutter_project/views/SplashScreen.dart';
+import 'package:flutter_project/views/ReloadSplashScreen.dart';
 import 'package:flutter_project/views/WelcomeBack.dart';
+import 'package:flutter_project/views/bottom_navigation_helper.dart';
+import 'package:flutter_project/views/entries/entries.dart';
 import 'package:flutter_project/views/home.dart';
+import 'package:flutter_project/views/invoices.dart';
 import 'package:flutter_project/views/login/Profile.dart';
+import 'package:flutter_project/views/orders.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,8 +36,9 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           bool rememberMe = snapshot.data!;
-          Widget initialRoute = rememberMe ? SplashScreen() : WelcomeBackPage();
-
+          Widget initialRoute =
+              rememberMe ? ReloadSplashScreen() : WelcomeBackPage();
+          debugPrint('$rememberMe');
           return GetMaterialApp(
             translations: Localization(), // Initialize the Localization class
             locale: Locale('en', 'US'), // Set the default locale for the app
@@ -45,6 +50,12 @@ class MyApp extends StatelessWidget {
               GetPage(name: '/login', page: () => WelcomeBackPage()),
               GetPage(name: '/home', page: () => Home()),
               GetPage(name: '/Profile', page: () => Profile()),
+              GetPage(
+                  name: '/Entries',
+                  page: () => Entries(
+                      bottomNavigationBar: handleBottomNavigationBar(1))),
+              GetPage(name: '/Orders', page: () => Orders()),
+              GetPage(name: '/Orders', page: () => Invoices()),
             ],
           );
         } else {

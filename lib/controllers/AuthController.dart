@@ -92,7 +92,7 @@ class AuthController extends GetxController {
         final prefs = await SharedPreferences.getInstance();
         prefs.clear();
         print(prefs.getString(
-            'authToken')); // Clear all data stored in shared preferences
+            'remmeberMe')); // Clear all data stored in shared preferences
         Get.offAll(() => WelcomeBackPage()); // Navigate to the login page
       } else {
         // Handle logout error

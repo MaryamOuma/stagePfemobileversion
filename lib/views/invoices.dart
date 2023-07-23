@@ -30,7 +30,7 @@ class Invoices extends GetView<InvoicesController> {
             ),
             gradient: LinearGradient(
               colors: [
-                Color.fromRGBO(175, 190, 34, 1),
+                Color(0xffE99E22),
                 blue,
                 grey,
               ],

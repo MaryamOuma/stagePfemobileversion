@@ -21,6 +21,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
   void initState() {
     super.initState();
     getRememberMeStatus();
+    //bool rememberMe = false;
   }
 
   void getRememberMeStatus() async {
@@ -167,7 +168,7 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
               onChanged: (value) {
                 setState(() {
                   rememberMe = value!;
-                  saveRememberMeStatus(rememberMe);
+                  // saveRememberMeStatus(rememberMe);
                 });
               },
             ),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class ReloadSplashScreen extends StatefulWidget {
+  const ReloadSplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<ReloadSplashScreen> {
   @override
   void initState() {
     super.initState();
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Add any initialization tasks you need here
 
     // Delay for a few seconds to show the animation
-    Future.delayed(const Duration(seconds: 6), () {
+    Future.delayed(const Duration(seconds: 5), () {
       // Navigating to home screen or any other screen you want
       Navigator.pushNamed(context, '/home');
     });

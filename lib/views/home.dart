@@ -89,6 +89,7 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,
+      leading: CustomDrawerButton(),
     );
     Widget topHeader = Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
@@ -208,6 +209,31 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CustomDrawerButton extends StatefulWidget {
+  const CustomDrawerButton({Key? key}) : super(key: key);
+
+  @override
+  _CustomDrawerButtonState createState() => _CustomDrawerButtonState();
+}
+
+class _CustomDrawerButtonState extends State<CustomDrawerButton> {
+  bool isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Open the drawer when the button is tapped
+        Scaffold.of(context).openDrawer();
+      },
+      child: Container(
+        color: isHovered ? Colors.grey[300] : Colors.transparent,
+        child: Icon(Icons.menu, color: darkGrey),
       ),
     );
   }
