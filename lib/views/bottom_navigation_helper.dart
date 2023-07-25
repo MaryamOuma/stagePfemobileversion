@@ -1,15 +1,17 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/notification_controller.dart';
+import 'package:flutter_project/views/exits/orders.dart';
+import 'package:flutter_project/views/exits/invoices.dart';
 import 'package:flutter_project/views/settings/settings.dart';
 import 'package:flutter_project/views/login/Profile.dart';
 import 'package:get/get.dart';
 import 'entries/entries.dart';
 import 'exits/exits.dart';
 import 'home.dart';
-import 'invoices.dart';
+import 'entries/invoices.dart';
 import 'notifications.dart';
-import 'orders.dart';
+import 'entries/orders.dart';
 
 BottomNavigationBar handleBottomNavigationBar(int index) {
   switch (index) {
@@ -20,7 +22,7 @@ BottomNavigationBar handleBottomNavigationBar(int index) {
       return createEntriesBottomNavigationBar(0);
       break;
     case 2:
-      return createExitsBottomNavigationBar();
+      return createExitsBottomNavigationBar(0);
       break;
 
     default:
@@ -193,11 +195,11 @@ void handleEntriesBottomNavigationBarTap(int index) {
   }
 }
 
-BottomNavigationBar createExitsBottomNavigationBar() {
+BottomNavigationBar createExitsBottomNavigationBar(int selectedIndex) {
   // Create bottom navigation bar for Exits page
   // Example:
   return BottomNavigationBar(
-    currentIndex: 0,
+    currentIndex: selectedIndex,
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.workspaces_outlined),
@@ -223,17 +225,17 @@ void handleExitsBottomNavigationBarTap(int index) {
     case 0:
       Get.to(() {
         return Exits(
-          bottomNavigationBar: handleBottomNavigationBar(2),
+          bottomNavigationBar: handleBottomNavigationBar(0),
         );
       });
       break;
     case 1:
       // Navigate to the Orders page
-      Get.to(() => Orders());
+      Get.to(() => ExitOrders());
       break;
     case 2:
       // Navigate to the Invoices page
-      Get.to(() => Invoices());
+      Get.to(() => ExitInvoices());
       break;
     default:
       // Handle other cases or error

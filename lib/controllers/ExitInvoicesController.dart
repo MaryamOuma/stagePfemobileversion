@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:flutter_project/models/Invoice.dart';
+import 'package:flutter_project/models/ExitInvoice.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class InvoicesController extends GetxController {
-  final invoices = <Invoice>[].obs;
+class ExitInvoicesController extends GetxController {
+  final invoices = <ExitInvoice>[].obs;
   final RxString authToken = ''.obs;
   @override
   void onInit() {
@@ -27,7 +27,7 @@ class InvoicesController extends GetxController {
     if (token != null && token.isNotEmpty) {
       try {
         final response = await http.get(
-          Uri.parse('http://localhost:8000/api/entries/invoices'),
+          Uri.parse('http://localhost:8000/api/exits/invoices'),
           headers: {'Authorization': 'Bearer $token'},
         );
 
@@ -36,8 +36,9 @@ class InvoicesController extends GetxController {
 
           final List<dynamic> invoicesData = data as List<dynamic>;
 
-          final List<Invoice> fetchedInvoices =
-              invoicesData.map((invoice) => Invoice.fromJson(invoice)).toList();
+          final List<ExitInvoice> fetchedInvoices = invoicesData
+              .map((invoice) => ExitInvoice.fromJson(invoice))
+              .toList();
           print('$fetchedInvoices');
           invoices.value = fetchedInvoices;
         } else {

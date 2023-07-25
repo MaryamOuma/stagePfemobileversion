@@ -120,7 +120,7 @@ class EntriesController extends GetxController {
     final authToken = prefs.getString('authToken');
 
     if (authToken != null && authToken.isNotEmpty) {
-      final url = 'http://localhost:8000/api/show/$id';
+      final url = 'http://localhost:8000/api/show/entries/$id';
 
       final response = await http.get(
         Uri.parse(url),

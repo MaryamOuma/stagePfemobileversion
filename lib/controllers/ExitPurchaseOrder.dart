@@ -1,11 +1,11 @@
 import 'dart:convert';
+import 'package:flutter_project/models/ExitPurchaseOrder.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/PurchaseOrder.dart';
 
-class PurchaseOrderController extends GetxController {
-  final purchaseOrders = <PurchaseOrder>[].obs;
+class ExitPurchaseOrderController extends GetxController {
+  final purchaseOrders = <ExitPurchaseOrder>[].obs;
   final RxString authToken = ''.obs;
   @override
   void onInit() {
@@ -27,7 +27,7 @@ class PurchaseOrderController extends GetxController {
       try {
         print('im trying');
         final response = await http.get(
-          Uri.parse('http://localhost:8000/api/index/entries/orders'),
+          Uri.parse('http://localhost:8000/api/index/exits/orders'),
           headers: {'Authorization': 'Bearer $token'},
         );
 
@@ -37,9 +37,10 @@ class PurchaseOrderController extends GetxController {
 
           final purchaseOrdersData = data['purchase_info'] as List<dynamic>;
 
-          final List<PurchaseOrder> fetchedPurchaseOrders = purchaseOrdersData
-              .map((items) => PurchaseOrder.fromJson(items))
-              .toList();
+          final List<ExitPurchaseOrder> fetchedPurchaseOrders =
+              purchaseOrdersData
+                  .map((items) => ExitPurchaseOrder.fromJson(items))
+                  .toList();
           //print('your purchase order : $fetchedPurchaseOrders');
           purchaseOrders.value = fetchedPurchaseOrders;
         } else {

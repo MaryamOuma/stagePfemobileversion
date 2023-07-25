@@ -4,10 +4,10 @@ import 'package:flutter_project/views/ReloadSplashScreen.dart';
 import 'package:flutter_project/views/WelcomeBack.dart';
 import 'package:flutter_project/views/bottom_navigation_helper.dart';
 import 'package:flutter_project/views/entries/entries.dart';
+import 'package:flutter_project/views/entries/invoices.dart';
+import 'package:flutter_project/views/entries/orders.dart';
 import 'package:flutter_project/views/home.dart';
-import 'package:flutter_project/views/invoices.dart';
 import 'package:flutter_project/views/login/Profile.dart';
-import 'package:flutter_project/views/orders.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
                   page: () => Entries(
                       bottomNavigationBar: handleBottomNavigationBar(1))),
               GetPage(name: '/Orders', page: () => Orders()),
-              GetPage(name: '/Orders', page: () => Invoices()),
+              GetPage(name: '/Invoices', page: () => Invoices()),
             ],
           );
         } else {
