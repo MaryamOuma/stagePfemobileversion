@@ -88,12 +88,12 @@ BottomNavigationBar createHomeBottomNavigationBar(int selectedIndex) {
         icon: Badge(
           // Wrap the Icon with Badge widget
           badgeContent: Obx(() {
-            NotificationController notificationController =
-                Get.put(NotificationController());
-            final data = notificationController.notificationData.value;
+            NotificationController notificationController = Get.find();
+            //final data = notificationController.notificationData.value;
+
             return Text(
-              data.notifications?.toString() ??
-                  '0', // Display the notification count
+              notificationController.viewedNotificationsCount
+                  .toString(), // Display the notification count
               style: TextStyle(color: Colors.white),
             );
           }),

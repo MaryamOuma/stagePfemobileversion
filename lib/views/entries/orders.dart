@@ -1,14 +1,18 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_project/shared/theme.dart';
 import 'package:get/get.dart';
 import 'package:data_tables/data_tables.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
-
-import '../../models/PurchaseOrder.dart';
-import '../controllers/PurchaseOrderController.dart';
-import '../views/bottom_navigation_helper.dart';
-import '../views/navigation_drawer.dart';
+import 'package:excel/excel.dart';
+import '../../../models/PurchaseOrder.dart';
+import '../../controllers/PurchaseOrderController.dart';
+import '../bottom_navigation_helper.dart';
+import '../navigation_drawer.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class Orders extends GetView<PurchaseOrderController> {
   final PurchaseOrderController controller = Get.put(PurchaseOrderController());
@@ -303,13 +307,14 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
                 IconButton(
                   onPressed: () {
                     // Generate Excel
+                    generateExcel(widget.purchaseOrder);
                   },
                   icon: Icon(Icons.file_download),
                 ),
                 SizedBox(width: 16.0),
                 IconButton(
                   onPressed: () {
-                    // Generate PDF
+                    generatePdf();
                   },
                   icon: Icon(Icons.picture_as_pdf),
                 ),
@@ -361,5 +366,84 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
         ],
       ),
     );
+  }
+
+  void generateExcel(PurchaseOrder purchaseOrder) {
+    var excel = Excel.createExcel();
+
+    var sheet = excel['Sheet1'];
+
+    // Add header for command reference
+    sheet.appendRow(['Command Reference: ${purchaseOrder.code}']);
+
+    // Add header for date and time
+    sheet.appendRow(
+        ['Date: ${DateFormat('yyyy-MM-dd').format(purchaseOrder.createdAt)}']);
+    sheet.appendRow(
+        ['Time: ${DateFormat('HH:mm').format(purchaseOrder.createdAt)}']);
+
+    // Add header for made by
+    sheet.appendRow(['Made By: ${purchaseOrder.user_name}']);
+
+    // Add spacing row
+    sheet.appendRow([]);
+
+    // Add headers for data
+    sheet.appendRow(['Article', 'Quantity', 'SubTotal']);
+
+    // Add data rows
+    for (var item in purchaseOrder.items) {
+      sheet.appendRow([item.article, item.quantity, item.subtotal]);
+    }
+
+    // Save the Excel file to a file
+    var excelPath = 'path_to_save_excel_file.xlsx';
+    File(excelPath).writeAsBytesSync(excel.save()!); // Add the ! operator here
+
+    print('Excel generated: $excelPath');
+  }
+
+  void generatePdf() {
+    // Create a PDF document
+    final pdf = pw.Document();
+
+    // Add content to the PDF
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              // Add your content here, similar to what you have in your Card widget
+              pw.Text('Order Reference: ${widget.purchaseOrder.code}'),
+              pw.Text('Made By: ${widget.purchaseOrder.user_name}'),
+              pw.Text(
+                  'Date: ${DateFormat('yyyy-MM-dd').format(widget.purchaseOrder.createdAt)}'),
+              pw.Text(
+                  'Time: ${DateFormat('HH:mm').format(widget.purchaseOrder.createdAt)}'),
+              // Add other content as needed
+            ],
+          );
+        },
+      ),
+    );
+
+    // Save the PDF as bytes asynchronously
+    pdf.save().then((Uint8List pdfBytes) {
+      // Save the PDF to a file without blocking the main thread
+      final File pdfFile = File('purchase_order.pdf');
+      pdfFile.writeAsBytes(pdfBytes).then((_) {
+        // Show a message indicating the PDF is saved
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('PDF file saved'),
+          ),
+        );
+      }).catchError((error) {
+        print('Error saving PDF: $error');
+      });
+    }).catchError((error) {
+      print('Error generating PDF: $error');
+    });
   }
 }

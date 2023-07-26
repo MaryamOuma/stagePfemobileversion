@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/localization_controller.dart';
+import 'package:flutter_project/controllers/notification_controller.dart';
 import 'package:flutter_project/views/ReloadSplashScreen.dart';
 import 'package:flutter_project/views/WelcomeBack.dart';
 import 'package:flutter_project/views/bottom_navigation_helper.dart';
@@ -23,11 +24,13 @@ void main() async {
   if (savedLanguage != null && savedLanguage.isNotEmpty) {
     localizationController.currentLanguage.value = savedLanguage;
   }
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final Map<String, NotificationController> _controllerInstances = {};
+
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +41,10 @@ class MyApp extends StatelessWidget {
           bool rememberMe = snapshot.data!;
           Widget initialRoute =
               rememberMe ? ReloadSplashScreen() : WelcomeBackPage();
-          debugPrint('$rememberMe');
+
           return GetMaterialApp(
+            // Save the data when the app closes
+
             translations: Localization(), // Initialize the Localization class
             locale: Locale('en', 'US'), // Set the default locale for the app
             fallbackLocale: Locale('en', 'US'), // Set the fallback locale
@@ -47,7 +52,25 @@ class MyApp extends StatelessWidget {
             initialRoute: '/',
             getPages: [
               GetPage(name: '/', page: () => initialRoute),
-              GetPage(name: '/login', page: () => WelcomeBackPage()),
+              GetPage(
+                name: '/login',
+                page: () => WelcomeBackPage(),
+                binding: BindingsBuilder(() async {
+                  // Get the user ID from shared preferences
+                  final prefs = await SharedPreferences.getInstance();
+                  final int? userId = prefs.getInt('user_id');
+
+                  if (userId != null && userId != 0) {
+                    // Create or find the NotificationController for the current user
+                    final NotificationController notifController =
+                        Get.put(NotificationController(), tag: 'user_$userId');
+
+                    // Load the saved data when the app starts for the logged-in user
+                    notifController.setUserId(userId.toString());
+                    notifController.loadData();
+                  }
+                }),
+              ),
               GetPage(name: '/home', page: () => Home()),
               GetPage(name: '/Profile', page: () => Profile()),
               GetPage(
@@ -70,5 +93,12 @@ class MyApp extends StatelessWidget {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool rememberMeStatus = prefs.getBool('rememberMe') ?? false;
     return rememberMeStatus;
+  }
+
+  NotificationController _getNotificationControllerForUser(String userId) {
+    if (!_controllerInstances.containsKey(userId)) {
+      _controllerInstances[userId] = NotificationController();
+    }
+    return _controllerInstances[userId]!;
   }
 }

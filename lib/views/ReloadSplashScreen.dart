@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/controllers/notification_controller.dart';
+import 'package:get/get.dart';
 
 class ReloadSplashScreen extends StatefulWidget {
   const ReloadSplashScreen({Key? key}) : super(key: key);
@@ -8,12 +10,15 @@ class ReloadSplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<ReloadSplashScreen> {
+  final NotificationController notifController =
+      Get.find<NotificationController>();
   @override
   void initState() {
     super.initState();
 
     // Add any initialization tasks you need here
-
+    // Load the saved data when the app starts
+    // notifController.loadData();
     // Delay for a few seconds to show the animation
     Future.delayed(const Duration(seconds: 5), () {
       // Navigating to home screen or any other screen you want

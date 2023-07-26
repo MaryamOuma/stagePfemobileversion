@@ -29,6 +29,11 @@ class AuthController extends GetxController {
           final user = responseData['user'];
           final token = responseData['token'];
           // Store the token in the authToken variable
+          final int userId = responseData['user']['id'];
+
+          // Store the user ID in shared preferences
+          final pref = await SharedPreferences.getInstance();
+          pref.setInt('user_id', userId);
           authToken.value = token;
           final message = responseData['message'];
           // Save the token in shared preferences
@@ -89,8 +94,17 @@ class AuthController extends GetxController {
       );
       print('Logout successful');
       if (response.statusCode == 200) {
+        final String notificationCountPrefix = 'notificationCount_';
+        final String showIconMenuItemPrefix = 'showIconMenuItem_';
         final prefs = await SharedPreferences.getInstance();
-        prefs.clear();
+        final keys = prefs.getKeys();
+        for (String key in keys) {
+          if (!key.startsWith(notificationCountPrefix) &&
+              !key.startsWith(showIconMenuItemPrefix)) {
+            prefs.remove(
+                key); // Clear all preferences that do not have the notificationCount_ and showIconMenuItem_ prefixes
+          }
+        }
         print(prefs.getString(
             'remmeberMe')); // Clear all data stored in shared preferences
         Get.offAll(() => WelcomeBackPage()); // Navigate to the login page

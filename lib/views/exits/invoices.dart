@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/ExitInvoicesController.dart';
 import 'package:flutter_project/shared/theme.dart';
@@ -366,6 +369,7 @@ class _InvoiceCardState extends State<InvoiceCard> {
                 IconButton(
                   onPressed: () {
                     // Generate Excel
+                    generateExcel();
                   },
                   icon: Icon(Icons.file_download),
                 ),
@@ -424,5 +428,50 @@ class _InvoiceCardState extends State<InvoiceCard> {
         ],
       ),
     );
+  }
+
+  void generateExcel() {
+    var excel = Excel.createExcel();
+
+    var sheet = excel['Sheet1'];
+
+    // Add header for command reference
+    sheet.appendRow(['Command Reference: ${widget.invoice.commandReference}']);
+
+    // Add header for date and time
+    sheet.appendRow(
+        ['Date: ${DateFormat('yyyy-MM-dd').format(widget.invoice.date)}']);
+    sheet.appendRow(
+        ['Time: ${DateFormat('HH:mm').format(widget.invoice.date)}']);
+
+    // Add header for made by
+    sheet.appendRow(['Made By: ${widget.invoice.userName}']);
+
+    // Add spacing row
+    sheet.appendRow([]);
+    sheet.appendRow(['Status: ${widget.invoice.status}']);
+    sheet.appendRow([]);
+    sheet.appendRow([
+      'Client Infos: ${widget.invoice.clientName}: ${widget.invoice.clientEmail}'
+    ]);
+    sheet.appendRow([]);
+
+    // Add headers for data
+    sheet.appendRow(['Article', 'Quantity', 'SubTotal']);
+
+    // Add data rows
+    for (var item in widget.invoice.items) {
+      sheet.appendRow([item.article, item.quantity, item.subtotal]);
+    }
+    sheet.appendRow([]);
+    sheet.appendRow(['Total Amount Paid: ${widget.invoice.Total}']);
+    sheet.appendRow([]);
+    sheet.appendRow(['Remaining Amount: ${widget.invoice.RemainingAmount}']);
+
+    // Save the Excel file to a file
+    var excelPath = 'path_to_save_excel_file.xlsx';
+    File(excelPath).writeAsBytesSync(excel.save()!); // Add the ! operator here
+
+    print('Excel generated: $excelPath');
   }
 }

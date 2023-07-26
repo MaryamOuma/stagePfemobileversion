@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/controllers/notification_controller.dart';
+import 'package:get/get.dart';
 
 import '../shared/theme.dart';
 
@@ -7,6 +9,7 @@ class IconMenuItem extends StatelessWidget {
   final String? row1;
   final IconData? icon;
   final VoidCallback? onTap;
+  final int itemId; // New parameter to store the item ID
 
   const IconMenuItem({
     Key? key,
@@ -14,10 +17,14 @@ class IconMenuItem extends StatelessWidget {
     this.row1,
     this.icon,
     this.onTap,
+    required this.itemId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    NotificationController notifcontroller = Get.put(NotificationController());
+    bool isClicked = notifcontroller.clickedStatusMap[itemId] ?? false;
+    print(isClicked);
     return InkWell(
         onTap: onTap,
         child: Container(
@@ -26,7 +33,7 @@ class IconMenuItem extends StatelessWidget {
           //width: 320.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.0),
-            color: Colors.white,
+            color: isClicked ? Colors.white : Colors.grey[300],
             boxShadow: [
               BoxShadow(
                 color: Colors.black12,

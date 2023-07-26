@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/ExitPurchaseOrder.dart';
 
@@ -8,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:data_tables/data_tables.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
+import 'package:excel/excel.dart';
 
 import '../../models/ExitPurchaseOrder.dart';
 
@@ -314,6 +317,7 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
                 IconButton(
                   onPressed: () {
                     // Generate Excel
+                    generateExcel(widget.purchaseOrder);
                   },
                   icon: Icon(Icons.file_download),
                 ),
@@ -372,5 +376,45 @@ class _PurchaseOrderCardState extends State<PurchaseOrderCard> {
         ],
       ),
     );
+  }
+
+  void generateExcel(ExitPurchaseOrder purchaseOrder) {
+    var excel = Excel.createExcel();
+
+    var sheet = excel['Sheet1'];
+
+    // Add header for command reference
+    sheet.appendRow(['Command Reference: ${purchaseOrder.code}']);
+
+    // Add header for date and time
+    sheet.appendRow(
+        ['Date: ${DateFormat('yyyy-MM-dd').format(purchaseOrder.createdAt)}']);
+    sheet.appendRow(
+        ['Time: ${DateFormat('HH:mm').format(purchaseOrder.createdAt)}']);
+
+    // Add header for made by
+    sheet.appendRow([
+      'Order Made By: ${purchaseOrder.userName}:${purchaseOrder.userEmail}'
+    ]);
+
+    // Add spacing row
+    sheet.appendRow([]);
+    sheet.appendRow([
+      'Client Infos: ${purchaseOrder.clientName}:${purchaseOrder.clientEmail}'
+    ]);
+    sheet.appendRow([]);
+    // Add headers for data
+    sheet.appendRow(['Article', 'Quantity', 'SubTotal']);
+
+    // Add data rows
+    for (var item in purchaseOrder.items) {
+      sheet.appendRow([item.article, item.quantity, item.subtotal]);
+    }
+
+    // Save the Excel file to a file
+    var excelPath = 'path_to_save_excel_file.xlsx';
+    File(excelPath).writeAsBytesSync(excel.save()!); // Add the ! operator here
+
+    print('Excel generated: $excelPath');
   }
 }

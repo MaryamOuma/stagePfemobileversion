@@ -31,7 +31,7 @@ dependencies:
     sdk: flutter
   english_words: ^4.0.0
     
-
+  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -49,7 +49,11 @@ dependencies:
   card_swiper: ^3.0.1
   badges: ^2.0.3
   get_storage: ^2.1.1
-  lottie: ^1.4.2
+  excel: ^2.0.0-null-safety-3
+  pdf: ^3.8.4
+  
+ 
+  
   
 
 dev_dependencies:
@@ -69,6 +73,7 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
+     
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -77,6 +82,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/animations/
+   
 
   # To add assets to your application, add an assets section, like this:
   # assets:

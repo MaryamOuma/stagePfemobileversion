@@ -22,9 +22,8 @@ class Home extends StatefulWidget {
 HomeController controller = Get.put(HomeController());
 NotificationController notificationController =
     Get.put(NotificationController());
-// Access the products list from the controller
-//List<Product> products = notificationController.products;
-List<Product> products = [
+List<Product> products = notificationController.products;
+/*List<Product> products = [
   Product(
       'assets/icons/entries.png',
       'entries_commands_to_treat'.tr,
@@ -55,7 +54,7 @@ List<Product> products = [
       'articles_close_to_threshold'.tr,
       'Articles close to the threshold are products or items whose remaining quantity is approaching a pre-defined threshold. This threshold indicates a minimum stock level that triggers the need for replenishment or reordering. Identifying articles close to the threshold allows proactive inventory management to avoid stockouts and ensure a smooth supply chain. By monitoring and taking timely action on these articles, businesses can maintain sufficient stock levels, prevent disruptions in production or sales, and meet customer demands effectively.',
       5),
-];
+];*/
 
 List<String> timelines = ['dashboard'.tr];
 String selectedTimeline = 'dashboard'.tr;
@@ -101,7 +100,9 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
                 onTap: () {
                   setState(() {
                     selectedTimeline = timelines[0];
-                    products = products;
+
+                    List<Product> products =
+                        notificationController.products as List<Product>;
                     /* products = [
                       Product(
                           'assets/icons/entries.png',
@@ -193,9 +194,8 @@ class _MainPageState extends State<Home> with TickerProviderStateMixin<Home> {
                       child: topHeader,
                     ),
                     SliverToBoxAdapter(
-                      child: ProductList(
-                        products: products,
-                      ),
+                      child: Obx(() => ProductList(
+                          products: notificationController.products.toList())),
                     ),
                     SliverToBoxAdapter(
                       child: tabBar,
