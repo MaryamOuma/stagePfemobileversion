@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/localization_controller.dart';
 import 'package:flutter_project/controllers/notification_controller.dart';
+import 'package:flutter_project/controllers/user_controller.dart';
 import 'package:flutter_project/views/ReloadSplashScreen.dart';
 import 'package:flutter_project/views/WelcomeBack.dart';
 import 'package:flutter_project/views/bottom_navigation_helper.dart';
@@ -24,6 +25,7 @@ void main() async {
   if (savedLanguage != null && savedLanguage.isNotEmpty) {
     localizationController.currentLanguage.value = savedLanguage;
   }
+
   runApp(MyApp());
 }
 
@@ -39,9 +41,10 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           bool rememberMe = snapshot.data!;
-          Widget initialRoute =
-              rememberMe ? ReloadSplashScreen() : WelcomeBackPage();
-
+          Widget initialRoute = rememberMe
+              ? ReloadSplashScreen(rememberMe: rememberMe)
+              : WelcomeBackPage();
+          //  Widget initialRoute = ReloadSplashScreen(rememberMe: rememberMe);
           return GetMaterialApp(
             // Save the data when the app closes
 
@@ -55,7 +58,7 @@ class MyApp extends StatelessWidget {
               GetPage(
                 name: '/login',
                 page: () => WelcomeBackPage(),
-                binding: BindingsBuilder(() async {
+                /* binding: BindingsBuilder(() async {
                   // Get the user ID from shared preferences
                   final prefs = await SharedPreferences.getInstance();
                   final int? userId = prefs.getInt('user_id');
@@ -69,16 +72,17 @@ class MyApp extends StatelessWidget {
                     notifController.setUserId(userId.toString());
                     notifController.loadData();
                   }
-                }),
+                }),*/
               ),
+              GetPage(
+                  name: '/splash',
+                  page: () => ReloadSplashScreen(rememberMe: rememberMe)),
               GetPage(name: '/home', page: () => Home()),
               GetPage(name: '/Profile', page: () => Profile()),
-              GetPage(
-                  name: '/Entries',
-                  page: () => Entries(
-                      bottomNavigationBar: handleBottomNavigationBar(1))),
-              GetPage(name: '/Orders', page: () => Orders()),
-              GetPage(name: '/Invoices', page: () => Invoices()),
+              GetPage(name: '/Entries', page: () => initialRoute),
+              GetPage(name: '/Orders', page: () => initialRoute),
+              GetPage(name: '/Invoices', page: () => initialRoute),
+              GetPage(name: '/MyNotifications', page: () => initialRoute),
             ],
           );
         } else {

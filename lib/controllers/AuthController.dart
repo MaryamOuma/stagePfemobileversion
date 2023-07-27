@@ -48,7 +48,8 @@ class AuthController extends GetxController {
           // If login is successful, call fetchUser to fetch the new user's data
           await controller.fetchUser(authToken.value);
           // Redirect to the home screen or perform any other logic
-          Get.to(() => IntroPage()); // Navigates to HomeView
+          Get.to(() => IntroPage(
+              rememberMe: rememberMe, token: token)); // Navigates to HomeView
         } else if (response.statusCode == 422) {
           final responseData = json.decode(response.body);
           final error = responseData['error'];

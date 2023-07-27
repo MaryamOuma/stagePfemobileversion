@@ -3,8 +3,13 @@ import 'package:flutter_project/views/ReloadSplashScreen.dart';
 import 'package:flutter_project/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatefulWidget {
+  final bool rememberMe;
+  final String token;
+
+  IntroPage({required this.rememberMe, required this.token});
   @override
   _IntroPageState createState() => _IntroPageState();
 }
@@ -212,10 +217,11 @@ class _IntroPageState extends State<IntroPage> {
                                   fontSize: 16),
                             ),
                             onPressed: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ReloadSplashScreen()));
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => ReloadSplashScreen(
+                                            rememberMe: widget.rememberMe,
+                                          )));
                             },
                           ),
                         ),
@@ -247,7 +253,9 @@ class _IntroPageState extends State<IntroPage> {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ReloadSplashScreen()));
+                                              ReloadSplashScreen(
+                                                rememberMe: widget.rememberMe,
+                                              )));
                                 },
                               )
                       ],
@@ -261,4 +269,10 @@ class _IntroPageState extends State<IntroPage> {
       ),
     );
   }
+}
+
+Future<bool> getRememberMeStatus() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool rememberMeStatus = prefs.getBool('rememberMe') ?? false;
+  return rememberMeStatus;
 }

@@ -3,7 +3,10 @@ import 'package:flutter_project/controllers/notification_controller.dart';
 import 'package:get/get.dart';
 
 class ReloadSplashScreen extends StatefulWidget {
-  const ReloadSplashScreen({Key? key}) : super(key: key);
+  final bool rememberMe;
+
+  const ReloadSplashScreen({Key? key, required this.rememberMe})
+      : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -11,7 +14,8 @@ class ReloadSplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<ReloadSplashScreen> {
   final NotificationController notifController =
-      Get.find<NotificationController>();
+      Get.put(NotificationController());
+
   @override
   void initState() {
     super.initState();
@@ -28,6 +32,17 @@ class _SplashScreenState extends State<ReloadSplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Check if the app is being resumed (coming back from the background)
+
+    // Delay navigation to the home page if rememberMe is true
+    /*  if (isResumed) {
+      // Redirect based on rememberMe when the app is resumed
+      if (!widget.rememberMe) {
+        Get.offNamed('/login');
+      } else {
+        Get.offNamed('/login');
+      }
+    }*/
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(

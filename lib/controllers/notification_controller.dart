@@ -1,8 +1,11 @@
 // notification_controller.dart
+import 'package:flutter_project/models/ExitCommand.dart';
+import 'package:flutter_project/models/Item.dart';
 import 'package:flutter_project/models/notification.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +16,16 @@ class NotificationController extends GetxController {
     notifications: 0,
     commandsNumber: 0,
     clientscommandsNumber: 0,
+    clientscommands: [],
+    rejectedclientscommands: [],
+    commands: [],
+    rejectedcommands: [],
+    entriesinvoicesTopay: [],
+    entriesinvoicesTovalidate: [],
+    exitsinvoicesTopay: [],
+    exitsinvoicesTovalidate: [],
+    expiredarticles: [],
+    thresholdarticles: [],
     myclientsRejectedCommandsNumber: 0,
     thresholdArticles: 0,
     expiringSoonArticles: 0,
@@ -192,34 +205,11 @@ class NotificationController extends GetxController {
     prefs.setInt('notificationCount_$_userId', viewedNotificationsCount);
   }
 
-  void printSharedPreferencesValues() async {
-    // Get the SharedPreferences values for the first user
-    final firstUserId = '67'; // Replace with the first user's ID
-    final prefs1 = await SharedPreferences.getInstance();
-    final showIconMenuItem1 = prefs1.getBool('showIconMenuItem_$firstUserId');
-    final notificationCount1 = prefs1.getInt('notificationCount_$firstUserId');
-
-    // Get the SharedPreferences values for the second user
-    final secondUserId = _userId; // Replace with the second user's ID
-    final prefs2 = await SharedPreferences.getInstance();
-    final showIconMenuItem2 = prefs2.getBool('showIconMenuItem_$secondUserId');
-    final notificationCount2 = prefs2.getInt('notificationCount_$secondUserId');
-
-    // Print the values in the console
-    print('User ID 1:');
-    print('showIconMenuItem: $showIconMenuItem1');
-    print('notificationCount: $notificationCount1');
-
-    print('User ID 2:');
-    print('showIconMenuItem: $showIconMenuItem2');
-    print('notificationCount: $notificationCount2');
-  }
-
   @override
   void onClose() {
     // Save user-specific data when the controller is disposed
     saveUserData();
-    printSharedPreferencesValues();
+
     super.onClose();
   }
 
@@ -230,6 +220,10 @@ class NotificationController extends GetxController {
         prefs.getInt('notificationCount_$_userId') ?? 0;
   }
 
-  // ...
+  String formattedTimeDifference(DateTime createdAt) {
+    final now = DateTime.now();
+    final difference = now.difference(createdAt);
 
+    return timeago.format(now.subtract(difference));
+  }
 }

@@ -2,11 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/notification_controller.dart';
 import 'package:flutter_project/shared/theme.dart';
 import 'package:flutter_project/views/navigation_drawer.dart';
+import 'package:flutter_project/views/notifications/EntriesInvoicesToPay.dart';
+import 'package:flutter_project/views/notifications/EntriesInvoicesToValidate.dart';
+import 'package:flutter_project/views/notifications/ExitCommandsTotreat.dart';
+import 'package:flutter_project/views/notifications/ExitsInvoicesToPay.dart';
+import 'package:flutter_project/views/notifications/ExitsInvoicesToValidate.dart';
+import 'package:flutter_project/views/notifications/ExpiredArticles.dart';
+import 'package:flutter_project/views/notifications/RejectedEntriesCommands.dart';
+import 'package:flutter_project/views/notifications/RejectedExitCommands.dart';
+import 'package:flutter_project/views/notifications/ThresholdArticles.dart';
 import '../widgets/icon_menu_item.dart';
 import 'bottom_navigation_helper.dart';
-import 'entries/entries.dart';
 import 'navigation_drawer.dart';
 import 'package:get/get.dart';
+
+import 'notifications/EntriesCommandsTotreat.dart';
 
 class MyNotifications extends StatelessWidget {
   MyNotifications({Key? key}) : super(key: key);
@@ -97,10 +107,9 @@ class MyNotifications extends StatelessWidget {
                               notifcontroller.notificationData.refresh();
 
                               // Hide the IconMenuItem by updating the showIconMenuItem value
-                              notifcontroller.hideIconMenuItem();
+                              //notifcontroller.hideIconMenuItem();
 
-                              // Navigate to the home page
-                              Get.offNamed('/home');
+                              Get.to(() => EntriesCommandsTotreat());
                             }
                           }),
                     if (data.invoicesToValidate != null &&
@@ -121,10 +130,8 @@ class MyNotifications extends StatelessWidget {
                               notifcontroller.notificationData.refresh();
 
                               // Hide the IconMenuItem by updating the showIconMenuItem value
-                              notifcontroller.hideIconMenuItem();
-
-                              // Navigate to the home page
-                              Get.offNamed('/home');
+                              //  notifcontroller.hideIconMenuItem();
+                              Get.to(() => EntriesInvoicesToValidate());
                             }
                           }),
                     if (data.exitinvoicesTopay != null &&
@@ -145,10 +152,8 @@ class MyNotifications extends StatelessWidget {
                               notifcontroller.notificationData.refresh();
 
                               // Hide the IconMenuItem by updating the showIconMenuItem value
-                              notifcontroller.hideIconMenuItem();
-
-                              // Navigate to the home page
-                              Get.offNamed('/home');
+                              // notifcontroller.hideIconMenuItem();
+                              Get.to(() => ExitsInvoicesToPay());
                             }
                           }),
                     if (data.exitInvoicesToValidate != null &&
@@ -169,10 +174,9 @@ class MyNotifications extends StatelessWidget {
                               notifcontroller.notificationData.refresh();
 
                               // Hide the IconMenuItem by updating the showIconMenuItem value
-                              notifcontroller.hideIconMenuItem();
+                              //notifcontroller.hideIconMenuItem();
 
-                              // Navigate to the home page
-                              Get.offNamed('/home');
+                              Get.to(() => ExitsInvoicesToValidate());
                             }
                           }),
                     if (data.expirationArticles != null &&
@@ -196,10 +200,9 @@ class MyNotifications extends StatelessWidget {
                                 notifcontroller.notificationData.refresh();
 
                                 // Hide the IconMenuItem by updating the showIconMenuItem value
-                                notifcontroller.hideIconMenuItem();
+                                //notifcontroller.hideIconMenuItem();
 
-                                // Navigate to the home page
-                                Get.offNamed('/home');
+                                Get.to(() => ExpiredArticles());
                               }
                             },
                           ),
@@ -223,10 +226,8 @@ class MyNotifications extends StatelessWidget {
                             notifcontroller.notificationData.refresh();
 
                             // Hide the IconMenuItem by updating the showIconMenuItem value
-                            notifcontroller.hideIconMenuItem();
-
-                            // Navigate to the home page
-                            Get.offNamed('/home');
+                            //notifcontroller.hideIconMenuItem();
+                            Get.to(() => ThresholdArticles());
                           }
                         },
                       ),
@@ -247,10 +248,9 @@ class MyNotifications extends StatelessWidget {
                             notifcontroller.notificationData.refresh();
 
                             // Hide the IconMenuItem by updating the showIconMenuItem value
-                            notifcontroller.hideIconMenuItem();
+                            // notifcontroller.hideIconMenuItem();
 
-                            // Navigate to the home page
-                            Get.offNamed('/home');
+                            Get.to(() => EntriesInvoicesTopay());
                           }
                         },
                       ),
@@ -272,10 +272,10 @@ class MyNotifications extends StatelessWidget {
                             notifcontroller.notificationData.refresh();
 
                             // Hide the IconMenuItem by updating the showIconMenuItem value
-                            notifcontroller.hideIconMenuItem();
+                            //notifcontroller.hideIconMenuItem();
 
                             // Navigate to the home page
-                            Get.offNamed('/home');
+                            Get.to(() => ExitsCommandsTotreat());
                           }
                         },
                       ),
@@ -297,10 +297,9 @@ class MyNotifications extends StatelessWidget {
                             notifcontroller.notificationData.refresh();
 
                             // Hide the IconMenuItem by updating the showIconMenuItem value
-                            notifcontroller.hideIconMenuItem();
+                            // notifcontroller.hideIconMenuItem();
 
-                            // Navigate to the home page
-                            Get.offNamed('/home');
+                            Get.to(() => RejectedExitCommands());
                           }
                         },
                       ),
@@ -323,10 +322,9 @@ class MyNotifications extends StatelessWidget {
                             notifcontroller.notificationData.refresh();
 
                             // Hide the IconMenuItem by updating the showIconMenuItem value
-                            notifcontroller.hideIconMenuItem();
+                            // notifcontroller.hideIconMenuItem();
 
-                            // Navigate to the home page
-                            Get.offNamed('/home');
+                            Get.to(() => RejectedEntriesCommands());
                           }
                         },
                       ),
