@@ -2,6 +2,8 @@ import 'package:flutter_project/shared/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_project/controllers/SettingsController.dart'; // Import the SettingsController
+
 
 class ChangePasswordPage extends StatefulWidget {
   @override
@@ -9,13 +11,67 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
+  final SettingsController settingsController =
+      Get.put(SettingsController()); // Initialize the SettingsController
+  final TextEditingController currentPasswordController =
+      TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController retypeNewPasswordController =
+      TextEditingController();
+
+  bool passwordsMatch = false;
+
+  void checkPasswordMatch() {
+    String newPassword = newPasswordController.text;
+    String retypeNewPassword = retypeNewPasswordController.text;
+    setState(() {
+      passwordsMatch = newPassword == retypeNewPassword;
+    });
+  }
+
+  void changePassword() {
+    // Call the changePassword method from the controller here
+    // with the currentPasswordController.text and newPasswordController.text
+    settingsController.changePassword(
+      settingsController.authToken.value, 
+      currentPasswordController.text,
+      newPasswordController.text,
+    );
+  }
+
+  @override
+  void dispose() {
+    currentPasswordController.dispose();
+    newPasswordController.dispose();
+    retypeNewPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double bottomPadding = MediaQuery.of(context).padding.bottom;
 
     Widget changePasswordButton = InkWell(
-      onTap: () {},
+      onTap: () async {
+  // Set the new passwords in the controller
+  settingsController.currentPassword.value = currentPasswordController.text;
+  settingsController.newPassword.value = newPasswordController.text;
+  settingsController.retypeNewPassword.value = retypeNewPasswordController.text;
+
+  var response = await settingsController.changePassword(
+    settingsController.authToken.value,
+    currentPasswordController.text,
+    newPasswordController.text,
+  );
+
+        if (response.statusCode == 200) {
+          // Reset the text controllers
+          currentPasswordController.clear();
+          newPasswordController.clear();
+          retypeNewPasswordController.clear();
+        }
+      },
       child: Container(
         height: 80,
         width: width / 1.5,
@@ -69,7 +125,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 48.0,top:16.0),
+                            padding:
+                                const EdgeInsets.only(bottom: 48.0, top: 16.0),
                             child: Text(
                               'change_password'.tr,
                               style: TextStyle(
@@ -93,6 +150,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: TextField(
+                                controller: currentPasswordController,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: 'existing_password'.tr,
@@ -114,6 +172,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: TextField(
+                                controller: newPasswordController,
+                                onChanged: (_) => checkPasswordMatch(),
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: 'new_password'.tr,
@@ -135,6 +195,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: TextField(
+                                controller: retypeNewPasswordController,
+                                onChanged: (_) => checkPasswordMatch(),
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: 'retype_password'.tr,
