@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'intro_page.dart';
+import 'package:flutter_project/views/auth/forgot_password_page.dart';
 
 class WelcomeBackPage extends StatefulWidget {
   @override
@@ -197,7 +198,9 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Get.to(() => ForgotPasswordPage());
+            },
             child: Text(
               'reset_password'.tr,
               style: TextStyle(
