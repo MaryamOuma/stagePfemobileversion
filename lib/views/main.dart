@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/localization_controller.dart';
-import 'package:flutter_project/controllers/notification_controller.dart';
-import 'package:flutter_project/controllers/user_controller.dart';
 import 'package:flutter_project/views/ReloadSplashScreen.dart';
 import 'package:flutter_project/views/WelcomeBack.dart';
-import 'package:flutter_project/views/bottom_navigation_helper.dart';
-import 'package:flutter_project/views/entries/entries.dart';
-import 'package:flutter_project/views/entries/invoices.dart';
-import 'package:flutter_project/views/entries/orders.dart';
 import 'package:flutter_project/views/home.dart';
-import 'package:flutter_project/views/login/Profile.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'locals/localization.dart';
 
@@ -29,80 +21,64 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final Map<String, NotificationController> _controllerInstances = {};
-
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  String? authToken;
+  bool rememberMe = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+    _initializeAppData();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // Trigger the initialization tasks when the app is resumed
+      _initializeAppData();
+    }
+    super.didChangeAppLifecycleState(state);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
-      future: getRememberMeStatus(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          bool rememberMe = snapshot.data!;
-          Widget initialRoute = rememberMe
-              ? ReloadSplashScreen(rememberMe: rememberMe)
-              : WelcomeBackPage();
-          //  Widget initialRoute = ReloadSplashScreen(rememberMe: rememberMe);
-          return GetMaterialApp(
-            // Save the data when the app closes
+    Widget initialRoute = rememberMe != null
+        ? ReloadSplashScreen(
+            rememberMe: rememberMe,
+          )
+        : WelcomeBackPage();
 
-            translations: Localization(), // Initialize the Localization class
-            locale: Locale('en', 'US'), // Set the default locale for the app
-            fallbackLocale: Locale('en', 'US'), // Set the fallback locale
-            debugShowCheckedModeBanner: false,
-            initialRoute: '/',
-            getPages: [
-              GetPage(name: '/', page: () => initialRoute),
-              GetPage(
-                name: '/login',
-                page: () => WelcomeBackPage(),
-                /* binding: BindingsBuilder(() async {
-                  // Get the user ID from shared preferences
-                  final prefs = await SharedPreferences.getInstance();
-                  final int? userId = prefs.getInt('user_id');
-
-                  if (userId != null && userId != 0) {
-                    // Create or find the NotificationController for the current user
-                    final NotificationController notifController =
-                        Get.put(NotificationController(), tag: 'user_$userId');
-
-                    // Load the saved data when the app starts for the logged-in user
-                    notifController.setUserId(userId.toString());
-                    notifController.loadData();
-                  }
-                }),*/
-              ),
-              GetPage(
-                  name: '/splash',
-                  page: () => ReloadSplashScreen(rememberMe: rememberMe)),
-              GetPage(name: '/home', page: () => Home()),
-              GetPage(name: '/Profile', page: () => Profile()),
-              GetPage(name: '/Entries', page: () => initialRoute),
-              GetPage(name: '/Orders', page: () => initialRoute),
-              GetPage(name: '/Invoices', page: () => initialRoute),
-              GetPage(name: '/MyNotifications', page: () => initialRoute),
-            ],
-          );
-        } else {
-          // Show a loading indicator or splash screen while checking the status
-          return CircularProgressIndicator();
-        }
-      },
+    return GetMaterialApp(
+      // Save the data when the app closes
+      translations: Localization(), // Initialize the Localization class
+      locale: Locale('en', 'US'), // Set the default locale for the app
+      fallbackLocale: Locale('en', 'US'), // Set the fallback locale
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => initialRoute),
+        GetPage(name: '/home', page: () => Home()),
+        // Define your other routes here...
+      ],
     );
   }
 
-  Future<bool> getRememberMeStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool rememberMeStatus = prefs.getBool('rememberMe') ?? false;
-    return rememberMeStatus;
-  }
-
-  NotificationController _getNotificationControllerForUser(String userId) {
-    if (!_controllerInstances.containsKey(userId)) {
-      _controllerInstances[userId] = NotificationController();
-    }
-    return _controllerInstances[userId]!;
+  Future<void> _initializeAppData() async {
+    authToken = GetStorage().read<String>('authToken');
+    rememberMe = GetStorage().read<bool>('rememberMe') ?? false;
+    setState(() {}); // Trigger a rebuild to reflect the changes
   }
 }

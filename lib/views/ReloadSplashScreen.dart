@@ -32,17 +32,6 @@ class _SplashScreenState extends State<ReloadSplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Check if the app is being resumed (coming back from the background)
-
-    // Delay navigation to the home page if rememberMe is true
-    /*  if (isResumed) {
-      // Redirect based on rememberMe when the app is resumed
-      if (!widget.rememberMe) {
-        Get.offNamed('/login');
-      } else {
-        Get.offNamed('/login');
-      }
-    }*/
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(

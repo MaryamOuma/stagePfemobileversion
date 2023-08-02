@@ -39,6 +39,9 @@ class AuthController extends GetxController {
           // Save the token in shared preferences
           final prefs = await SharedPreferences.getInstance();
           prefs.setString('authToken', token);
+          final email = await SharedPreferences.getInstance();
+          prefs.setString('email', responseData['user']['email']);
+
           // Set rememberMe value
           // Create custom headers with the token
           final headers = {'Authorization': 'Bearer $token'};
