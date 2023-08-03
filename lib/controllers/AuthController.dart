@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/notification_controller.dart';
 import 'package:flutter_project/controllers/user_controller.dart';
 import 'package:flutter_project/views/IntroPage.dart';
@@ -8,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../views/home.dart';
 import '../views/login/login.dart';
+import 'package:flutter_project/views/auth/confirm_otp_page.dart';
+import 'package:flutter_project/views/auth/reset_password.dart';
 
 class AuthController extends GetxController {
   final RxString authToken = ''.obs;
@@ -131,6 +134,138 @@ class AuthController extends GetxController {
         'An error occurred during logout.',
         snackPosition: SnackPosition.BOTTOM,
       );
+    }
+  }
+
+  Future<void> sendOTPCode(String email) async {
+    try {
+      // Call your API endpoint to send the OTP code to the provided email
+      final url = Uri.parse('http://localhost:8000/api/request-otp');
+      final response = await http.post(
+        url,
+        body: {'email': email},
+      );
+      if (response.statusCode == 200) {
+        // OTP code sent successfully
+        // You can show a success message or navigate to another screen
+        print('OTP code sent successfully');
+        Get.to(() => ConfirmOtpPage(
+            email: email)); // Navigate to the OTP confirmation page
+      } else if (response.statusCode == 404) {
+        // Failed to send OTP code
+        // Show an error message to the user
+        print('Email not found');
+        Get.snackbar(
+          'Error',
+          'Email not registered',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      } else {
+        // Failed to send OTP code
+        // Show an error message to the user
+        print('Failed to send OTP code');
+        Get.snackbar(
+          'Error',
+          'Failed to send OTP code',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      // Handle network or other errors
+      // Show an error message to the user
+      print('Error: $e');
+      Get.snackbar(
+        'Error',
+        'An error occurred',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  // VERIFY OTP :
+
+  Future<void> verifyOTP(String email, String otp) async {
+    print(email);
+    print(otp);
+    final response = await http.post(
+      Uri.parse('http://localhost:8000/api/verify-otp'),
+      body: {'email': email, 'otp': otp},
+    );
+
+    if (response.statusCode == 200) {
+      Get.snackbar(
+        'Success',
+        'OTP verification successful',
+        backgroundColor: Color.fromARGB(255, 72, 126, 60),
+        colorText: Colors.white,
+      );
+      print('OTP verification successful');
+      Get.to(() => ResetPasswordPage(email: email));
+    } else if (response.statusCode == 400) {
+      Get.snackbar(
+        'Complete the code',
+        'OTP code missing',
+        backgroundColor: Color.fromARGB(255, 169, 180, 47),
+        colorText: Colors.white,
+      );
+    } else if (response.statusCode == 401) {
+      Get.snackbar(
+        'Failed',
+        'Invalid OTP',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } else {
+      print('OTP verification failed: ${response.body}');
+    }
+  }
+
+  // RESET PASSWORD :
+
+  Future<void> resetPassword(String email, String newPassword) async {
+    print(email);
+    print(newPassword);
+
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:8000/api/reset-password'),
+        body: {'email': email, 'password': newPassword},
+      );
+
+      if (response.statusCode == 200) {
+        Get.snackbar(
+          'Success',
+          'Password reset successfully',
+          backgroundColor: Color.fromARGB(255, 72, 126, 60),
+          colorText: Colors.white,
+        );
+        print('Password reset successful');
+        Get.to(() => WelcomeBackPage());
+      } else if (response.statusCode == 400) {
+        Get.snackbar(
+          'Failed',
+          'Password must be at least 8 caracters',
+          backgroundColor: Color.fromARGB(255, 169, 180, 47),
+          colorText: Colors.white,
+        );
+        print('Password validation failed: ${response.body}');
+      } else {
+        Get.snackbar(
+          'Failed',
+          'Password reset failed, Try again',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        print('Password reset failed: ${response.body}');
+        Get.to(() => WelcomeBackPage());
+      }
+    } catch (e) {
+      // Error occurred while making the API call
+      // Show an error message or handle the error appropriately
+      print('Error: $e');
     }
   }
 }

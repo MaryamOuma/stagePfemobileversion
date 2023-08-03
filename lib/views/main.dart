@@ -34,11 +34,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
-    _initializeAppData();
+    /* WidgetsBinding.instance?.addObserver(this);
+    _initializeAppData();*/
   }
 
-  @override
+  /* @override
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
@@ -51,15 +51,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       _initializeAppData();
     }
     super.didChangeAppLifecycleState(state);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    Widget initialRoute = rememberMe != null
-        ? ReloadSplashScreen(
-            rememberMe: rememberMe,
-          )
-        : WelcomeBackPage();
+    Widget initialRoute = WelcomeBackPage();
 
     return GetMaterialApp(
       // Save the data when the app closes
@@ -79,6 +75,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Future<void> _initializeAppData() async {
     authToken = GetStorage().read<String>('authToken');
     rememberMe = GetStorage().read<bool>('rememberMe') ?? false;
-    setState(() {}); // Trigger a rebuild to reflect the changes
+    //setState(() {}); // Trigger a rebuild to reflect the changes
   }
 }

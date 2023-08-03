@@ -88,7 +88,8 @@ BottomNavigationBar createHomeBottomNavigationBar(int selectedIndex) {
         icon: Badge(
           // Wrap the Icon with Badge widget
           badgeContent: Obx(() {
-            NotificationController notificationController = Get.find();
+            NotificationController notificationController =
+                Get.put(NotificationController());
             //final data = notificationController.notificationData.value;
 
             return Text(
